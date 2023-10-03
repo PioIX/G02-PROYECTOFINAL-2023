@@ -1,18 +1,23 @@
-<form action="/login" method="GET" class="container-sm">
+<div><form action="/login" method="POST" id="form1" class="container-sm">
     <div class="mb-3 form-group">
-        <h2>Login de prueba</h2>
+        <center><h2 class="texto">Iniciar sesion</h2></center>
     </div>
-    <div class="mb-3 form-group">
-        <label for="usuarioId" class="form-label">Usuario</label>
-        <input type="text" class="form-control" id="usuarioId" name="usuario" value="" placeholder="Ingrese un nombre de usuario">
-    </div>
-    <div class="mb-3 form-group">
-        <label for="passwordId" class="form-label">Password</label>
-        <input type="password" class="form-control" id="passwordId" placeholder="Contraseña">
-    </div>
-    <div class="mb-3 form-check">
-        <input type="submit" class="btn btn-primary" value="Ingresar">
-    </div>
-</form>
-
-
+    <center><div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary" id="contenedor">
+        <div class="mb-3 form-group">
+            <label for="usuarioId" class="form-label">Usuario</label>
+            <center><input type="text" class="form-control" id="usuarioId" name="usuario" value="" placeholder="Ingrese un nombre de usuario"></center>
+        </div>
+        <div class="mb-3 form-group">
+            <label for="passwordId" class="form-label">Contraseña</label>
+            <center><input type="password" class="form-control" id="passwordId" name="contraseña" placeholder="Contraseña"></center>
+        </div>
+        <div class="mb-3 form-check">
+            <center><input type="button" onclick="login()" class="botonlogin" value="Ingresar"></center>
+        </div>
+    </form>
+    <form action="/register" method="GET" class="container-sm">
+        <div class="mb-3 form-check">
+            <center><input type="submit" class="botonregistro" value="Registrarse"></center>
+        </div>
+    </div></center>
+</form></div>
