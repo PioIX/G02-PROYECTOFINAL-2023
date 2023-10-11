@@ -1,14 +1,4 @@
-const express = require("express");
-const exphbs = require("express-handlebars");
-const { initializeApp } = require("firebase/app");
-const {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendEmailVerification,
-  signOut,
-  GoogleAuthProvider,
-} = require("firebase/auth");
+
 
 
 /*  Paquetes instalados: -g nodemon, express, express-handlebars, body-parser, mysql2
@@ -26,6 +16,16 @@ const express = require('express'); //Para el manejo del servidor Web
 const exphbs  = require('express-handlebars'); //Para el manejo de los HTML
 const bodyParser = require('body-parser'); //Para el manejo de los strings JSON
 const MySQL = require('./modulos/mysql'); //Añado el archivo mysql.js presente en la carpeta módulos
+
+const { initializeApp } = require("firebase/app");
+const {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+  GoogleAuthProvider,
+} = require("firebase/auth");
 
 const app = express(); //Inicializo express para el manejo de las peticiones
 
