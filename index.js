@@ -42,15 +42,16 @@ const Listen_Port = 3000; //Puerto por el que estoy ejecutando la página Web
 app.listen(Listen_Port, function() {
     console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
 });
+
 // Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyA936j4rOJbIGAiPMENWJAMbIAeCULI8J8",
-    authDomain: "infothebest-3b261.firebaseapp.com",
-    projectId: "infothebest-3b261",
-    storageBucket: "infothebest-3b261.appspot.com",
-    messagingSenderId: "125429100089",
-    appId: "1:125429100089:web:707f20f776e39a3d8367e8",
-  };
+  apiKey: "AIzaSyBpZOn6-dsRW4L_--L3KFrQ90WoAFJL5ps",
+  authDomain: "proyecto-g02.firebaseapp.com",
+  projectId: "proyecto-g02",
+  storageBucket: "proyecto-g02.appspot.com",
+  messagingSenderId: "777646381507",
+  appId: "1:777646381507:web:e38787f3e708e81d9a4576"
+};
   
   const appFirebase = initializeApp(firebaseConfig);
   const auth = getAuth(appFirebase);
@@ -119,7 +120,7 @@ app.post("/register", async (req, res) => {
     const { email, password } = req.body;
   
     try {
-      await authService.registerUser(auth, {username, email, password });
+      await authService.registerUser(auth, {email, password });
       res.render("register", {
         message: "Registro exitoso. Puedes iniciar sesión ahora.",
       });
