@@ -16,6 +16,7 @@ const express = require('express'); //Para el manejo del servidor Web
 const exphbs  = require('express-handlebars'); //Para el manejo de los HTML
 const bodyParser = require('body-parser'); //Para el manejo de los strings JSON
 const MySQL = require('./modulos/mysql'); //Añado el archivo mysql.js presente en la carpeta módulos
+const { ClientRequest } = require('http');
 
 const { initializeApp } = require("firebase/app");
 const {
@@ -43,6 +44,20 @@ app.listen(Listen_Port, function() {
     console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
 });
 
+const io = require('socket.io')(server);
+
+const sessionMiddleware = session({
+    secret: 'sararasthastka',
+    resave: true,
+    saveUninitialized: false,
+});
+
+app.use(sessionMiddleware);
+
+io.use(function(socket, next) {
+    sessionMiddleware(socket.request, socket.request.res, next);
+});
+
 // Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBpZOn6-dsRW4L_--L3KFrQ90WoAFJL5ps",
@@ -58,6 +73,8 @@ const firebaseConfig = {
   
   // Importar AuthService
   const authService = require("./authService");
+
+  app.use(session({secret: '123456', resave: true, saveUninitialized: true}));
 
 /*
     A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
@@ -95,7 +112,7 @@ app.post("/login", async (req, res) => {
         password,
       });
       // Aquí puedes redirigir al usuario a la página que desees después del inicio de sesión exitoso
-      res.redirect("/dashboard");
+      res.redirect("/home");
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       res.render("login", {
