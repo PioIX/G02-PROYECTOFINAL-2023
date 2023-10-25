@@ -112,6 +112,46 @@ app.get('/register', function(req, res)
     res.render('register', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
+app.get('/home', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.get('/juego', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('juego', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.get('/reglas', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('reglas', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.get('/estadisticas', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('estadisticas', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.get('/admin', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('admin', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
   
