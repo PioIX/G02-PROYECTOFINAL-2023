@@ -29,6 +29,7 @@ const {
   GoogleAuthProvider,
 } = require("firebase/auth");
 
+const fileUpload = require('express-fileupload');
 const app = express(); //Inicializo express para el manejo de las peticiones
 
 app.use(express.static('public')); //Expongo al lado cliente la carpeta "public"
@@ -76,6 +77,8 @@ const firebaseConfig = {
   const authService = require("./authService");
 
   app.use(session({secret: '123456', resave: true, saveUninitialized: true}));
+
+  app.use(fileUpload());
 
 /*
     A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
@@ -197,3 +200,34 @@ app.post("/register", async (req, res) => {
       });
     }
   });
+
+  function Recibir_Archivo(req, carpeta, isImage, callback)
+  {
+  if (!req.files)
+  {
+    callback(-1);
+  }
+  else
+  {
+    let file = req.files.uploaded_image;
+    if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif" || isImage == false)
+    {
+      file.mv(carpeta + file.name, function(err)
+      {
+        if (err)
+        {
+          callback(-2);
+        }
+        else
+        {
+          callback(file.name);
+        }
+      });
+    }
+    else
+    {
+      console.log("Formato no permitido, utilice '.png','.gif','.jpg'.");
+      callback(0);
+    }
+  }
+  }
