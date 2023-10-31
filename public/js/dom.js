@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 let casillero = 1
 
 
@@ -13,5 +12,3 @@ function tirarDado(){
     }
 
 }
-
->>>>>>> Stashed changes
