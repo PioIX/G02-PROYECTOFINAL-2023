@@ -190,6 +190,7 @@ app.post("/register", async (req, res) => {
   
     try {
       await authService.registerUser(auth, {email, password });
+      await MySQL.realizarQuery(`INSERT INTO players (password, gmail, admin) VALUES ("${req.body.password}", "${req.body.gmail}", FALSE) `)
       res.render("register", {
         message: "Registro exitoso. Puedes iniciar sesión ahora.",
       });
