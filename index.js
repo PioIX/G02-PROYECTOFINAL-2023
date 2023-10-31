@@ -252,3 +252,22 @@ app.post("/register", async (req, res) => {
     }
   }
   }
+
+app.get('/admin',async function(req, res) {
+    let palabras = await MySQL.realizarQuery("SELECT * FROM palabras")
+    let usuarios = await MySQL.realizarQuery("SELECT * FROM usuarios")
+    res.render('admin', {users: usuarios, words: palabras})
+});
+
+app.post('/addQuestion',async function(req, res) {
+    let comprobacionTrue = true
+    let comprobacionFalse = false
+    if (req.body.wordName.length>0 && req.body.wordDefinition.length>0) {
+        await MySQL.realizarQuery(`INSERT INTO palabras (nombre_palabra, definicion_palabra) VALUES("${req.body.wordName}","${req.body.wordDefinition}")`)
+        res.send({validar: comprobacionTrue})
+    }
+    else {
+        res.send({validar: comprobacionFalse})
+    }
+})
+
