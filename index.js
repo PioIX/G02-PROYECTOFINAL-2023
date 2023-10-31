@@ -157,14 +157,35 @@ app.get('/admin', function(req, res)
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
-  
+    
     try {
       const userCredential = await authService.loginUser(auth, {
         email,
         password,
       });
+      let verificar = -1
+      let usuarios = await MySQL.realizarQuery("SELECT * FROM players")
+      for (let i in usuarios) {
+        if(usuarios[i].gmail == req.body.email) {
+          if(usuarios[i].password == req.body.password) {
+            verificar = 1
+            if (usuarios[i].admin == true) {
+              verificar = 2
+            }
+          }
+        }
+      }
       // Aquí puedes redirigir al usuario a la página que desees después del inicio de sesión exitoso
-      res.redirect("/home");
+      if(verificar == -1) {
+        console.log("no existe user o no es valida contraseña")
+        res.render('login', null)
+      }
+      if(verificar == 1) {
+        res.render('home', null)
+      }
+      if(verificar == 2) {
+        res.render('admin', null)
+      }
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       res.render("login", {
@@ -187,9 +208,9 @@ app.delete('/login', function(req, res) {
 
 app.post("/register", async (req, res) => {
     const { email, password } = req.body;
-  
     try {
       await authService.registerUser(auth, {email, password });
+      await MySQL.realizarQuery(`INSERT INTO players (password, gmail, username, admin) VALUES ("${req.body.password}", "${req.body.email}", "${req.body.username}", FALSE)`)
       res.render("register", {
         message: "Registro exitoso. Puedes iniciar sesión ahora.",
       });
