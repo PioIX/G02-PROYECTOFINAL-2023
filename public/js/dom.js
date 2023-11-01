@@ -1,3 +1,4 @@
+
 async function postJSON(dataAddQuestion) {
     //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
   
@@ -44,3 +45,17 @@ async function postJSON(dataAddQuestion) {
     postJSON(dataAddQuestion)
   }
   
+
+let casillero = 1
+
+
+function tirarDado(){
+    let valor = Math.floor(Math.random() * 6)+1
+    console.log(valor)
+    casillero += valor
+    if (casillero > 39){
+        casillero = casillero % 39
+        console.log(casillero)
+    }
+
+}
