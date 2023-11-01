@@ -271,3 +271,7 @@ app.post('/addQuestion',async function(req, res) {
     }
 })
 
+
+app.get("/juego", function(req,res){
+  res.render("juego")
+})

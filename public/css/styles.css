@@ -216,3 +216,49 @@ li:hover span {
     left: 50%;
     right: 50%; 
 }
+
+.square {
+    color: black;
+    text-align: center;
+    padding: 23px 5px;
+    font-size: 50px;
+    width: 50px;
+    height: 20px;
+    text-size-adjust: auto;
+    border-radius: 2px;
+    background-color: aquamarine;
+    border-color: black;
+    text-transform: uppercase;
+}
+
+.squareMedio {
+    color: black;
+    text-align: center;
+    padding: 23px 5px;
+    font-size: 50px;
+    width: 50px;
+    height: 20px;
+    text-size-adjust: auto;
+    border-radius: 2px;
+    background-color: aquamarine;
+    border-color: black;
+    text-transform: uppercase;
+    position: left;
+}
+
+.squareMedio2 {
+    color: black;
+    text-align: center;
+    padding: 23px 5px;
+    font-size: 50px;
+    width: 50px;
+    height: 20px;
+    text-size-adjust: auto;
+    border-radius: 2px;
+    background-color: aquamarine;
+    border-color: black;
+    text-transform: uppercase;
+    position: absolute;
+    left: 35%;
+    right: 40%;
+}
