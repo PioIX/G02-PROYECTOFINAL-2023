@@ -11,3 +11,18 @@ function tirarDado(){
     }
 
 }
+
+function posicionjugador(){
+    
+
+}
+
+function avanzarPosicion(){
+
+
+}
+
+function retrocederPosicion(){
+
+
+}
