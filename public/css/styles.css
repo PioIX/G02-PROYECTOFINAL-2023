@@ -219,16 +219,13 @@ li:hover span {
 
 .square {
     color: black;
-    text-align: center;
     padding: 23px 5px;
     font-size: 50px;
     width: 50px;
     height: 20px;
-    text-size-adjust: auto;
     border-radius: 2px;
     background-color: aquamarine;
     border-color: black;
-    text-transform: uppercase;
 }
 
 .squareMedio {
@@ -242,8 +239,8 @@ li:hover span {
     border-radius: 2px;
     background-color: aquamarine;
     border-color: black;
-    text-transform: uppercase;
-    position: left;
+    position: relative;
+    left: 18.7%;
 }
 
 .squareMedio2 {
@@ -259,6 +256,21 @@ li:hover span {
     border-color: black;
     text-transform: uppercase;
     position: absolute;
-    left: 35%;
-    right: 40%;
+    left: 29.75%;
+}
+
+#historia1 {
+    color: black;
+    text-align: center;
+    padding: 23px 5px;
+    font-size: 50px;
+    width: 50px;
+    height: 20px;
+    text-size-adjust: auto;
+    border-radius: 2px;
+    background-color: yellow;
+    border-color: black;
+    text-transform: uppercase;
+    position: absolute;
+    left: 29.75%;
 }
