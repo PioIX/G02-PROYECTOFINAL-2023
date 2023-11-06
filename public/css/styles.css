@@ -219,58 +219,56 @@ li:hover span {
 
 .square {
     color: black;
-    padding: 23px 5px;
-    font-size: 50px;
-    width: 50px;
-    height: 20px;
-    border-radius: 2px;
-    background-color: aquamarine;
+    padding: 35px 5px;
+    width: 70px;
+    height: 50px;
+    border-radius: 4px;
+    background: red;
     border-color: black;
+    margin-bottom: 2px;
+    margin-top: 3px;
 }
 
 .squareMedio {
     color: black;
-    text-align: center;
-    padding: 23px 5px;
-    font-size: 50px;
-    width: 50px;
-    height: 20px;
-    text-size-adjust: auto;
-    border-radius: 2px;
-    background-color: aquamarine;
+    padding: 35px 5px;
+    width: 70px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: blue;
     border-color: black;
     position: relative;
-    left: 18.7%;
+    left: 19.15%;
+    margin-top: 3px;
 }
 
 .squareMedio2 {
     color: black;
-    text-align: center;
-    padding: 23px 5px;
-    font-size: 50px;
-    width: 50px;
-    height: 20px;
-    text-size-adjust: auto;
-    border-radius: 2px;
-    background-color: aquamarine;
+    padding: 35px 5px;
+    width: 70px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: orange;
     border-color: black;
-    text-transform: uppercase;
     position: absolute;
-    left: 29.75%;
+    left: 29.16%;
+    margin-top: 3px;
 }
 
-#historia1 {
+.tablero {
+    margin-top: 3.5%;
+}
+
+
+#historia2 {
     color: black;
-    text-align: center;
-    padding: 23px 5px;
-    font-size: 50px;
-    width: 50px;
-    height: 20px;
-    text-size-adjust: auto;
-    border-radius: 2px;
+    padding: 35px 5px;
+    width: 70px;
+    height: 50px;
+    border-radius: 4px;
     background-color: yellow;
     border-color: black;
-    text-transform: uppercase;
     position: absolute;
-    left: 29.75%;
+    left: 29.16%;
+    margin-top: 3px;
 }
