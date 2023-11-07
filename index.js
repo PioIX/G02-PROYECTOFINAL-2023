@@ -222,6 +222,7 @@ app.post("/register", async (req, res) => {
     }
   });
 
+<<<<<<< Updated upstream
   function Recibir_Archivo(req, carpeta, isImage, callback)
   {
   if (!req.files)
@@ -252,6 +253,40 @@ app.post("/register", async (req, res) => {
     }
   }
   }
+=======
+  io.on('connection', () => {
+    console.log("estoy conectado")
+
+    io.on("tipo-pregunta", async data =>{
+      let preguntaMostrar = ""
+        if (data.pregunta != "random"){
+          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta}`)
+          let cantidad = preguntas.length()
+          let numero = Math.floor(Math.random() * cantidad);
+          for (i in preguntas){
+            if (i = numero){
+              preguntaMostrar = preguntas[i]
+            }
+          }
+        }  
+        else {
+          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions`)
+          let cantidad = preguntas.length()
+          let num = Math.floor(Math.random() * cantidad);
+          for (i in preguntas){
+            if (i = num){
+              preguntaMostrar = preguntas[i]
+                }
+            }
+          }
+      let objeto = {
+        pregunta : preguntaMostrar
+      }
+
+      io.emit("mandar-pregunta", objeto);
+      console.log(objeto.pregunta)
+  })
+>>>>>>> Stashed changes
 
 app.get('/admin',async function(req, res) {
     let palabras = await MySQL.realizarQuery("SELECT * FROM palabras")
