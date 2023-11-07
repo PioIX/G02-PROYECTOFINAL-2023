@@ -286,8 +286,8 @@ body{
     width: 700px;
     height: 700px;
     display: grid;
-    grid-template-columns: repeat(8,1fr);
-    grid-template-rows: repeat(8,1fr);
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows: repeat(12,1fr);
     background-color: #fff;
     border:dotted thin black;
 }
@@ -301,6 +301,26 @@ body{
 .tablero *:hover{
     font-weight: 600;
 }
-.a{
-    background-color: #a5682a;
+
+.historia {
+    background-color: #ffc923;
 }
+
+.deportes {
+    background-color: #ff9c00;
+}
+
+.arte {
+    background-color: #f44336;
+}
+
+.ciencia {
+    background-color: #69ea2f;
+}
+.entretenimiento {
+    background-color: #ff82bf;
+}
+.random {
+    background-color: #999999;
+}
+
