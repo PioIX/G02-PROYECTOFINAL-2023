@@ -255,9 +255,6 @@ li:hover span {
     margin-top: 3px;
 }
 
-.tablero {
-    margin-top: 3.5%;
-}
 
 
 #historia2 {
@@ -271,4 +268,9 @@ li:hover span {
     position: absolute;
     left: 29.16%;
     margin-top: 3px;
+}
+
+
+.tablero {
+    width: 500px
 }
