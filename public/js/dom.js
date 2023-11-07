@@ -1,6 +1,3 @@
-
-=======
-
 async function postJSON(dataAddQuestion) {
     //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
   
@@ -49,29 +46,26 @@ async function postJSON(dataAddQuestion) {
   
 
 
-let casillero = 1
 
+let casillero = 0
+
+const MAX_CASILLEROS = 43;
 
 function tirarDado(){
     let valor = Math.floor(Math.random() * 6)+1
     console.log(valor)
     casillero += valor
-    if (casillero > 44){
-        casillero = casillero % 44
+    if (casillero > MAX_CASILLEROS){
+        casillero = casillero % MAX_CASILLEROS
         console.log(casillero)
     }
-
-}
-
-function posicionjugador(){
-    
 
 }
 
 
 function chequearPregunta(){
     let tipoPregunta = ""
-    let color_casillero = document.getElementById().style.backgroundColor()
+    let tipoCasillero = document.getElementBy
     if (color_casillero = 1 ){
         tipoPregunta = "historia"
     }
@@ -88,21 +82,23 @@ function chequearPregunta(){
         tipoPregunta = "entretenimiento"
     }
     else {
-        tipoPregunta = "entretenimiento"
+        tipoPregunta = "random"
     }
 
 
-    let data = {
-        pregunta : tipoPregunta
-    }
-    chequearPreguntaWS(data)
-};
+function agregarPregunta(){
 
+}
 
-    if (casillero > 39){
-        casillero = casillero % 39
-        console.log(casillero)
-    }
+function editarPregunta(){
+
+}
+
+function borrarPregunta(){
+
+}
+
+function buscarPregunta(){
 
 }
 
