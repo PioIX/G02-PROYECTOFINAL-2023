@@ -271,3 +271,21 @@ app.post('/addQuestion',async function(req, res) {
     }
 })
 
+io.on('connection', () => {
+  console.log("estoy conectado")
+
+
+  socket.on("tipo-pregunta", async data =>{
+    let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta}`)
+    let cantidad = preguntas.length()
+    let preguntaMostrarLength = Math.floor(Math.random() * cantidad);
+    let preguntaMostrar = ""
+    for (i in preguntas){
+      if (i =  preguntaMostrarLength){
+        preguntaMostrar = preguntas[i]
+      }
+    }
+  })
+
+
+});

@@ -59,3 +59,28 @@ function tirarDado(){
     }
 
 }
+
+
+
+function chequearPregunta(){
+  let tipoPregunta = ""
+  let color_casillero = document.getElementById().style.backgroundColor()
+  if (color_casillero = 1 ){
+      tipoPregunta = "historia"
+  }
+  else if (color_casillero = 1 ){
+      tipoPregunta = "deporte"
+  }
+  else if (color_casillero = 1 ){
+      tipoPregunta = "arte"
+  }
+  else if (color_casillero = 1 ){
+      tipoPregunta = "ciencia"
+  }
+  else {
+      tipoPregunta = "entretenimiento"
+  }
+}
+
+
+

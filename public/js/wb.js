@@ -14,3 +14,9 @@ socket.on('server-message', data => {
 function funcionPrueba() {
     socket.emit("incoming-message", { mensaje: "PRUEBA" });
 }
+
+
+function chequearPreguntaWS(data){
+    socket.emit("tipo-pregunta", data);
+    console.log(data.pregunta)
+}
