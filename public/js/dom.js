@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-
 async function postJSON(dataAddQuestion) {
     //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
   
@@ -47,33 +45,24 @@ async function postJSON(dataAddQuestion) {
   }
   
 
-let casillero = 1
-=======
+
+
 let casillero = 0
 
 const MAX_CASILLEROS = 43;
->>>>>>> Stashed changes
-
 
 function tirarDado(){
     let valor = Math.floor(Math.random() * 6)+1
     console.log(valor)
     casillero += valor
-<<<<<<< Updated upstream
-    if (casillero > 39){
-        casillero = casillero % 39
-=======
     if (casillero > MAX_CASILLEROS){
         casillero = casillero % MAX_CASILLEROS
->>>>>>> Stashed changes
         console.log(casillero)
     }
 
 }
 
 
-<<<<<<< Updated upstream
-=======
 function chequearPregunta(){
     let tipoPregunta = ""
     let tipoCasillero = document.getElementBy
@@ -95,32 +84,8 @@ function chequearPregunta(){
     else {
         tipoPregunta = "random"
     }
->>>>>>> Stashed changes
-
-function chequearPregunta(){
-  let tipoPregunta = ""
-  let color_casillero = document.getElementById().style.backgroundColor()
-  if (color_casillero = 1 ){
-      tipoPregunta = "historia"
-  }
-  else if (color_casillero = 1 ){
-      tipoPregunta = "deporte"
-  }
-  else if (color_casillero = 1 ){
-      tipoPregunta = "arte"
-  }
-  else if (color_casillero = 1 ){
-      tipoPregunta = "ciencia"
-  }
-  else {
-      tipoPregunta = "entretenimiento"
-  }
-}
 
 
-<<<<<<< Updated upstream
-
-=======
 function agregarPregunta(){
 
 }
@@ -136,4 +101,4 @@ function borrarPregunta(){
 function buscarPregunta(){
 
 }
->>>>>>> Stashed changes
+
