@@ -227,6 +227,7 @@ li:hover span {
     border-color: black;
     margin-bottom: 2px;
     margin-top: 3px;
+    border-color: #000;
 }
 
 .squareMedio {
@@ -240,6 +241,7 @@ li:hover span {
     position: relative;
     left: 19.15%;
     margin-top: 3px;
+    border-color: #000;
 }
 
 .squareMedio2 {
@@ -253,6 +255,7 @@ li:hover span {
     position: absolute;
     left: 29.16%;
     margin-top: 3px;
+    border-color: #000;
 }
 
 
@@ -268,6 +271,7 @@ li:hover span {
     position: absolute;
     left: 29.16%;
     margin-top: 3px;
+    
 }
 
 
@@ -289,7 +293,11 @@ body{
     grid-template-columns: repeat(12,1fr);
     grid-template-rows: repeat(12,1fr);
     background-color: #fff;
-    border:dotted thin black;
+    border-color: #000;
+    border-top-right-radius: 1px;
+    border-bottom-left-radius: 1px;
+    border-bottom-right-radius: 1px;
+
 }
 .tablero *{
     text-align: center;
@@ -304,23 +312,31 @@ body{
 
 .historia {
     background-color: #ffc923;
+    border-color: #000;
+    
 }
 
 .deportes {
     background-color: #ff9c00;
+    border-color: #000;
 }
 
 .arte {
     background-color: #f44336;
+    border-color: #000;
 }
 
 .ciencia {
-    background-color: #69ea2f;
+    background-color: #0b6631;
+    border-color: #000;
 }
 .entretenimiento {
     background-color: #ff82bf;
+    border-color: #000;
 }
 .random {
     background-color: #999999;
+    border-color: #000;
+
 }
 
