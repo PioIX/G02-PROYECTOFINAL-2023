@@ -12,8 +12,6 @@
     Revisión 1 - Año 2021
 */
 //Cargo librerías instaladas y necesarias
-const express = require('express'); //Para el manejo del servidor Web
-const exphbs  = require('express-handlebars'); //Para el manejo de los HTML
 const bodyParser = require('body-parser'); //Para el manejo de los strings JSON
 const MySQL = require('./modulos/mysql'); //Añado el archivo mysql.js presente en la carpeta módulos
 const { ClientRequest } = require('http');
@@ -222,6 +220,7 @@ app.post("/register", async (req, res) => {
     }
   });
 
+
   function Recibir_Archivo(req, carpeta, isImage, callback)
   {
   if (!req.files)
@@ -252,6 +251,40 @@ app.post("/register", async (req, res) => {
     }
   }
   }
+
+  io.on('connection', () => {
+    console.log("estoy conectado")
+
+    io.on("tipo-pregunta", async data =>{
+      let preguntaMostrar = ""
+        if (data.pregunta != "random"){
+          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta}`)
+          let cantidad = preguntas.length()
+          let numero = Math.floor(Math.random() * cantidad);
+          for (i in preguntas){
+            if (i = numero){
+              preguntaMostrar = preguntas[i]
+            }
+          }
+        }  
+        else {
+          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions`)
+          let cantidad = preguntas.length()
+          let num = Math.floor(Math.random() * cantidad);
+          for (i in preguntas){
+            if (i = num){
+              preguntaMostrar = preguntas[i]
+                }
+            }
+          }
+      let objeto = {
+        pregunta : preguntaMostrar
+      }
+
+      io.emit("mandar-pregunta", objeto);
+      console.log(objeto.pregunta)
+  })
+
 
 app.get('/admin',async function(req, res) {
     let palabras = await MySQL.realizarQuery("SELECT * FROM palabras")
