@@ -182,7 +182,7 @@ app.post("/login", async (req, res) => {
         res.render('home', null)
       }
       if(verificar == 2) {
-        res.render('admin', null)
+        res.render('admin', {users: usuarios})
       }
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
@@ -280,7 +280,7 @@ app.post('/addQuestion',async function(req, res) {
     let comprobacionTrue = true
     let comprobacionFalse = false
     if (req.body.wordName.length>0 && req.body.wordDefinition.length>0) {
-        await MySQL.realizarQuery(`INSERT INTO palabras (nombre_palabra, definicion_palabra) VALUES("${req.body.wordName}","${req.body.wordDefinition}")`)
+        await MySQL.realizarQuery(`INSERT INTO palabras (nombre_palabra, definicion_palabra) VALUES("${req.body.questionName}","${req.body.questionDef}")`)
         res.send({validar: comprobacionTrue})
     }
     else {
@@ -288,4 +288,39 @@ app.post('/addQuestion',async function(req, res) {
     }
 })
 
+app.delete('/deleteUser',async function(req, res) {
+  let comprobacionTrue = true
+  let comprobacionFalse = false
+  if (req.body.playerName.length>0 && req.body.playerName.length>0) {
+      await MySQL.realizarQuery(`DELETE * FROM users WHERE username = "${req.body.playerName}"`)
+      res.send({validar: comprobacionTrue})
+  }
+  else {
+      res.send({validar: comprobacionFalse})
+  }
+})
 
+app.delete('/deletePuntajes',async function(req, res) {
+  let comprobacionTrue = true
+  let comprobacionFalse = false
+  if (req.body.playerName.length>0 && req.body.playerName.length>0) {
+      await MySQL.realizarQuery(`DELETE puntajes FROM users WHERE username = "${req.body.playerName}"`)
+      res.send({validar: comprobacionTrue})
+  }
+  else {
+      res.send({validar: comprobacionFalse})
+  }
+})
+
+
+app.put('/editQuestion',async function(req, res) {
+  let comprobacionTrue = true
+  let comprobacionFalse = false
+  if (req.body.preWord.length>0) {
+      await MySQL.realizarQuery(`UPDATE questions SET nombre_palabra = "${req.body.editName}", definicion_palabra = "${req.body.editDef}" WHERE nombre_palabra = "${req.body.preQuest}"`)
+      res.send({validar: comprobacionTrue})
+  }
+  else {
+      res.send({validar: comprobacionFalse})
+  }
+})

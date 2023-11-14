@@ -1,20 +1,49 @@
 <form action="/deleteUser" method="DELETE">
-    
+    <h2>Eliminar Usuario</h2>
+    <label for="Eliminar usuario">Eliminar Usuario</label>
+    <select id="delete1">
+        {{#each users}}
+            <option value="{{this.username}}">{{this.username}}</option>
+        {{/each}}
+    </select>
 </form>
 
 <form action="/deletePuntajes" method="DELETE">
-    
+    <h2>Eliminar Puntaje</h2>
+    <label for="Eliminar puntaje">Eliminar puntaje</label>
+    <select id="delete2">
+        {{#each users}}
+            <option value="{{this.username}}">{{this.username}}</option>
+        {{/each}}
+    </select>
 </form>
 
 <form action="/deletePreguntas" method="DELETE">
-    
+    <h2>Eliminar Preguntas</h2>
+    <label for="Eliminar puntaje">Eliminar preguntas</label>
+    <select id="delete3">
+        {{#each questions}}
+            <option value="{{this.nombre_palabra}}">{{this.nombre_palabra}}</option>
+        {{/each}}
+    </select>
 </form>
 
 
 <form action="/addQuestion" method="POST">
-    
+    <h2>Agregar pregunta</h2>
+    <label for="Agregar pregunta">Agregar pregunta</label>
+    <input id="newQuestion">
+    <input id="newDef">
 </form>
 
 <form action="/editQuestion" method="PUT">
-
+    <h2>Editar pregunta</h2>
+    <label for="Editar pregunta">Editar pregunta</label>
+    <select id="edit1">
+        {{#each questions}}
+            <option value="{{this.nombre_palabra}}">{{this.nombre_palabra}}</option>
+        {{/each}}
+    </select>
+    <input id="editQuestion">
+    <input id="editDefinition">
 </form>
