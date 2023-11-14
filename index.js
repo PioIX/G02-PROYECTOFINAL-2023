@@ -163,6 +163,8 @@ app.post("/login", async (req, res) => {
       });
       let verificar = -1
       let usuarios = await MySQL.realizarQuery("SELECT * FROM players")
+      let puntaje = await MySQL.realizarQuery("SELECT * FROM points")
+      let questions = await MySQL.realizarQuery("SELECT * FROM questions")
       for (let i in usuarios) {
         if(usuarios[i].gmail == req.body.email) {
           if(usuarios[i].password == req.body.password) {
@@ -182,7 +184,7 @@ app.post("/login", async (req, res) => {
         res.render('home', null)
       }
       if(verificar == 2) {
-        res.render('admin', {users: usuarios})
+        res.render('admin', {users: usuarios, points: puntaje, preguntas: questions})
       }
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
@@ -296,8 +298,14 @@ app.get('/admin',async function(req, res) {
 app.post('/addQuestion',async function(req, res) {
     let comprobacionTrue = true
     let comprobacionFalse = false
-    if (req.body.wordName.length>0 && req.body.wordDefinition.length>0) {
-        await MySQL.realizarQuery(`INSERT INTO palabras (nombre_palabra, definicion_palabra) VALUES("${req.body.questionName}","${req.body.questionDef}")`)
+    if (req.body.stellarVer == "true") {
+      stellarverif = true
+    }
+    else {
+      stellarverif = false
+    }
+    if (req.body.questionName.length>0 && req.body.questionCat.length>0) {
+        await MySQL.realizarQuery(`INSERT INTO palabras (content, category, stellar_question) VALUES("${req.body.questionName}",${req.body.questionCat}, ${stellarverif})`)
         res.send({validar: comprobacionTrue})
     }
     else {
@@ -320,8 +328,10 @@ app.delete('/deleteUser',async function(req, res) {
 app.delete('/deletePuntajes',async function(req, res) {
   let comprobacionTrue = true
   let comprobacionFalse = false
-  if (req.body.playerName.length>0 && req.body.playerName.length>0) {
-      await MySQL.realizarQuery(`DELETE puntajes FROM users WHERE username = "${req.body.playerName}"`)
+  let user = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.playerName}" `)
+  let id_user = user[i].id_player
+  if (req.body.playerName.length>0) {
+      await MySQL.realizarQuery(`DELETE FROM points WHERE id_player = ${id_user}`)
       res.send({validar: comprobacionTrue})
   }
   else {
@@ -333,8 +343,26 @@ app.delete('/deletePuntajes',async function(req, res) {
 app.put('/editQuestion',async function(req, res) {
   let comprobacionTrue = true
   let comprobacionFalse = false
-  if (req.body.preWord.length>0) {
-      await MySQL.realizarQuery(`UPDATE questions SET nombre_palabra = "${req.body.editName}", definicion_palabra = "${req.body.editDef}" WHERE nombre_palabra = "${req.body.preQuest}"`)
+  if (req.body.preQuest.length>0) {
+      await MySQL.realizarQuery(`UPDATE questions SET content = "${req.body.editName}", category = "${req.body.editDef}" WHERE content = "${req.body.preQuest}"`)
+      res.send({validar: comprobacionTrue})
+  }
+  else {
+      res.send({validar: comprobacionFalse})
+  }
+})
+
+app.post('/addOption',async function(req, res) {
+  let comprobacionTrue = true
+  let comprobacionFalse = false
+  if (req.body.stellarVer == "true") {
+    stellarverif = true
+  }
+  else {
+    stellarverif = false
+  }
+  if (req.body.questionName.length>0 && req.body.questionCat.length>0) {
+      await MySQL.realizarQuery(`INSERT INTO palabras (content, category, stellar_question) VALUES("${req.body.questionName}",${req.body.questionCat}, ${stellarverif})`)
       res.send({validar: comprobacionTrue})
   }
   else {
