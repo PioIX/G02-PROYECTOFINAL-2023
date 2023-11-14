@@ -233,7 +233,7 @@ function chequearPregunta(){
     else {
         tipoPregunta = "random"
     }
-
+}
 
 function agregarPregunta(){
 
