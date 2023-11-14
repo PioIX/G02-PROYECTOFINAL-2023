@@ -195,6 +195,7 @@ async function deleteJSON(dataDeleteUser) {
 
 let casillero = 0
 
+const CASILLEROS_ESTELARES = []
 const MAX_CASILLEROS = 43;
 
 function tirarDado(){
@@ -211,26 +212,44 @@ function tirarDado(){
 
 function chequearPregunta(){
     let tipoPregunta = ""
-    let tipoCasillero = document.getElementBy
-    if (color_casillero = 1 ){
+    let estelar = false
+    let tipoCasillero = document.getElementById(casillero)
+    let casilleroStyle = window.getComputedStyle(tipoCasillero);
+    let color_casillero = casilleroStyle.getPropertyValue('background-color');
+    if (color_casillero = 'rgb(255, 201, 35)'){
         tipoPregunta = "historia"
     }
-    else if (color_casillero = 1 ){
-        tipoPregunta = "deporte"
+    else if (color_casillero = 'rgb(255, 156, 0)' ){
+        tipoPregunta = "deportes"
     }
-    else if (color_casillero = 1 ){
+    else if (color_casillero = 'rgb(244, 67, 54)' ){
         tipoPregunta = "arte"
     }
-    else if (color_casillero = 1 ){
+    else if (color_casillero = 'rgb(11, 102, 49)' ){
         tipoPregunta = "ciencia"
     }
-    else if (color_casillero = 1 ){
+    else if (color_casillero = 'rgb(255, 130, 191)' ){
         tipoPregunta = "entretenimiento"
     }
-    else {
+    else if (color_casillero = 'rgb(153, 153, 153)' ){
         tipoPregunta = "random"
     }
+    if (CASILLEROS_ESTELARES.includes(casillero)){
+      estelar = true
+    } 
+    let data = {
+      pregunta : tipoPregunta,
+      preguntaEstelar : estelar
+    }
+    chequearPreguntaWS(data)
 }
+
+/*function validarRespuesta(){
+  let respuesta = 0
+  if (){}
+}*/
+
+
 
 function agregarPregunta(){
 

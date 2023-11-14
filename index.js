@@ -12,6 +12,8 @@
     Revisión 1 - Año 2021
 */
 //Cargo librerías instaladas y necesarias
+const express = require('express');
+const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser'); //Para el manejo de los strings JSON
 const MySQL = require('./modulos/mysql'); //Añado el archivo mysql.js presente en la carpeta módulos
 const { ClientRequest } = require('http');
@@ -258,7 +260,7 @@ app.post("/register", async (req, res) => {
     io.on("tipo-pregunta", async data =>{
       let preguntaMostrar = ""
         if (data.pregunta != "random"){
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta}`)
+          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta} and stellar_question = ${data.preguntaEstelar}`)
           let cantidad = preguntas.length()
           let numero = Math.floor(Math.random() * cantidad);
           for (i in preguntas){

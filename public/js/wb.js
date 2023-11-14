@@ -20,3 +20,8 @@ function chequearPreguntaWS(data){
     socket.emit("tipo-pregunta", data);
     console.log(data.pregunta)
 }
+
+socket.on('mandar-pregunta', data => {
+    
+    console.log("pregunta", data);        
+});
