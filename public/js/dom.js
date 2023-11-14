@@ -134,11 +134,14 @@ async function deleteJSON(dataDeleteUser) {
   function addQuestion() {
     //Leo los datos del input
     let newName = document.getElementById("newQuestion").value
-    let newDef = document.getElementById("newDef").value
+    let newCat = document.getElementById("addQ").value
+    let stellar = document.getElementById("addQ2").value
     //Creo un objeto de forma instantanea
     let dataAddQuestion= {
         questionName: newName,
-        questionDef: newDef
+        questionCat: newCat,
+        stellarVer: stellar
+
     }
   
     //data es el objeto que le paso al back
@@ -179,12 +182,12 @@ async function deleteJSON(dataDeleteUser) {
   function editQuestion() {
     //Leo los datos del input
     let editName = document.getElementById("editQuestion").value
-    let editDef = document.getElementById("editDefinition").value
+    let editCat = document.getElementById("editQ").value
     let preQuest = document.getElementById("edit1").value
     //Creo un objeto de forma instantanea
     let dataEditQuestion= {
         editName: editName,
-        editDef: editDef,
+        editCat: editCat,
         preQuest: preQuest
     }
   
