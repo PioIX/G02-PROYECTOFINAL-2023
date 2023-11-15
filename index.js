@@ -171,8 +171,10 @@ app.post("/login", async (req, res) => {
         if(usuarios[i].gmail == req.body.email) {
           if(usuarios[i].password == req.body.password) {
             verificar = 1
+            req.session.id_usuario = usuarios[i].id_player
             if (usuarios[i].admin == true) {
               verificar = 2
+              req.session.id_usuario = usuarios[i].id_player
             }
           }
         }
@@ -224,6 +226,24 @@ app.post("/register", async (req, res) => {
     }
   });
 
+app.post('/createRoom', async function(req, res) {
+  //Petición POST con URL = "/login"
+  let crearRoom = await MySQL.realizarQuery(`INSERT INTO rooms () VALUES ("${req.body.password}", "${req.body.email}", "${req.body.username}", FALSE)`)
+  //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método POST
+  //res.render('home', { mensaje: "Hola mundo!", usuario: req.body.usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
+  res.render('juego', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.post('/joinRoom', async function(req, res) {
+  //Petición POST con URL = "/login"
+  let crearRoom = await MySQL.realizarQuery(`UPDATE rooms ()`)
+  //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método POST
+  //res.render('home', { mensaje: "Hola mundo!", usuario: req.body.usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
+  res.render('juego', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+
+
 
   function Recibir_Archivo(req, carpeta, isImage, callback)
   {
@@ -258,7 +278,16 @@ app.post("/register", async (req, res) => {
 
   io.on('connection', () => {
     console.log("estoy conectado")
-
+    const req = socket.request;
+    socket.join(1)
+    socket.on('unirse-sala', data => {
+      if(req.session.sala != "")
+          socket.leave(req.session.sala);
+      socket.join(data.sala)
+      req.session.sala = data.sala;
+      req.session.save()
+      console.log("ME UNI A LA SALA:", data.sala)
+  });
     io.on("tipo-pregunta", async data =>{
       let preguntaMostrar = ""
         if (data.pregunta != "random"){
