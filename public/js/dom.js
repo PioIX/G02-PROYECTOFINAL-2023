@@ -196,21 +196,55 @@ async function deleteJSON(dataDeleteUser) {
   }
 
 
-let casillero = 0
+let casillero1 = 1
+let casillero2 = 1
+let casillero3 = 1
+let casillero4 = 1
 
 const CASILLEROS_ESTELARES = []
-const MAX_CASILLEROS = 43;
+const MAX_CASILLEROS = 44;
 
 function tirarDado(){
-    let valor = Math.floor(Math.random() * 6)+1
+  let valor = Math.floor(Math.random() * 6)+1
     console.log(valor)
-    casillero += valor
-    if (casillero > MAX_CASILLEROS){
-        casillero = casillero % MAX_CASILLEROS
-        console.log(casillero)
+    if (jugador = 1){
+      ficha1 = '<div id="ficha1" class="fichita fichita-p1"></div>'
+      variable = document.getElementById(casillero1).innerHTML
+      variable.replace(ficha1, '') 
+      casillero1 += valor
+      if (casillero1 > MAX_CASILLEROS){
+        casillero1 = casillero1 % MAX_CASILLEROS
+        console.log(casillero1)
+        }
+        document.getElementById(casillero1).innerHTML += ficha1
     }
-
+    else if (jugador = 2){
+      casillero2 += valor
+      if (casillero2 > MAX_CASILLEROS){
+        casillero2 = casillero2 % MAX_CASILLEROS
+        console.log(casillero2)
+        }
+    }
+    else if (jugador = 3){
+      casillero3 += valor
+      if (casillero3 > MAX_CASILLEROS){
+        casillero3 = casillero3 % MAX_CASILLEROS
+        console.log(casillero3)
+        }
+    }
+    else if (jugador = 4){
+      casillero4 += valor
+      if (casillero4 > MAX_CASILLEROS){
+        casillero4 = casillero4 % MAX_CASILLEROS
+        console.log(casillero4)
+        }
+    }
+    jugador ++
+    if (jugador > 4){
+      jugador = 1
+    }
 }
+
 
 
 function chequearPregunta(){
@@ -244,13 +278,16 @@ function chequearPregunta(){
       pregunta : tipoPregunta,
       preguntaEstelar : estelar
     }
+    console.log(tipoPregunta)
     chequearPreguntaWS(data)
 }
 
-/*function validarRespuesta(){
-  let respuesta = 0
-  if (){}
-}*/
+function validarRespuesta(){
+  
+  let respuesta = {
+    opcion : respuesta
+  }
+}
 
 
 
