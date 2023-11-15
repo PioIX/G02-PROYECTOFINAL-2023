@@ -258,23 +258,6 @@ li:hover span {
     border-color: #000;
 }
 
-
-
-#historia2 {
-    color: black;
-    padding: 35px 5px;
-    width: 70px;
-    height: 50px;
-    border-radius: 4px;
-    background-color: yellow;
-    border-color: black;
-    position: absolute;
-    left: 29.16%;
-    margin-top: 3px;
-    
-}
-
-
 *{
     padding: 0;
     margin: 0;
@@ -340,3 +323,40 @@ body{
 
 }
 
+.borde{
+    border: solid black 2px;
+}
+
+.fichita {
+    width: 12px;
+    height: 12px;
+    position: relative;
+}
+
+.fichita-p1 {
+    background-color: #309BEF;
+    border: solid black 1px;
+    top: 6px;
+    left: 3px;
+}
+
+.fichita-p2 {
+    background-color: #24F7B0;
+    border: solid black 1px;
+    top: -6px;
+    left: 38px;
+}
+
+.fichita-p3 {
+    background-color: #9724F7;
+    border: solid black 1px;
+    top: 15px;
+    left: 4px;
+}
+
+.fichita-p4 {
+    background-color: #85F83B;
+    border: solid black 1px;
+    top: 3px;
+    left: 38px;
+}
