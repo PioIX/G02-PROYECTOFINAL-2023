@@ -266,7 +266,20 @@ function tirarDado(){
 
 
 
-function chequearPregunta(){
+function chequearPregunta(jugador){
+    let casillero = 0
+    if (jugador == 1){
+      casillero = casillero1
+    }
+    else if (jugador == 2){
+      casillero = casillero2
+    }
+    else if (jugador == 3){
+      casillero = casillero3
+    }
+    else if (jugador = 4){
+      casillero = casillero4
+    }
     let tipoPregunta = ""
     let estelar = false
     let tipoCasillero = document.getElementById(casillero)
