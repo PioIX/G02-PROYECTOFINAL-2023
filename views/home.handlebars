@@ -2,21 +2,21 @@
 <center><h2>Menu</h2></center>
 <ul>
     <div>
-        <form action="/crearjuego" method="GET">
-            <li><span>Crear Sala</span></li>
-            <div id="inputSala">
+        <form action="/crearSala" method="GET">
+        <li onclick="showCrearSala()"><span>Crear Sala</span></li>
+            <div id="inputSala" style="display: none;">
                 <label for="ingrese numero de sala">Ingrese un numero de sala</label>
                 <input id="Sala" name="crearSala">
-                <button type="submit">Crear sala</button>
+                <button type="submit" onclick="conseguirSala()">Crear sala</button>
             </div>
         </form>
     </div>
     <form action="/unirsejuego" method="GET">
-        <div id="inputSala2">
-            <li><span>Unirse a Sala</span></li>
+            <li onclick="showUnirseSala()"><span>Unirse a Sala</span></li>
+        <div id="inputSala2" style="display: none;">
             <label for="ingrese numero de sala">Ingrese un numero de sala</label>
             <input id="Sala2" name="unirseSala">
-            <button type="submit" onclick="unirseSala()">Unirse sala</button>
+            <li onclick="unirseSala()">Unirse sala</li>
         </div>
     </form>
     <form action="/reglas" method="GET"><li><span>Reglas</span></li></form>

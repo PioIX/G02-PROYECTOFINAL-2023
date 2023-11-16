@@ -43,21 +43,21 @@ app.set('view engine', 'handlebars'); //Inicializo Handlebars
 const Listen_Port = 3000; //Puerto por el que estoy ejecutando la página Web
 
 const server = app.listen(Listen_Port, function() {
-    console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
+  console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
 });
 
 const io = require('socket.io')(server);
 
 const sessionMiddleware = session({
-    secret: 'sararasthastka',
-    resave: true,
-    saveUninitialized: false,
+  secret: 'sararasthastka',
+  resave: true,
+  saveUninitialized: false,
 });
 
 app.use(sessionMiddleware);
 
 io.use(function(socket, next) {
-    sessionMiddleware(socket.request, socket.request.res, next);
+  sessionMiddleware(socket.request, socket.request.res, next);
 });
 
 // Configuración de Firebase
@@ -204,6 +204,12 @@ app.put('/login', function(req, res) {
     res.send(null);
 });
 
+app.get('/game', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.render('juego', null);
+});
+
 app.delete('/login', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido DELETE", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
@@ -225,25 +231,15 @@ app.post("/register", async (req, res) => {
       });
     }
   });
-
-app.post('/createRoom', async function(req, res) {
-  //Petición POST con URL = "/login"
-  let crearRoom = await MySQL.realizarQuery(`INSERT INTO rooms () VALUES ("${req.body.password}", "${req.body.email}", "${req.body.username}", FALSE)`)
-  //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método POST
-  //res.render('home', { mensaje: "Hola mundo!", usuario: req.body.usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
-  res.render('juego', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+app.get('/crearSala', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.render('juego', null);
 });
 
-app.post('/joinRoom', async function(req, res) {
-  //Petición POST con URL = "/login"
-  let crearRoom = await MySQL.realizarQuery(`UPDATE rooms ()`)
-  //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método POST
-  //res.render('home', { mensaje: "Hola mundo!", usuario: req.body.usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
-  res.render('juego', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
-});
-
-
-
+async function createRoom(data, session, res) {
+  let room = await MySQL.realizarQuery(`INSERT INTO rooms (id_room, player1, player2, player3, player4) VALUES(${data},${session.id_usuario}, ${-1}, ${-1}, ${-1})`)
+}
 
   function Recibir_Archivo(req, carpeta, isImage, callback)
   {
@@ -276,10 +272,19 @@ app.post('/joinRoom', async function(req, res) {
   }
   }
 
-  io.on('connection', () => {
+  io.on('connection', (socket) => {
     console.log("estoy conectado")
     const req = socket.request;
     socket.join(1)
+    socket.on('crear-sala', data => {
+      if(req.session.sala != "")
+        socket.leave(req.session.sala);
+      socket.join(data.sala)
+      req.session.sala = data.sala;
+      req.session.save()
+      createRoom(data.sala, req.session)
+      console.log("SE CREO LA SALA:", data.sala)
+  })
     socket.on('unirse-sala', data => {
       if(req.session.sala != "")
           socket.leave(req.session.sala);
