@@ -25,3 +25,25 @@ socket.on('mandar-pregunta', data => {
     
     console.log("pregunta", data);        
 });
+
+function unirseSala(sala_user) {
+    console.log(sala_user)
+    socket.emit("unirse-sala", {sala: sala_user});
+}
+
+function crearSala(sala_user) {
+    console.log(sala_user)
+    socket.emit("crear-sala", {sala: sala_user});
+}
+
+
+function conseguirSala() {
+    sala = document.getElementById("Sala").value
+    crearSala(sala)
+}
+
+function unirseSala2() {
+    sala = document.getElementById("Sala").value
+    unirseSala(sala_user)
+}
+

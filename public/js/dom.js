@@ -339,3 +339,17 @@ function buscarPregunta(){
 
 }
 
+function showCrearSala() {
+  inputSala1 = document.getElementById("inputSala");
+  if (inputSala1.style.display = "none") {
+    inputSala1.style.display = ""
+  }
+}
+
+function showUnirseSala() {
+  inputSala = document.getElementById("inputSala2");
+  if (inputSala.style.display = "") {
+    inputSala.style.display = "none"
+  }
+}
+
