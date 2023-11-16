@@ -1,4 +1,3 @@
-
 async function deleteJSON(dataDeleteUser) {
     //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
   
@@ -195,6 +194,9 @@ async function deleteJSON(dataDeleteUser) {
     putJSON(dataEditQuestion)
   }
 
+ 
+
+let jugador = 1
 
 let casillero1 = 1
 let casillero2 = 1
@@ -204,41 +206,58 @@ let casillero4 = 1
 const CASILLEROS_ESTELARES = []
 const MAX_CASILLEROS = 44;
 
+
 function tirarDado(){
   let valor = Math.floor(Math.random() * 6)+1
     console.log(valor)
-    if (jugador = 1){
-      ficha1 = '<div id="ficha1" class="fichita fichita-p1"></div>'
-      variable = document.getElementById(casillero1).innerHTML
-      variable.replace(ficha1, '') 
-      casillero1 += valor
-      if (casillero1 > MAX_CASILLEROS){
-        casillero1 = casillero1 % MAX_CASILLEROS
-        console.log(casillero1)
-        }
-        document.getElementById(casillero1).innerHTML += ficha1
-    }
-    else if (jugador = 2){
-      casillero2 += valor
-      if (casillero2 > MAX_CASILLEROS){
-        casillero2 = casillero2 % MAX_CASILLEROS
-        console.log(casillero2)
-        }
-    }
-    else if (jugador = 3){
-      casillero3 += valor
-      if (casillero3 > MAX_CASILLEROS){
-        casillero3 = casillero3 % MAX_CASILLEROS
-        console.log(casillero3)
-        }
-    }
-    else if (jugador = 4){
-      casillero4 += valor
-      if (casillero4 > MAX_CASILLEROS){
-        casillero4 = casillero4 % MAX_CASILLEROS
-        console.log(casillero4)
-        }
-    }
+    if (jugador == 1){
+        let ficha1 = '<div class="fichita fichita-p1"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p1")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero1 += valor
+        if (casillero1 > MAX_CASILLEROS){
+          casillero1 = casillero1 % MAX_CASILLEROS
+          console.log(casillero1)
+          }
+          document.getElementById(casillero1).innerHTML += ficha1
+      }
+    else if (jugador == 2){
+        let ficha2 = '<div class="fichita fichita-p2"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p2")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero2 += valor
+        if (casillero2 > MAX_CASILLEROS){
+          casillero2 = casillero2 % MAX_CASILLEROS
+          console.log(casillero2)
+          }
+          document.getElementById(casillero2).innerHTML += ficha2
+      }
+    else if (jugador == 3){
+        let ficha3 = '<div class="fichita fichita-p3"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p3")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero3 += valor
+        if (casillero3 > MAX_CASILLEROS){
+          casillero3 = casillero3 % MAX_CASILLEROS
+          console.log(casillero3)
+          }
+          document.getElementById(casillero3).innerHTML += ficha3
+      }
+    else if (jugador == 4){
+        let ficha4 = '<div class="fichita fichita-p4"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p4")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero4 += valor
+        if (casillero4 > MAX_CASILLEROS){
+          casillero4 = casillero4 % MAX_CASILLEROS
+          console.log(casillero4)
+          }
+          document.getElementById(casillero4).innerHTML += ficha4
+      }
     jugador ++
     if (jugador > 4){
       jugador = 1
