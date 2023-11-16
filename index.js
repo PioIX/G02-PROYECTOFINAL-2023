@@ -277,7 +277,7 @@ async function createRoom(data, session, res) {
     const req = socket.request;
     socket.join(1)
     socket.on('crear-sala', data => {
-      if(req.session.sala != "")
+      if (req.session.sala != "")
         socket.leave(req.session.sala);
       socket.join(data.sala)
       req.session.sala = data.sala;
@@ -287,7 +287,7 @@ async function createRoom(data, session, res) {
   })
     socket.on('unirse-sala', data => {
       if(req.session.sala != "")
-          socket.leave(req.session.sala);
+        socket.leave(req.session.sala);
       socket.join(data.sala)
       req.session.sala = data.sala;
       req.session.save()
