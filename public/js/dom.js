@@ -258,6 +258,7 @@ function tirarDado(){
           }
           document.getElementById(casillero4).innerHTML += ficha4
       }
+    chequearPregunta(jugador)
     jugador ++
     if (jugador > 4){
       jugador = 1
@@ -285,27 +286,28 @@ function chequearPregunta(jugador){
     let tipoCasillero = document.getElementById(casillero)
     let casilleroStyle = window.getComputedStyle(tipoCasillero);
     let color_casillero = casilleroStyle.getPropertyValue('background-color');
-    if (color_casillero = 'rgb(255, 201, 35)'){
-        tipoPregunta = "historia"
-    }
-    else if (color_casillero = 'rgb(255, 156, 0)' ){
-        tipoPregunta = "deportes"
-    }
-    else if (color_casillero = 'rgb(244, 67, 54)' ){
-        tipoPregunta = "arte"
-    }
-    else if (color_casillero = 'rgb(11, 102, 49)' ){
-        tipoPregunta = "ciencia"
-    }
-    else if (color_casillero = 'rgb(255, 130, 191)' ){
-        tipoPregunta = "entretenimiento"
-    }
-    else if (color_casillero = 'rgb(153, 153, 153)' ){
+    console.log(color_casillero)
+    if (color_casillero == 'rgb(255, 201, 35)'){
+        tipoPregunta = "Historia"
+      }
+    else if (color_casillero == 'rgb(255, 156, 0)' ){
+        tipoPregunta = "Deporte"
+      }
+    else if (color_casillero == 'rgb(244, 67, 54)' ){
+        tipoPregunta = "Arte"
+      }
+    else if (color_casillero == 'rgb(11, 102, 49)' ){
+        tipoPregunta = "Ciencia"
+      }
+    else if (color_casillero == 'rgb(255, 130, 191)' ){
+        tipoPregunta = "Entretenimiento"
+      }
+    else if (color_casillero == 'rgb(153, 153, 153)' ){
         tipoPregunta = "random"
-    }
+      } 
     if (CASILLEROS_ESTELARES.includes(casillero)){
       estelar = true
-    } 
+      } 
     let data = {
       pregunta : tipoPregunta,
       preguntaEstelar : estelar
@@ -315,12 +317,40 @@ function chequearPregunta(jugador){
 }
 
 function validarRespuesta(){
-  
   let respuesta = {
     opcion : respuesta
   }
+  fetchRespuesta(respuesta)
 }
 
+async function fetchRespuesta(data) {
+  try {
+    const response = await fetch("/validarRespuesta", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("")
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      alert("El puntaje del usuario ha sido eliminado correctamente")
+      
+      
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 
 function agregarPregunta(){

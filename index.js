@@ -293,33 +293,51 @@ async function createRoom(data, session, res) {
       req.session.save()
       console.log("ME UNI A LA SALA:", data.sala)
   });
-    io.on("tipo-pregunta", async data =>{
-      let preguntaMostrar = ""
+    socket.on("tipo-pregunta", async data =>{
+        let preguntaMostrar = 0
+        console.log(data.pregun)
         if (data.pregunta != "random"){
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta} and stellar_question = ${data.preguntaEstelar}`)
-          let cantidad = preguntas.length()
-          let numero = Math.floor(Math.random() * cantidad);
-          for (i in preguntas){
-            if (i = numero){
-              preguntaMostrar = preguntas[i]
+          if (data.preguntaEstelar = false){
+            let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = false`)
+            console.log("hola")
+            let cantidad = preguntas.length
+            let numero = Math.floor(Math.random() * cantidad - 1);
+            for (i in preguntas){
+              if (i = numero){
+                preguntaMostrar = preguntas[i]
+              }
+            }
+            console.log(preguntas)
+          }
+          else{
+            let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = true`)
+            let cantidad = preguntas.length
+            let numero = Math.floor(Math.random() * cantidad -1);
+            for (i in preguntas){
+              if (i = numero){
+                preguntaMostrar = preguntas[i]
+              }
             }
           }
         }  
         else {
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions`)
-          let cantidad = preguntas.length()
-          let num = Math.floor(Math.random() * cantidad);
+          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions where stellar_question = false`)
+          let cantidad = preguntas.length
+          let num = Math.floor(Math.random() * cantidad -1);
           for (i in preguntas){
             if (i = num){
               preguntaMostrar = preguntas[i]
                 }
             }
           }
+      opciones = MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = ${preguntaMostrar.id_question}`)
+      console.log(opciones)
       let objeto = {
-        pregunta : preguntaMostrar
+        pregunta : preguntaMostrar,
+        id : preguntaMostrar.id_question,
       }
 
-      io.emit("mandar-pregunta", objeto);
+      socket.emit("mandar-pregunta", objeto);
       console.log(objeto.pregunta)
   })
 })
@@ -404,4 +422,9 @@ app.post('/addOption',async function(req, res) {
   else {
       res.send({validar: comprobacionFalse})
   }
+})
+
+
+app.put('validarRespuesta', async function(req, res){
+    pregunta = MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = 0`)
 })
