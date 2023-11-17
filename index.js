@@ -138,7 +138,13 @@ app.get('/reglas', function(req, res)
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('reglas', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
-
+app.get('/waitingRoom', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('espera', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
 app.get('/estadisticas', function(req, res)
 {
     //Petición GET con URL = "/login"
@@ -210,6 +216,23 @@ app.get('/game', function(req, res) {
   res.render('juego', null);
 });
 
+app.post('/createRoom', async function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log(req.session.id_usuario)
+  console.log(req.session.sala)
+  console.log("Soy un pedido POST", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  //Consulto en la bdd de la existencia del usuario
+  let respuesta = await MySQL.realizarQuery(`SELECT * FROM rooms WHERE id_room = ${req.body.sala}`)
+  //Chequeo el largo del vector a ver si tiene datos
+  if (respuesta.length > 0) {
+      res.send({validar: false})    
+  }
+  else{
+    let response = await MySQL.realizarQuery(`INSERT INTO rooms (id_room, player1, player2, player3, player4) VALUES(${req.body.sala},${req.session.id_usuario}, ${-1}, ${-1}, ${-1})`)
+    res.send({validar:true})    
+  }
+});
+
 app.delete('/login', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido DELETE", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
@@ -236,10 +259,52 @@ app.get('/crearSala', function(req, res) {
   console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
   res.render('juego', null);
 });
+app.post('/changeScreen', function(req, res) {
+  //Petición PUT con URL = "/login"
+  res.send({validar: true})
+});
+app.get('/espera', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.render('espera', null);
+});
 
-async function createRoom(data, session, res) {
-  let room = await MySQL.realizarQuery(`INSERT INTO rooms (id_room, player1, player2, player3, player4) VALUES(${data},${session.id_usuario}, ${-1}, ${-1}, ${-1})`)
-}
+
+
+
+app.put('/joinGame', async function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log(req.session.id_usuario)
+  console.log(req.session.sala)
+  console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  //Consulto en la bdd de la existencia del usuario
+  let respuesta = await MySQL.realizarQuery(`SELECT * FROM rooms WHERE id_room = ${req.body.sala}`)
+  //Chequeo el largo del vector a ver si tiene datos
+  if (respuesta.length > 0) {
+      //Armo un objeto para responder
+      if(respuesta[0].player2 == -1) {
+        let response = await MySQL.realizarQuery(`UPDATE rooms SET player2 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        res.send({validar:true}) 
+      }
+      if(respuesta[0].player2 != -1) {
+        let response = await MySQL.realizarQuery(`UPDATE rooms SET player3 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        res.send({validar:true}) 
+      }
+      if(respuesta[0].player3 != -1) {
+        let response = await MySQL.realizarQuery(`UPDATE rooms SET player4 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        res.send({validar:true}) 
+      }
+      if(respuesta[0].player2 != -1 && respuesta[0].player3 != -1 && respuesta[0].player4 != -1) {
+        res.send({validar: false})   
+      } 
+  }
+  else{
+    res.send({validar:false})    
+  }
+  
+});
+
+
 
   function Recibir_Archivo(req, carpeta, isImage, callback)
   {
@@ -272,25 +337,25 @@ async function createRoom(data, session, res) {
   }
   }
 
-  io.on('connection', (socket) => {
+  io.on('connection',(socket) => {
     console.log("estoy conectado")
     const req = socket.request;
-    socket.join(1)
     socket.on('crear-sala', data => {
-      if (req.session.sala != "")
-        socket.leave(req.session.sala);
-      socket.join(data.sala)
+      socket.join("room-"+data.sala.toString())
       req.session.sala = data.sala;
+      console.log(req.session.sala)
       req.session.save()
-      createRoom(data.sala, req.session)
       console.log("SE CREO LA SALA:", data.sala)
   })
     socket.on('unirse-sala', data => {
-      if(req.session.sala != "")
-        socket.leave(req.session.sala);
-      socket.join(data.sala)
+      socket.join("room-"+data.sala.toString())
       req.session.sala = data.sala;
+      console.log(req.session.sala)
+      io.emit("conexion-user", {user: req.session.id_usuario})
       req.session.save()
+      console.log("se unio el usuario con id: ", req.session.id_usuario)
+      console.log()
+
       console.log("ME UNI A LA SALA:", data.sala)
   });
     io.on("tipo-pregunta", async data =>{

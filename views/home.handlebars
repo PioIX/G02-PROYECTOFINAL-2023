@@ -7,16 +7,15 @@
             <div id="inputSala" style="display: none;">
                 <label for="ingrese numero de sala">Ingrese un numero de sala</label>
                 <input id="Sala" name="crearSala">
-                <button type="submit" onclick="conseguirSala()">Crear sala</button>
+                <button type="button" onclick="createRoom2()">Crear sala</button>
             </div>
         </form>
     </div>
-    <form action="/unirsejuego" method="GET">
-            <li onclick="showUnirseSala()"><span>Unirse a Sala</span></li>
+        <li onclick="showUnirseSala()"><span>Unirse a Sala</span></li>
         <div id="inputSala2" style="display: none;">
             <label for="ingrese numero de sala">Ingrese un numero de sala</label>
             <input id="Sala2" name="unirseSala">
-            <li onclick="unirseSala()">Unirse sala</li>
+            <button onclick="joinRoom()">Unirse sala</button>
         </div>
     </form>
     <form action="/reglas" method="GET"><li><span>Reglas</span></li></form>
