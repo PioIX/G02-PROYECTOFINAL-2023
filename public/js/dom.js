@@ -203,6 +203,13 @@ let casillero2 = 1
 let casillero3 = 1
 let casillero4 = 1
 
+let estrellas1 = 0
+let estrellas2 = 0
+let estrellas3 = 0
+let estrellas4 = 0
+
+
+
 const CASILLEROS_ESTELARES = []
 const MAX_CASILLEROS = 44;
 
