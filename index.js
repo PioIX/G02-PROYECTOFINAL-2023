@@ -295,33 +295,23 @@ async function createRoom(data, session, res) {
   });
     socket.on("tipo-pregunta", async data =>{
         let preguntaMostrar = 0
-        console.log(data.pregun)
+        console.log(data.pregunta)
         if (data.pregunta != "random"){
-          if (data.preguntaEstelar = false){
-            let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = false`)
-            console.log("hola")
-            let cantidad = preguntas.length
-            let numero = Math.floor(Math.random() * cantidad - 1);
-            for (i in preguntas){
-              if (i = numero){
-                preguntaMostrar = preguntas[i]
-              }
-            }
-            console.log(preguntas)
-          }
-          else{
-            let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = true`)
-            let cantidad = preguntas.length
-            let numero = Math.floor(Math.random() * cantidad -1);
-            for (i in preguntas){
-              if (i = numero){
-                preguntaMostrar = preguntas[i]
-              }
+          let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = ${data.preguntaEstelar}`)
+          console.log(preguntas)
+          let cantidad = preguntas.length
+          console.log(cantidad)
+          let numero = Math.floor(Math.random() * cantidad - 1);
+          for (i in preguntas){
+            if (i = numero){
+              preguntaMostrar = preguntas[i]
             }
           }
+          console.log(preguntas)
+
         }  
         else {
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions where stellar_question = false`)
+          let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions where stellar_question = false`)
           let cantidad = preguntas.length
           let num = Math.floor(Math.random() * cantidad -1);
           for (i in preguntas){
@@ -330,11 +320,11 @@ async function createRoom(data, session, res) {
                 }
             }
           }
-      opciones = MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = ${preguntaMostrar.id_question}`)
-      console.log(opciones)
+      opciones = await MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = ${preguntaMostrar.id_question}`)
       let objeto = {
         pregunta : preguntaMostrar,
         id : preguntaMostrar.id_question,
+        opciones : opciones
       }
 
       socket.emit("mandar-pregunta", objeto);
