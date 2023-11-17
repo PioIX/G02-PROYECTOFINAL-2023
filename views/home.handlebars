@@ -1,27 +1,27 @@
-<center><h2>Menu</h2></center>
-    <ul>
-        <div>
-            <form action="/crearSala" method="GET">
-            <li onclick="showCrearSala()"><span>Crear Sala</span></li>
-                <div id="inputSala" style="display: none;">
-                    <label for="ingrese numero de sala">Ingrese un numero de sala</label>
-                    <input id="Sala" name="crearSala">
-                    <button type="button" onclick="createRoom2()">Crear sala</button>
-                </div>
-            </form>
-        </div>
-            <li onclick="showUnirseSala()"><span>Unirse a Sala</span></li>
-            <div id="inputSala2" style="display: none;">
+
+<center><h2 class="menu">Menu</h2></center>
+<ul>
+    <div>
+        <form action="/crearSala" method="GET">
+        <li onclick="showCrearSala()"><span>Crear Sala</span></li>
+            <div id="inputSala" style="display: none;">
                 <label for="ingrese numero de sala">Ingrese un numero de sala</label>
-                <input id="Sala2" name="unirseSala">
-                <button onclick="joinRoom()">Unirse sala</button>
+                <input id="Sala" name="crearSala">
+                <button type="submit" onclick="conseguirSala()">Crear sala</button>
             </div>
         </form>
-        <form action="/reglas" method="GET"><li><span>Reglas</span></li></form>
-        <form action="/estadisticas" method="GET"><li><span>Estadisticas</span></li></form>
-        <form action="/admin" method="GET"><li><span>Admin</span></li></form>
-    </ul>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/wb.js"></script>
+    </div>
+    <form action="/unirsejuego" method="GET">
+            <li onclick="showUnirseSala()"><span>Unirse a Sala</span></li>
+        <div id="inputSala2" style="display: none;">
+            <label for="ingrese numero de sala">Ingrese un numero de sala</label>
+            <input id="Sala2" name="unirseSala">
+            <li onclick="unirseSala()">Unirse sala</li>
+        </div>
+    </form>
+    <form action="/reglas" method="GET"><li><span>Reglas</span></li></form>
+    <form action="/estadisticas" method="GET"><li><span>Estadisticas</span></li></form>
+    <form action="/admin" method="GET"><li><span>Admin</span></li></form>
+</ul>
+ 
 
