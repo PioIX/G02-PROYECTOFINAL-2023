@@ -37,10 +37,12 @@ app.use(express.static('public')); //Expongo al lado cliente la carpeta "public"
 app.use(bodyParser.urlencoded({ extended: false })); //Inicializo el parser JSON
 app.use(bodyParser.json());
 
+app.use(require('cors')())
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'})); //Inicializo Handlebars. Utilizo como base el layout "Main".
 app.set('view engine', 'handlebars'); //Inicializo Handlebars
 
-const Listen_Port = 3000; //Puerto por el que estoy ejecutando la página Web
+const Listen_Port = 3002; //Puerto por el que estoy ejecutando la página Web
 
 const server = app.listen(Listen_Port, function() {
   console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
@@ -138,7 +140,13 @@ app.get('/reglas', function(req, res)
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('reglas', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
-
+app.get('/waitingRoom', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('espera', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
 app.get('/estadisticas', function(req, res)
 {
     //Petición GET con URL = "/login"
@@ -171,11 +179,16 @@ app.post("/login", async (req, res) => {
         if(usuarios[i].gmail == req.body.email) {
           if(usuarios[i].password == req.body.password) {
             verificar = 1
-            req.session.id_usuario = usuarios[i].id_player
-            if (usuarios[i].admin == true) {
+            if (usuarios[i].admin == 1) {
               verificar = 2
+              req.session.user = usuarios[i].username
               req.session.id_usuario = usuarios[i].id_player
             }
+            else{
+              req.session.id_usuario = usuarios[i].id_player
+              req.session.user = usuarios[i].username
+            }
+            req.session.save()
           }
         }
       }
@@ -210,6 +223,25 @@ app.get('/game', function(req, res) {
   res.render('juego', null);
 });
 
+app.post('/createRoom', async function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log(req.session.id_usuario)
+  console.log(req.session.sala)
+  console.log("Soy un pedido POST", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  //Consulto en la bdd de la existencia del usuario
+  let respuesta = await MySQL.realizarQuery(`SELECT * FROM rooms WHERE id_room = ${req.body.sala}`)
+  //Chequeo el largo del vector a ver si tiene datos
+  if (respuesta.length > 0) {
+      res.send({validar: false})    
+  }
+  else{
+    let response = await MySQL.realizarQuery(`INSERT INTO rooms (id_room, player1, player2, player3, player4) VALUES(${req.body.sala},${req.session.id_usuario}, ${-1}, ${-1}, ${-1})`)
+    req.session.sala = req.body.sala.toString();
+    req.session.save();
+    res.send({validar:true})    
+  }
+});
+
 app.delete('/login', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido DELETE", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
@@ -236,10 +268,55 @@ app.get('/crearSala', function(req, res) {
   console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
   res.render('juego', null);
 });
+app.post('/changeScreen', function(req, res) {
+  //Petición PUT con URL = "/login"
+  res.send({validar: true})
+});
+app.get('/espera', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.render('espera', null);
+});
 
-async function createRoom(data, session, res) {
-  let room = await MySQL.realizarQuery(`INSERT INTO rooms (id_room, player1, player2, player3, player4) VALUES(${data},${session.id_usuario}, ${-1}, ${-1}, ${-1})`)
-}
+
+
+
+app.put('/joinGame', async function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log(req.session.id_usuario)
+  console.log(req.session.sala)
+  console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  //Consulto en la bdd de la existencia del usuario
+  let respuesta = await MySQL.realizarQuery(`SELECT * FROM rooms WHERE id_room = ${req.body.sala}`)
+  //Chequeo el largo del vector a ver si tiene datos
+  if (respuesta.length > 0) {
+      //Armo un objeto para responder
+      if(respuesta[0].player2 == -1) {
+        let response = await MySQL.realizarQuery(`UPDATE rooms SET player2 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        req.session.sala = req.body.sala.toString();
+        res.send({validar:true}) 
+      }
+      if(respuesta[0].player2 != -1) {
+        let response = await MySQL.realizarQuery(`UPDATE rooms SET player3 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        req.session.sala = req.body.sala.toString();
+        res.send({validar:true}) 
+      }
+      if(respuesta[0].player3 != -1) {
+        let response = await MySQL.realizarQuery(`UPDATE rooms SET player4 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        req.session.sala = req.body.sala.toString();
+        res.send({validar:true}) 
+      }
+      if(respuesta[0].player2 != -1 && respuesta[0].player3 != -1 && respuesta[0].player4 != -1) {
+        res.send({validar: false})   
+      } 
+  }
+  else{
+    res.send({validar:false})    
+  }
+  
+});
+
+
 
   function Recibir_Archivo(req, carpeta, isImage, callback)
   {
@@ -272,30 +349,29 @@ async function createRoom(data, session, res) {
   }
   }
 
-  io.on('connection', (socket) => {
-    console.log("estoy conectado")
+let rooms = {}
+
+  io.on('connection',(socket) => {
     const req = socket.request;
-    socket.join(1)
-    socket.on('crear-sala', data => {
-      if (req.session.sala != "")
-        socket.leave(req.session.sala);
-      socket.join(data.sala)
-      req.session.sala = data.sala;
-      req.session.save()
-      createRoom(data.sala, req.session)
-      console.log("SE CREO LA SALA:", data.sala)
-  })
     socket.on('unirse-sala', data => {
-      if(req.session.sala != "")
-        socket.leave(req.session.sala);
-      socket.join(data.sala)
-      req.session.sala = data.sala;
-      req.session.save()
-      console.log("ME UNI A LA SALA:", data.sala)
-  });
-    socket.on("tipo-pregunta", async data =>{
-        let preguntaMostrar = 0
-        console.log(data.pregunta)
+      socket.join("room-"+data.rooms)
+      rooms["room-"+data.rooms] = [req.session.id_usuario]
+      io.emit("conexion-user", {user: req.session.id_usuario})
+      console.log("se unio el usuario con id: ", req.session.id_usuario)
+      console.log()
+
+      console.log("ME UNI A LA SALA:", data.rooms)
+    
+    });
+
+    socket.on('iniciar-partida', data => {
+      console.log("llegue, " , data)
+      io.to("room-"+data).emit("empieza-partida", {username: req.session.user})
+    });
+
+    io.on("tipo-pregunta", async data =>{
+      let preguntaMostrar = ""
+
         if (data.pregunta != "random"){
           let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = ${data.preguntaEstelar}`)
           console.log(preguntas)
@@ -362,7 +438,7 @@ app.delete('/deleteUser',async function(req, res) {
   let comprobacionTrue = true
   let comprobacionFalse = false
   if (req.body.playerName.length>0 && req.body.playerName.length>0) {
-      await MySQL.realizarQuery(`DELETE * FROM users WHERE username = "${req.body.playerName}"`)
+      await MySQL.realizarQuery(`DELETE FROM players WHERE username = "${req.body.playerName}"`)
       res.send({validar: comprobacionTrue})
   }
   else {
@@ -370,12 +446,12 @@ app.delete('/deleteUser',async function(req, res) {
   }
 })
 
-app.delete('/deletePuntajes',async function(req, res) {
+app.delete('/deletePuntaje',async function(req, res) {
   let comprobacionTrue = true
   let comprobacionFalse = false
-  let user = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.playerName}" `)
-  let id_user = user[i].id_player
-  if (req.body.playerName.length>0) {
+  let user = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.playerNamePoints}" `)
+  let id_user = user[0].id_player
+  if (req.body.playerNamePoints.length>0) {
       await MySQL.realizarQuery(`DELETE FROM points WHERE id_player = ${id_user}`)
       res.send({validar: comprobacionTrue})
   }

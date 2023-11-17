@@ -1,4 +1,4 @@
-async function deleteJSON(dataDeleteUser) {
+async function deleteJSON4(dataDeleteUser) {
     //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
   
     try {
@@ -53,7 +53,7 @@ async function deleteJSON(dataDeleteUser) {
     }
   
     //data es el objeto que le paso al back
-    deleteJSON(dataDeleteUser)
+    deleteJSON4(dataDeleteUser)
   }
   
   async function deleteJSON2(dataDeletePuntaje) {
@@ -92,7 +92,7 @@ async function deleteJSON(dataDeleteUser) {
     let name = document.getElementById("delete2").value
     //Creo un objeto de forma instantanea
     let dataDeletePuntaje= {
-        playerName: name
+        playerNamePoints: name
     }
   
     //data es el objeto que le paso al back
@@ -378,7 +378,8 @@ function showUnirseSala() {
   if (inputSala.style.display = "") {
     inputSala.style.display = "none"
   }
-}
+};
+
 
 var n = 30;
 let intervalo = window.setInterval(function(){
