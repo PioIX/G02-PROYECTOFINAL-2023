@@ -235,12 +235,14 @@ body{
     left: 38px;
 }
 
+
 .menu {
     font-size: 75px;
     color: white; 
 }
 
 #contenedor {
+
     width: 500px;
     position: absolute;
     top: 28%;
@@ -252,6 +254,20 @@ body{
 
 }
 
+#myModal {
+
+    width: 500px;
+    position: absolute;
+    top: 28%;
+    left: 0;
+    bottom: 22%;
+    right: 0;
+    margin: auto;
+    font-family: 'Inter', sans-serif;
+
+}
+  
+  
 .texto {
     position: absolute;
     top: 19%;
@@ -267,3 +283,9 @@ body{
     width: 60px;
     height: 60px;
 }
+
+#number {
+    font-size:30px;
+    color:#000000;
+  }
+

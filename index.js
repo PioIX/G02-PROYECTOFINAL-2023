@@ -43,21 +43,21 @@ app.set('view engine', 'handlebars'); //Inicializo Handlebars
 const Listen_Port = 3000; //Puerto por el que estoy ejecutando la página Web
 
 const server = app.listen(Listen_Port, function() {
-    console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
+  console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
 });
 
 const io = require('socket.io')(server);
 
 const sessionMiddleware = session({
-    secret: 'sararasthastka',
-    resave: true,
-    saveUninitialized: false,
+  secret: 'sararasthastka',
+  resave: true,
+  saveUninitialized: false,
 });
 
 app.use(sessionMiddleware);
 
 io.use(function(socket, next) {
-    sessionMiddleware(socket.request, socket.request.res, next);
+  sessionMiddleware(socket.request, socket.request.res, next);
 });
 
 // Configuración de Firebase
@@ -171,8 +171,10 @@ app.post("/login", async (req, res) => {
         if(usuarios[i].gmail == req.body.email) {
           if(usuarios[i].password == req.body.password) {
             verificar = 1
+            req.session.id_usuario = usuarios[i].id_player
             if (usuarios[i].admin == true) {
               verificar = 2
+              req.session.id_usuario = usuarios[i].id_player
             }
           }
         }
@@ -202,6 +204,12 @@ app.put('/login', function(req, res) {
     res.send(null);
 });
 
+app.get('/game', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.render('juego', null);
+});
+
 app.delete('/login', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido DELETE", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
@@ -223,7 +231,15 @@ app.post("/register", async (req, res) => {
       });
     }
   });
+app.get('/crearSala', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.render('juego', null);
+});
 
+async function createRoom(data, session, res) {
+  let room = await MySQL.realizarQuery(`INSERT INTO rooms (id_room, player1, player2, player3, player4) VALUES(${data},${session.id_usuario}, ${-1}, ${-1}, ${-1})`)
+}
 
   function Recibir_Archivo(req, carpeta, isImage, callback)
   {
@@ -256,37 +272,64 @@ app.post("/register", async (req, res) => {
   }
   }
 
-  io.on('connection', () => {
+  io.on('connection', (socket) => {
     console.log("estoy conectado")
-
-    io.on("tipo-pregunta", async data =>{
-      let preguntaMostrar = ""
+    const req = socket.request;
+    socket.join(1)
+    socket.on('crear-sala', data => {
+      if (req.session.sala != "")
+        socket.leave(req.session.sala);
+      socket.join(data.sala)
+      req.session.sala = data.sala;
+      req.session.save()
+      createRoom(data.sala, req.session)
+      console.log("SE CREO LA SALA:", data.sala)
+  })
+    socket.on('unirse-sala', data => {
+      if(req.session.sala != "")
+        socket.leave(req.session.sala);
+      socket.join(data.sala)
+      req.session.sala = data.sala;
+      req.session.save()
+      console.log("ME UNI A LA SALA:", data.sala)
+  });
+    socket.on("tipo-pregunta", async data =>{
+        let preguntaMostrar = 0
+        console.log(data.pregunta)
         if (data.pregunta != "random"){
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta} and stellar_question = ${data.preguntaEstelar}`)
-          let cantidad = preguntas.length()
-          let numero = Math.floor(Math.random() * cantidad);
+          let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = ${data.preguntaEstelar}`)
+          console.log(preguntas)
+          let cantidad = preguntas.length
+          console.log(cantidad)
+          let numero = Math.floor(Math.random() * cantidad - 1);
           for (i in preguntas){
             if (i = numero){
               preguntaMostrar = preguntas[i]
             }
           }
+          console.log(preguntas)
+
         }  
         else {
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions`)
-          let cantidad = preguntas.length()
-          let num = Math.floor(Math.random() * cantidad);
+          let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions where stellar_question = false`)
+          let cantidad = preguntas.length
+          let num = Math.floor(Math.random() * cantidad -1);
           for (i in preguntas){
             if (i = num){
               preguntaMostrar = preguntas[i]
                 }
             }
           }
+        
+      opciones = await MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = ${preguntaMostrar.id_question}`)
       let objeto = {
-        pregunta : preguntaMostrar
+        pregunta : preguntaMostrar,
+        id : preguntaMostrar.id_question,
+        opciones : opciones
       }
 
-      io.emit("mandar-pregunta", objeto);
-      console.log(objeto.pregunta)
+      socket.emit("mandar-pregunta", objeto);
+      console.log(objeto.opciones)
   })
 })
 
@@ -370,4 +413,9 @@ app.post('/addOption',async function(req, res) {
   else {
       res.send({validar: comprobacionFalse})
   }
+})
+
+
+app.put('validarRespuesta', async function(req, res){
+    pregunta = MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = 0`)
 })
