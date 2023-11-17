@@ -255,8 +255,8 @@ body{
 }
 
 #myModal {
-
-    width: 500px;
+    height: 800px;
+    width: 600px;
     position: absolute;
     top: 28%;
     left: 0;
@@ -279,13 +279,28 @@ body{
     color: white;
 }
 
-.dado {
-    width: 60px;
-    height: 60px;
+#dado {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 250%;
+    left: 40%;
+
 }
 
 #number {
     font-size:30px;
     color:#000000;
   }
+
+
+.estrella{
+    width: 25px;
+    height: 25px;
+
+}
+
+#id_titulo {
+    font-size: 15px;
+}
 

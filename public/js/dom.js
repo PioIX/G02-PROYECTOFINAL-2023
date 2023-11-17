@@ -390,3 +390,8 @@ let intervalo = window.setInterval(function(){
     clearInterval(intervalo);
   }
 },1000);
+
+function validar(btn) {
+  let opcion = btn.id;
+  
+}
