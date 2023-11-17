@@ -21,23 +21,28 @@ function chequearPreguntaWS(data){
     socket.emit("tipo-pregunta", data);
 }
 
-let respuesta_correcta = 0
+let respuesta_correcta = "opcion"
 
 socket.on('mandar-pregunta', data => {
- // myModal.show() 
-  console.log(data.opciones)
- for (let i = 0; data.opciones; i++){
-    if (data.opciones[i] = 1){
-        respuesta_correcta = i
-      }
-  }
-  document.getElementById("id_titulo").innerHTML = data.pregunta.content
-  document.getElementById("opcion1").innerHTML = data.opciones[0].opcion
-  document.getElementById("opcion2").innerHTML = data.opciones[1].opcion
-  document.getElementById("opcion3").innerHTML = data.opciones[2].opcion
-  document.getElementById("opcion4").innerHTML = data.opciones[3].opcion  
-    console.log("pregunta", data);        
-});
+  // myModal.show()
+   document.getElementById("opcion0").style.backgroundColor = "#6c757d" 
+   document.getElementById("opcion1").style.backgroundColor = "#6c757d" 
+   document.getElementById("opcion2").style.backgroundColor = "#6c757d" 
+   document.getElementById("opcion3").style.backgroundColor = "#6c757d" 
+   console.log(data.opciones)
+   respuesta_correcta = data.opciones
+   document.getElementById("id_titulo").innerHTML = data.pregunta.content
+   document.getElementById("opcion0").innerHTML = data.opciones[0].opcion
+   document.getElementById("opcion1").innerHTML = data.opciones[1].opcion
+   document.getElementById("opcion2").innerHTML = data.opciones[2].opcion
+   document.getElementById("opcion3").innerHTML = data.opciones[3].opcion  
+   console.log("pregunta", data);
+   for (i in data.opciones){
+       if (data.opciones[i].correct == 1){
+             respuesta_correcta = "opcion"+i
+           }
+     }
+ });
 
 function unirseSala(sala_user) {
   

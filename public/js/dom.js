@@ -212,9 +212,10 @@ let estrellas4 = 0
 const CASILLEROS_ESTELARES = [6,14,20,27,40]
 const MAX_CASILLEROS = 43;
 
+let valor = 0
 
 function tirarDado(){
-  let valor = Math.floor(Math.random() * 6)+1
+    valor = Math.floor(Math.random() * 6)+1
     console.log(valor)
     if (jugador == 1){
         let ficha1 = '<div class="fichita fichita-p1"></div>'
@@ -265,10 +266,6 @@ function tirarDado(){
           document.getElementById(casillero4).innerHTML += ficha4
       }
     chequearPregunta(jugador)
-    jugador ++
-    if (jugador > 4){
-      jugador = 1
-    }
 }
 
 
@@ -393,5 +390,42 @@ let intervalo = window.setInterval(function(){
 
 function validar(btn) {
   let opcion = btn.id;
-  
+  if (opcion == respuesta_correcta) {
+    document.getElementById(btn.id).style.backgroundColor = "#00a135";
+  }
+  else {
+    document.getElementById(btn.id).style.backgroundColor = "#FF0000"
+    if (jugador == 1){
+      let ficha1 = '<div class="fichita fichita-p1"></div>'
+      variable = document.getElementsByClassName("fichita fichita-p1")[0]
+      variable.parentNode.removeChild(variable)
+      casillero1 -= valor
+      document.getElementById(casillero1).innerHTML += ficha1
+      }
+    else if (jugador == 2){
+      let ficha2 = '<div class="fichita fichita-p2"></div>'
+      variable = document.getElementsByClassName("fichita fichita-p2")[0]
+      variable.parentNode.removeChild(variable)
+      casillero2 -= valor
+      document.getElementById(casillero2).innerHTML += ficha2
+    }
+  else if (jugador == 3){
+    let ficha3 = '<div class="fichita fichita-p3"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p3")[0]
+    variable.parentNode.removeChild(variable)
+    casillero3 -= valor
+    document.getElementById(casillero3).innerHTML += ficha3
+    }
+else if (jugador == 4){
+  let ficha4 = '<div class="fichita fichita-p4"></div>'
+  variable = document.getElementsByClassName("fichita fichita-p4")[0]
+  variable.parentNode.removeChild(variable)
+  casillero4 -= valor
+  document.getElementById(casillero4).innerHTML += ficha4
+    }
+  }
+  jugador ++
+    if (jugador > 4){
+      jugador = 1
+    }
 }
