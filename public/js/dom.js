@@ -198,10 +198,10 @@ async function deleteJSON(dataDeleteUser) {
 
 let jugador = 1
 
-let casillero1 = 1
-let casillero2 = 1
-let casillero3 = 1
-let casillero4 = 1
+let casillero1 = 0
+let casillero2 = 0
+let casillero3 = 0
+let casillero4 = 0
 
 let estrellas1 = 0
 let estrellas2 = 0
@@ -211,7 +211,7 @@ let estrellas4 = 0
 
 
 const CASILLEROS_ESTELARES = []
-const MAX_CASILLEROS = 44;
+const MAX_CASILLEROS = 43;
 
 
 function tirarDado(){
@@ -275,14 +275,14 @@ function tirarDado(){
 
 
 function chequearPregunta(jugador){
-    let casillero = 0
-    if (jugador == 1){
-      casillero = casillero1
+    let casillero = -1
+    if (jugador = 1){
+       casillero = casillero1
     }
-    else if (jugador == 2){
+    else if (jugador = 2){
       casillero = casillero2
     }
-    else if (jugador == 3){
+    else if (jugador = 3){
       casillero = casillero3
     }
     else if (jugador = 4){
@@ -315,20 +315,24 @@ function chequearPregunta(jugador){
     if (CASILLEROS_ESTELARES.includes(casillero)){
       estelar = true
       } 
-    let data = {
-      pregunta : tipoPregunta,
-      preguntaEstelar : estelar
-    }
+      let data = {
+        pregunta : tipoPregunta,
+        preguntaEstelar : estelar
+      }
+    
     console.log(tipoPregunta)
+    console.log(estelar)
+    console.log(data)
     chequearPreguntaWS(data)
 }
 
 function validarRespuesta(){
   let respuesta = {
-    opcion : respuesta
+    opciones : data.opciones
   }
   fetchRespuesta(respuesta)
 }
+
 
 async function fetchRespuesta(data) {
   try {
