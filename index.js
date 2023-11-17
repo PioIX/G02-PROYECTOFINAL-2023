@@ -37,10 +37,12 @@ app.use(express.static('public')); //Expongo al lado cliente la carpeta "public"
 app.use(bodyParser.urlencoded({ extended: false })); //Inicializo el parser JSON
 app.use(bodyParser.json());
 
+app.use(require('cors')())
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'})); //Inicializo Handlebars. Utilizo como base el layout "Main".
 app.set('view engine', 'handlebars'); //Inicializo Handlebars
 
-const Listen_Port = 3000; //Puerto por el que estoy ejecutando la página Web
+const Listen_Port = 3002; //Puerto por el que estoy ejecutando la página Web
 
 const server = app.listen(Listen_Port, function() {
   console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
@@ -177,11 +179,16 @@ app.post("/login", async (req, res) => {
         if(usuarios[i].gmail == req.body.email) {
           if(usuarios[i].password == req.body.password) {
             verificar = 1
-            req.session.id_usuario = usuarios[i].id_player
-            if (usuarios[i].admin == true) {
+            if (usuarios[i].admin == 1) {
               verificar = 2
+              req.session.user = usuarios[i].username
               req.session.id_usuario = usuarios[i].id_player
             }
+            else{
+              req.session.id_usuario = usuarios[i].id_player
+              req.session.user = usuarios[i].username
+            }
+            req.session.save()
           }
         }
       }
@@ -229,6 +236,8 @@ app.post('/createRoom', async function(req, res) {
   }
   else{
     let response = await MySQL.realizarQuery(`INSERT INTO rooms (id_room, player1, player2, player3, player4) VALUES(${req.body.sala},${req.session.id_usuario}, ${-1}, ${-1}, ${-1})`)
+    req.session.sala = req.body.sala.toString();
+    req.session.save();
     res.send({validar:true})    
   }
 });
@@ -284,14 +293,17 @@ app.put('/joinGame', async function(req, res) {
       //Armo un objeto para responder
       if(respuesta[0].player2 == -1) {
         let response = await MySQL.realizarQuery(`UPDATE rooms SET player2 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        req.session.sala = req.body.sala.toString();
         res.send({validar:true}) 
       }
       if(respuesta[0].player2 != -1) {
         let response = await MySQL.realizarQuery(`UPDATE rooms SET player3 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        req.session.sala = req.body.sala.toString();
         res.send({validar:true}) 
       }
       if(respuesta[0].player3 != -1) {
         let response = await MySQL.realizarQuery(`UPDATE rooms SET player4 = ${req.session.id_usuario} WHERE id_room = ${req.body.sala}`)
+        req.session.sala = req.body.sala.toString();
         res.send({validar:true}) 
       }
       if(respuesta[0].player2 != -1 && respuesta[0].player3 != -1 && respuesta[0].player4 != -1) {
@@ -337,31 +349,26 @@ app.put('/joinGame', async function(req, res) {
   }
   }
 
+let rooms = {}
+
   io.on('connection',(socket) => {
-    console.log("estoy conectado")
     const req = socket.request;
-    socket.on('crear-sala', data => {
-      socket.join("room-"+data.sala.toString())
-      req.session.sala = data.sala;
-      console.log(req.session.sala)
-      console.log(socket.id)
-      req.session.id_usuario = socket.id
-      console.log(socket.id)
-      req.session.save()
-      io.emit("comenzar-partida", {hola: "hola"})
-      console.log("SE CREO LA SALA:", data.sala)
-  })
     socket.on('unirse-sala', data => {
-      socket.join("room-"+data.sala.toString())
-      req.session.sala = data.sala;
-      console.log(req.session.sala)
+      socket.join("room-"+data.rooms)
+      rooms["room-"+data.rooms] = [req.session.id_usuario]
       io.emit("conexion-user", {user: req.session.id_usuario})
-      req.session.save()
       console.log("se unio el usuario con id: ", req.session.id_usuario)
       console.log()
 
-      console.log("ME UNI A LA SALA:", data.sala)
-  });
+      console.log("ME UNI A LA SALA:", data.rooms)
+    
+    });
+
+    socket.on('iniciar-partida', data => {
+      console.log("llegue, " , data)
+      io.to("room-"+data).emit("empieza-partida", {username: req.session.user})
+    });
+
     io.on("tipo-pregunta", async data =>{
       let preguntaMostrar = ""
         if (data.pregunta != "random"){
