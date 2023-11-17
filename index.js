@@ -320,6 +320,7 @@ async function createRoom(data, session, res) {
                 }
             }
           }
+        
       opciones = await MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = ${preguntaMostrar.id_question}`)
       let objeto = {
         pregunta : preguntaMostrar,
@@ -328,7 +329,7 @@ async function createRoom(data, session, res) {
       }
 
       socket.emit("mandar-pregunta", objeto);
-      console.log(objeto.pregunta)
+      console.log(objeto.opciones)
   })
 })
 

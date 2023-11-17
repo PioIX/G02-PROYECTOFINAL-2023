@@ -194,7 +194,6 @@ async function deleteJSON(dataDeleteUser) {
     putJSON(dataEditQuestion)
   }
 
- 
 
 let jugador = 1
 
@@ -210,7 +209,7 @@ let estrellas4 = 0
 
 
 
-const CASILLEROS_ESTELARES = []
+const CASILLEROS_ESTELARES = [6,14,20,27,40]
 const MAX_CASILLEROS = 43;
 
 
@@ -276,16 +275,16 @@ function tirarDado(){
 
 function chequearPregunta(jugador){
     let casillero = -1
-    if (jugador = 1){
+    if (jugador == 1){
        casillero = casillero1
     }
-    else if (jugador = 2){
+    else if (jugador == 2){
       casillero = casillero2
     }
-    else if (jugador = 3){
+    else if (jugador == 3){
       casillero = casillero3
     }
-    else if (jugador = 4){
+    else if (jugador == 4){
       casillero = casillero4
     }
     let tipoPregunta = ""
@@ -326,13 +325,6 @@ function chequearPregunta(jugador){
     chequearPreguntaWS(data)
 }
 
-function validarRespuesta(){
-  let respuesta = {
-    opciones : data.opciones
-  }
-  fetchRespuesta(respuesta)
-}
-
 
 async function fetchRespuesta(data) {
   try {
@@ -350,13 +342,7 @@ async function fetchRespuesta(data) {
 
     if (result.validar == false) {
       alert("")
-    } else {
-      //Envio el formularia desde dom para cambiar de pagina
-      //Podria usar tambien un changeScreen()
-      alert("El puntaje del usuario ha sido eliminado correctamente")
-      
-      
-    }
+      }
 
   } catch (error) {
     console.error("Error:", error);
@@ -394,3 +380,13 @@ function showUnirseSala() {
   }
 }
 
+var n = 30;
+let intervalo = window.setInterval(function(){
+  document.getElementById("number").innerHTML = n;
+  if (n >= 1){
+    n--;
+  }
+  else{
+    clearInterval(intervalo);
+  }
+},1000);

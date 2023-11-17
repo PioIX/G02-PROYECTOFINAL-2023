@@ -360,3 +360,21 @@ body{
     top: 3px;
     left: 38px;
 }
+
+#myModal {
+    width: 500px;
+    position: absolute;
+    top: 28%;
+    left: 0;
+    bottom: 22%;
+    right: 0;
+    margin: auto;
+    font-family: 'Inter', sans-serif;
+
+}
+
+
+#number {
+    font-size:30px;
+    color:#000000;
+  }
