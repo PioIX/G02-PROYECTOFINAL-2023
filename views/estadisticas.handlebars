@@ -1,0 +1,47 @@
+<main>
+    <style>
+        table{
+            background-color: #bbedf7;
+            text-align: left;
+            border-collapse: collapse;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+
+        }
+
+        th, td{
+	        padding: 20px;
+        }
+
+        thead{
+	        background-color: #003a55;
+	        border-bottom: solid 5px #01ddff;
+	        color: white;
+        }
+
+        tr:nth-child(even){
+	        background-color: #01ddff;
+        }
+        
+        #main-container{
+	        margin: 50px auto;
+	        width: 600px;
+        }
+</style>
+    <center><h1 class="texto">Bienvenido a la pagina de puntajes!</h1></center>
+    <div id="main-container">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+        {{#each users}}
+            <tr>
+                <td>{{this.username}}</td>
+                <td>{{this.puntaje}}</td>
+            </tr>
+        {{/each}}
+    </table>
+</main>

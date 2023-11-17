@@ -371,32 +371,41 @@ let rooms = {}
 
     io.on("tipo-pregunta", async data =>{
       let preguntaMostrar = ""
+
         if (data.pregunta != "random"){
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions WHERE category = ${data.pregunta} and stellar_question = ${data.preguntaEstelar}`)
-          let cantidad = preguntas.length()
-          let numero = Math.floor(Math.random() * cantidad);
+          let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = ${data.preguntaEstelar}`)
+          console.log(preguntas)
+          let cantidad = preguntas.length
+          console.log(cantidad)
+          let numero = Math.floor(Math.random() * cantidad - 1);
           for (i in preguntas){
             if (i = numero){
               preguntaMostrar = preguntas[i]
             }
           }
+          console.log(preguntas)
+
         }  
         else {
-          let preguntas = MySQL.realizarQuery(`SELECT * FROM questions`)
-          let cantidad = preguntas.length()
-          let num = Math.floor(Math.random() * cantidad);
+          let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions where stellar_question = false`)
+          let cantidad = preguntas.length
+          let num = Math.floor(Math.random() * cantidad -1);
           for (i in preguntas){
             if (i = num){
               preguntaMostrar = preguntas[i]
                 }
             }
           }
+      console.log(preguntaMostrar)
+      opciones = await MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = ${preguntaMostrar.id_question}`)
       let objeto = {
-        pregunta : preguntaMostrar
+        pregunta : preguntaMostrar,
+        id : preguntaMostrar.id_question,
+        opciones : opciones
       }
 
-      io.emit("mandar-pregunta", objeto);
-      console.log(objeto.pregunta)
+      socket.emit("mandar-pregunta", objeto);
+      console.log(objeto.opciones)
   })
 })
 
@@ -480,4 +489,9 @@ app.post('/addOption',async function(req, res) {
   else {
       res.send({validar: comprobacionFalse})
   }
+})
+
+
+app.put('validarRespuesta', async function(req, res){
+    pregunta = MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = 0`)
 })

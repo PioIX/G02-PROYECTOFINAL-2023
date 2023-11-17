@@ -1,4 +1,3 @@
-
 async function deleteJSON4(dataDeleteUser) {
     //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
   
@@ -196,62 +195,159 @@ async function deleteJSON4(dataDeleteUser) {
   }
 
 
-let casillero = 0
+let jugador = 1
 
-const CASILLEROS_ESTELARES = []
+let casillero1 = 0
+let casillero2 = 0
+let casillero3 = 0
+let casillero4 = 0
+
+let estrellas1 = 0
+let estrellas2 = 0
+let estrellas3 = 0
+let estrellas4 = 0
+
+
+
+const CASILLEROS_ESTELARES = [6,14,20,27,40]
 const MAX_CASILLEROS = 43;
 
-function tirarDado(){
-    let valor = Math.floor(Math.random() * 6)+1
-    console.log(valor)
-    casillero += valor
-    if (casillero > MAX_CASILLEROS){
-        casillero = casillero % MAX_CASILLEROS
-        console.log(casillero)
-    }
 
+function tirarDado(){
+  let valor = Math.floor(Math.random() * 6)+1
+    console.log(valor)
+    if (jugador == 1){
+        let ficha1 = '<div class="fichita fichita-p1"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p1")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero1 += valor
+        if (casillero1 > MAX_CASILLEROS){
+          casillero1 = casillero1 % MAX_CASILLEROS
+          console.log(casillero1)
+          }
+          document.getElementById(casillero1).innerHTML += ficha1
+      }
+    else if (jugador == 2){
+        let ficha2 = '<div class="fichita fichita-p2"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p2")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero2 += valor
+        if (casillero2 > MAX_CASILLEROS){
+          casillero2 = casillero2 % MAX_CASILLEROS
+          console.log(casillero2)
+          }
+          document.getElementById(casillero2).innerHTML += ficha2
+      }
+    else if (jugador == 3){
+        let ficha3 = '<div class="fichita fichita-p3"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p3")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero3 += valor
+        if (casillero3 > MAX_CASILLEROS){
+          casillero3 = casillero3 % MAX_CASILLEROS
+          console.log(casillero3)
+          }
+          document.getElementById(casillero3).innerHTML += ficha3
+      }
+    else if (jugador == 4){
+        let ficha4 = '<div class="fichita fichita-p4"></div>'
+        variable = document.getElementsByClassName("fichita fichita-p4")[0]
+        variable.parentNode.removeChild(variable)
+        console.log(variable)
+        casillero4 += valor
+        if (casillero4 > MAX_CASILLEROS){
+          casillero4 = casillero4 % MAX_CASILLEROS
+          console.log(casillero4)
+          }
+          document.getElementById(casillero4).innerHTML += ficha4
+      }
+    chequearPregunta(jugador)
+    jugador ++
+    if (jugador > 4){
+      jugador = 1
+    }
 }
 
 
-function chequearPregunta(){
+
+function chequearPregunta(jugador){
+    let casillero = -1
+    if (jugador == 1){
+       casillero = casillero1
+    }
+    else if (jugador == 2){
+      casillero = casillero2
+    }
+    else if (jugador == 3){
+      casillero = casillero3
+    }
+    else if (jugador == 4){
+      casillero = casillero4
+    }
     let tipoPregunta = ""
     let estelar = false
     let tipoCasillero = document.getElementById(casillero)
     let casilleroStyle = window.getComputedStyle(tipoCasillero);
     let color_casillero = casilleroStyle.getPropertyValue('background-color');
-    if (color_casillero = 'rgb(255, 201, 35)'){
-        tipoPregunta = "historia"
-    }
-    else if (color_casillero = 'rgb(255, 156, 0)' ){
-        tipoPregunta = "deportes"
-    }
-    else if (color_casillero = 'rgb(244, 67, 54)' ){
-        tipoPregunta = "arte"
-    }
-    else if (color_casillero = 'rgb(11, 102, 49)' ){
-        tipoPregunta = "ciencia"
-    }
-    else if (color_casillero = 'rgb(255, 130, 191)' ){
-        tipoPregunta = "entretenimiento"
-    }
-    else if (color_casillero = 'rgb(153, 153, 153)' ){
+    console.log(color_casillero)
+    if (color_casillero == 'rgb(255, 201, 35)'){
+        tipoPregunta = "Historia"
+      }
+    else if (color_casillero == 'rgb(255, 156, 0)' ){
+        tipoPregunta = "Deporte"
+      }
+    else if (color_casillero == 'rgb(244, 67, 54)' ){
+        tipoPregunta = "Arte"
+      }
+    else if (color_casillero == 'rgb(11, 102, 49)' ){
+        tipoPregunta = "Ciencia"
+      }
+    else if (color_casillero == 'rgb(255, 130, 191)' ){
+        tipoPregunta = "Entretenimiento"
+      }
+    else if (color_casillero == 'rgb(153, 153, 153)' ){
         tipoPregunta = "random"
-    }
+      } 
     if (CASILLEROS_ESTELARES.includes(casillero)){
       estelar = true
-    } 
-    let data = {
-      pregunta : tipoPregunta,
-      preguntaEstelar : estelar
-    }
+      } 
+      let data = {
+        pregunta : tipoPregunta,
+        preguntaEstelar : estelar
+      }
+    
+    console.log(tipoPregunta)
+    console.log(estelar)
+    console.log(data)
     chequearPreguntaWS(data)
 }
 
-/*function validarRespuesta(){
-  let respuesta = 0
-  if (){}
-}*/
 
+async function fetchRespuesta(data) {
+  try {
+    const response = await fetch("/validarRespuesta", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("")
+      }
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 
 function agregarPregunta(){
@@ -285,3 +381,18 @@ function showUnirseSala() {
 };
 
 
+var n = 30;
+let intervalo = window.setInterval(function(){
+  document.getElementById("number").innerHTML = n;
+  if (n >= 1){
+    n--;
+  }
+  else{
+    clearInterval(intervalo);
+  }
+},1000);
+
+function validar(btn) {
+  let opcion = btn.id;
+  
+}
