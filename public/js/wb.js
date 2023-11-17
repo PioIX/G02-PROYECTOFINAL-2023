@@ -178,3 +178,10 @@ async function unirseRoom(dataJoinRoom) {
 socket.on("conexion-user", data => {
     console.log("SE UNIO USUARIO CON ID: ", data.user)
 });
+
+socket.on("comenzar-partida", data => {
+  let div = document.getElementById("jesusHelp")
+  div.innerHTML += `
+    <button">Comenzar Partida</button>
+  `
+})

@@ -344,7 +344,11 @@ app.put('/joinGame', async function(req, res) {
       socket.join("room-"+data.sala.toString())
       req.session.sala = data.sala;
       console.log(req.session.sala)
+      console.log(socket.id)
+      req.session.id_usuario = socket.id
+      console.log(socket.id)
       req.session.save()
+      io.emit("comenzar-partida", {hola: "hola"})
       console.log("SE CREO LA SALA:", data.sala)
   })
     socket.on('unirse-sala', data => {
@@ -418,7 +422,7 @@ app.delete('/deleteUser',async function(req, res) {
   let comprobacionTrue = true
   let comprobacionFalse = false
   if (req.body.playerName.length>0 && req.body.playerName.length>0) {
-      await MySQL.realizarQuery(`DELETE * FROM users WHERE username = "${req.body.playerName}"`)
+      await MySQL.realizarQuery(`DELETE FROM players WHERE username = "${req.body.playerName}"`)
       res.send({validar: comprobacionTrue})
   }
   else {
@@ -426,12 +430,12 @@ app.delete('/deleteUser',async function(req, res) {
   }
 })
 
-app.delete('/deletePuntajes',async function(req, res) {
+app.delete('/deletePuntaje',async function(req, res) {
   let comprobacionTrue = true
   let comprobacionFalse = false
-  let user = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.playerName}" `)
-  let id_user = user[i].id_player
-  if (req.body.playerName.length>0) {
+  let user = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.playerNamePoints}" `)
+  let id_user = user[0].id_player
+  if (req.body.playerNamePoints.length>0) {
       await MySQL.realizarQuery(`DELETE FROM points WHERE id_player = ${id_user}`)
       res.send({validar: comprobacionTrue})
   }
