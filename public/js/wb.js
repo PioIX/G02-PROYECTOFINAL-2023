@@ -22,7 +22,7 @@ function chequearPreguntaWS(data){
 }
 
 socket.on('mandar-pregunta', data => {
-  // myModal.show()
+  mostrarModal()
   cronometro()
    document.getElementById("opcion0").style.backgroundColor = "#6c757d" 
    document.getElementById("opcion1").style.backgroundColor = "#6c757d" 
@@ -41,6 +41,7 @@ socket.on('mandar-pregunta', data => {
              respuesta_correcta = "opcion"+i
            }
      }
+     desbloquearBotones()
  });
 
 function unirseSala() {

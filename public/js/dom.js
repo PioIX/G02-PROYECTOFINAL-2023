@@ -384,11 +384,12 @@ function cronometro(){
   var n = 15;
   let intervalo = window.setInterval(function(){
     document.getElementById("number").innerHTML = n;
-    if (n >= 1){
+    if (n >= 0){
       n--;
     }
     else{
       clearInterval(intervalo);
+      mostrarModal()
     }
     btns = document.getElementsByClassName("btn btn-secondary")
     for (i in btns){
@@ -396,6 +397,7 @@ function cronometro(){
       let color_btn = btnStyle.getPropertyValue('background-color')
       if (color_btn != 'rgb(108, 117, 125)'){
         clearInterval(intervalo)
+        mostrarModal()
         break
       }
     }
@@ -457,16 +459,33 @@ else if (jugador == 4){
     if (jugador > 4){
       jugador = 1
     }
-  bloquearBotones()
 }
 
-
-
+const btn0 = document.getElementById("opcion0");
+const btn1 = document.getElementById("opcion1");
+const btn2 = document.getElementById("opcion2");
+const btn3 = document.getElementById("opcion3");
 
 function bloquearBotones(){
-
+  btn0.disabled = true
+  btn1.disabled = true
+  btn2.disabled = true
+  btn3.disabled = true
 }
 
 function desbloquearBotones(){
-  
+  btn0.disabled = false
+  btn1.disabled = false
+  btn2.disabled = false
+  btn3.disabled = false
+}
+
+
+function mostrarModal() {
+  var x = document.getElementById("myModal");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
 }
