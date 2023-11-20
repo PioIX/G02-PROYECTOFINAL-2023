@@ -297,10 +297,10 @@ let users2 = []
       console.log("llegue, " , data)
       io.to("room-"+data).emit("empieza-partida", {usernames: users2})
     });
-
+  })
     io.on("tipo-pregunta", async data =>{
       let preguntaMostrar = ""
-    socket.on("tipo-pregunta", async data =>{
+      socket.on("tipo-pregunta", async data =>{
         let preguntaMostrar = 0
         console.log(data.pregunta)
 
@@ -423,7 +423,10 @@ app.post('/addOption',async function(req, res) {
   }
 })
 
+app.put('validarRespuesta', async function(req, res){
+  pregunta = await MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = 0`)
+});
 
 app.put('validarRespuesta', async function(req, res){
-    pregunta = MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = 0`)
-})
+  pregunta = await MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = 0`)
+});

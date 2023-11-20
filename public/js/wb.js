@@ -234,6 +234,7 @@ socket.on("empieza-partida", data => {
 )
 
 socket.on("actualizar", data => {
-    document.getElementById("usersInRoom").innerHTML =  "Usuarios conectados: " + data.users
+  console.log("hola")
+  document.getElementById("usersInRoom").innerHTML =  "Usuarios conectados: " + data.users
 })
 
