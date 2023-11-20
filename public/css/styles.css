@@ -304,3 +304,42 @@ body{
     font-size: 15px;
 }
 
+.fichitaGrandeP1 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: #309BEF;
+    border: solid black 1px;
+    top: 3%;
+    left: 2%;
+}
+
+.fichitaGrandeP2 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: #24F7B0;
+    border: solid black 1px;
+    top: 3%;
+    right: 2%;
+}
+
+.fichitaGrandeP3 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: #9724F7;
+    border: solid black 1px;
+    bottom: 3%;
+    left: 2%;
+}
+
+.fichitaGrandeP4 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: #85F83B;
+    border: solid black 1px;
+    bottom: 3%;
+    right: 2%;
+}
