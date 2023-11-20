@@ -45,11 +45,7 @@ socket.on('mandar-pregunta', data => {
  });
 
 function unirseSala(sala_user) {
-  
-  
-  console.log(sala_user)
-  
-    socket.emit("unirse-sala", {sala: sala_user});
+  socket.emit("unirse-sala", {sala: sala_user});
 }
 
 function crearSala(sala_user) {
