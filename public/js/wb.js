@@ -25,6 +25,7 @@ let respuesta_correcta = "opcion"
 
 socket.on('mandar-pregunta', data => {
   // myModal.show()
+  cronometro()
    document.getElementById("opcion0").style.backgroundColor = "#6c757d" 
    document.getElementById("opcion1").style.backgroundColor = "#6c757d" 
    document.getElementById("opcion2").style.backgroundColor = "#6c757d" 

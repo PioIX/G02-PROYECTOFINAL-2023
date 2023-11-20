@@ -377,21 +377,50 @@ function showUnirseSala() {
   }
 }
 
-var n = 30;
-let intervalo = window.setInterval(function(){
-  document.getElementById("number").innerHTML = n;
-  if (n >= 1){
-    n--;
+
+
+function cronometro(){
+  document.getElementById("number").innerHTML = "";
+  var n = 15;
+  let intervalo = window.setInterval(function(){
+    document.getElementById("number").innerHTML = n;
+    if (n >= 1){
+      n--;
+    }
+    else{
+      clearInterval(intervalo);
+    }
+    btns = document.getElementsByClassName("btn btn-secondary")
+    for (i in btns){
+      let btnStyle = window.getComputedStyle(btns[i]);
+      let color_btn = btnStyle.getPropertyValue('background-color')
+      if (color_btn != 'rgb(108, 117, 125)'){
+        clearInterval(intervalo)
+        break
+      }
+    }
+  },1000);
   }
-  else{
-    clearInterval(intervalo);
-  }
-},1000);
+
+
+
 
 function validar(btn) {
   let opcion = btn.id;
   if (opcion == respuesta_correcta) {
     document.getElementById(btn.id).style.backgroundColor = "#00a135";
+    if (jugador == 1){
+      estrellas1 += 1
+    }
+    if (jugador == 2){
+      estrellas2 += 1
+    }
+    if (jugador == 3){
+      estrellas3 += 1
+    }
+    if (jugador == 4){
+      estrellas4 += 1
+    }
   }
   else {
     document.getElementById(btn.id).style.backgroundColor = "#FF0000"
@@ -428,4 +457,16 @@ else if (jugador == 4){
     if (jugador > 4){
       jugador = 1
     }
+  bloquearBotones()
+}
+
+
+
+
+function bloquearBotones(){
+
+}
+
+function desbloquearBotones(){
+  
 }

@@ -416,6 +416,3 @@ app.post('/addOption',async function(req, res) {
 })
 
 
-app.put('validarRespuesta', async function(req, res){
-    pregunta = MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = 0`)
-})
