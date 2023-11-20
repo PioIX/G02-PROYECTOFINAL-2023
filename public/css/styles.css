@@ -4,117 +4,12 @@
     background-color: black;
     color: white;
     text-align: center;
+    font-family: 'Inter', sans-serif;
 }
 
 body{
-    background-image: url("/images/Madera.jpg");
-}
-
-.form-container{
-    background-color: #fff;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 0;
-    padding: 47px;
-    border-radius: 50px;
-    box-shadow: 0 0 25px -15px rgba(0, 0, 0, 0.3);
-    width: 500px;
-    position: absolute;
-    top: 26%;
-    left: 0;
-    bottom: 22%;
-    right: 0;
-    margin: auto;
-}
-.form-container .title{
-    color: #000;
-    font-size: 25px;
-    font-weight: 600;
-    text-transform: capitalize;
-    margin: 0 0 25px;
-}
-.form-container .title:after{
-    content: '';
-    background-color: #000000;
-    height: 3px;
-    width: 60px;
-    margin: 10px 0 0;
-    display: block;
-    clear: both;
-}
-.form-container .sub-title{
-    color: #333;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 0 0 20px;
-}
-.form-container .form-horizontal{ font-size: 0; }
-.form-container .form-horizontal .form-group{
-    color: #333;
-    width: 50%;
-    padding: 0 8px;
-    margin: 0 0 15px;
-    display: inline-block;
-}
-.form-container .form-horizontal .form-group:nth-child(4){ margin-bottom: 30px; }
-.form-container .form-horizontal .form-group label{
-    font-size: 17px;
-    font-weight: 600;
-}
-.form-container .form-horizontal .form-control{
-    color: #888;
-    background: #fff;
-    font-weight: 400;
-    letter-spacing: 1px;
-    height: 40px;
-    padding: 6px 12px;
-    border-radius: 10px;
-    border: 2px solid #000000;
-    box-shadow: none;
-}
-
-.form-container .form-horizontal .form-control:focus{ box-shadow: 0 0 5px #dcdcdc; }
-.form-container .form-horizontal .check-terms{
-    padding: 0 8px;
-    margin: 0 0 25px;
-}
-.form-container .form-horizontal .check-terms .check-label{
-    color: #333;
-    font-size: 14px;
-    font-weight: 500;
-    font-style: italic;
-    vertical-align: top;
-    display: inline-block;
-}
-.form-container .form-horizontal .check-terms .checkbox{
-    height: 17px;
-    width: 17px;
-    min-height: auto;
-    margin: 2px 8px 0 0;
-    border: 2px solid #d9d9d9;
-    border-radius: 2px;
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    transition: all 0.3s ease 0s;
-}
-
-.form-container .form-horizontal .btn:hover,
-.form-container .form-horizontal .btn:focus{
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
-    box-shadow: 3px 3px rgba(0,0,0,0.15),5px 5px rgba(0,0,0,0.1);
-    outline: none;
-}
-@media only screen and (max-width:479px){
-    .form-container .form-horizontal .form-group{ width: 100%; }
-    .form-container .signin-link{
-        width: 100%;
-        margin: 0 10px 15px;
-    }
+    background-image: url("/images/cuadrille.png");
+    font-family: 'Inter', sans-serif;
 }
 
 .botonlogin {
@@ -131,9 +26,10 @@ body{
     bottom: 14%;
     left: 15%;
     width: 137px;
+    font-family: 'Inter', sans-serif;
 }
 
-.botonregistro2 {
+.botonregistro {
     color: #fff;
     background-color: #b88b5c;
     border-color:#b88b5c;
@@ -146,6 +42,23 @@ body{
     position: absolute;
     bottom: 14%;
     right: 15%;
+    font-family: 'Inter', sans-serif;
+}
+
+.botonregistro2 {
+    color: #fff;
+    background-color: #8b6e4e;
+    border-color:#8b6e4e;
+    padding: 10px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 9%;
+    right: 35%;
+    font-family: 'Inter', sans-serif;
 }
 
 
@@ -211,52 +124,13 @@ li:hover span {
 
 #reglas {
     position: absolute;
-    top: 50%;
-    bottom: 50;
-    left: 50%;
-    right: 50%; 
+    top: 10%;
+    bottom: 10%;
+    left: 25%;
+    font-family: 'Inter', sans-serif;
+ 
 }
 
-.square {
-    color: black;
-    padding: 35px 5px;
-    width: 70px;
-    height: 50px;
-    border-radius: 4px;
-    background: red;
-    border-color: black;
-    margin-bottom: 2px;
-    margin-top: 3px;
-    border-color: #000;
-}
-
-.squareMedio {
-    color: black;
-    padding: 35px 5px;
-    width: 70px;
-    height: 50px;
-    border-radius: 4px;
-    background-color: blue;
-    border-color: black;
-    position: relative;
-    left: 19.15%;
-    margin-top: 3px;
-    border-color: #000;
-}
-
-.squareMedio2 {
-    color: black;
-    padding: 35px 5px;
-    width: 70px;
-    height: 50px;
-    border-radius: 4px;
-    background-color: orange;
-    border-color: black;
-    position: absolute;
-    left: 29.16%;
-    margin-top: 3px;
-    border-color: #000;
-}
 
 *{
     padding: 0;
@@ -333,46 +207,6 @@ body{
     position: relative;
 }
 
-.fichitaGrandeP1 {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    background-color: #309BEF;
-    border: solid black 1px;
-    top: 3%;
-    left: 2%;
-}
-
-.fichitaGrandeP2 {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    background-color: #24F7B0;
-    border: solid black 1px;
-    top: 3%;
-    right: 2%;
-}
-
-.fichitaGrandeP3 {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    background-color: #9724F7;
-    border: solid black 1px;
-    bottom: 3%;
-    left: 2%;
-}
-
-.fichitaGrandeP4 {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    background-color: #85F83B;
-    border: solid black 1px;
-    bottom: 3%;
-    right: 2%;
-}
-
 .fichita-p1 {
     background-color: #309BEF;
     border: solid black 1px;
@@ -399,5 +233,74 @@ body{
     border: solid black 1px;
     top: 3px;
     left: 38px;
+}
+
+
+.menu {
+    font-size: 75px;
+    color: white; 
+}
+
+#contenedor {
+
+    width: 500px;
+    position: absolute;
+    top: 28%;
+    left: 0;
+    bottom: 22%;
+    right: 0;
+    margin: auto;
+    font-family: 'Inter', sans-serif;
+
+}
+
+#myModal {
+    height: 800px;
+    width: 600px;
+    position: absolute;
+    top: 28%;
+    left: 0;
+    bottom: 22%;
+    right: 0;
+    margin: auto;
+    font-family: 'Inter', sans-serif;
+
+}
+  
+  
+.texto {
+    position: absolute;
+    top: 19%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+#dado {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+#number {
+    font-size:30px;
+    color:#000000;
+  }
+
+
+.estrella{
+    width: 25px;
+    height: 25px;
+
+}
+
+#id_titulo {
+    font-size: 15px;
 }
 

@@ -1,41 +1,36 @@
-
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<form action="/deleteUser" method="DELETE">
     <h2>Eliminar Usuario</h2>
     <label for="Eliminar usuario">Eliminar Usuario</label>
-        <select id="delete1">
-            {{#each users}}
-                <option value="{{this.username}}">{{this.username}}</option>
-            {{/each}}
-        </select>
-        <button onclick="deleteUser()">Borrar Usuario</button>
-</div>
+    <select id="delete1">
+        {{#each users}}
+            <option value="{{this.username}}">{{this.username}}</option>
+        {{/each}}
+    </select>
+</form>
 
-
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<form action="/deletePuntajes" method="DELETE">
     <h2>Eliminar Puntaje</h2>
-        <label for="Eliminar puntaje">Eliminar puntaje</label>
-        <select id="delete2">
-            {{#each users}}
-                <option value="{{this.username}}">{{this.username}}</option>
-            {{/each}}
-        </select>
-    <button onclick="deletePuntaje()">Eliminar puntaje</button>
-</div>
+    <label for="Eliminar puntaje">Eliminar puntaje</label>
+    <select id="delete2">
+        {{#each points}}
+            <option value="{{this.id_player}}">{{this.id_player}}</option>
+        {{/each}}
+    </select>
+</form>
 
-
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<form action="/deletePreguntas" method="DELETE">
     <h2>Eliminar Preguntas</h2>
-    <label for="Eliminar pregunta">Eliminar pregunta </label>
+    <label for="Eliminar puntaje">Eliminar preguntas</label>
     <select id="delete3">
-        {{#each preguntas}}
+        {{#each questions}}
             <option value="{{this.content}}">{{this.content}}</option>
         {{/each}}
     </select>
-</div>
+</form>
 
 
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
-    <center><h2>Agregar pregunta</h2></center>
+<form action="/addQuestion" method="POST">
+    <h2>Agregar pregunta</h2>
     <label for="Agregar pregunta">Agregar pregunta</label>
     <input id="newQuestion">
     <label for="Agregar categoria">Agregar categoria</label>
@@ -51,9 +46,10 @@
         <option value="true">True</option>
         <option value="false">False</option>
     </select>
-</div>
+    
+</form>
 
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<form action="/editQuestion" method="PUT">
     <h2>Editar pregunta</h2>
     <label for="Editar pregunta">Editar pregunta</label>
     <select id="edit1">
@@ -71,10 +67,10 @@
         <option value="Ciencia">Ciencia</option>
         <option value="Entretenimiento">Entretenimiento</option>
     </select>
-</div>    
+    
+</form>
 
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
-
+<form action="/addOption" method="POST">
     <h2>Añadir opcion a pregunta</h2>
     <label for="Editar pregunta">Añadir opcion a pregunta</label>
     <select id="edit1">
@@ -89,9 +85,9 @@
         <option value="true">True</option>
         <option value="false">False</option>
     </select>
-</div>
+</form>
 
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<form action="/editOption" method="PUT">
     <h2>Editar opcion a pregunta</h2>
     <label for="Editar pregunta">Editar opcion a pregunta</label>
     <select id="edit1">
@@ -101,9 +97,9 @@
     </select>
     <input id="editQuestion">
     <input id="editDefinition">
-</div>
+</form>
 
-<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<form action="/deleteOption" method="DELETE">
     <h2>Eliminar opcion a pregunta</h2>
     <label for="Editar pregunta">Eliminar opcion a pregunta</label>
     <select id="edit1">
@@ -111,6 +107,6 @@
             <option value="{{this.content}}">{{this.content}}</option>
         {{/each}}
     </select>
-</div>
+</form>
 
 
