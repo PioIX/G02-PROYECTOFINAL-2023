@@ -350,7 +350,8 @@ app.put('/joinGame', async function(req, res) {
   }
 
 let rooms = {}
-
+let users = 0
+let users2 = []
   io.on('connection',(socket) => {
     const req = socket.request;
     socket.on('unirse-sala', data => {
@@ -358,7 +359,11 @@ let rooms = {}
       rooms["room-"+data.rooms] = [req.session.id_usuario]
       io.emit("conexion-user", {user: req.session.id_usuario})
       console.log("se unio el usuario con id: ", req.session.id_usuario)
-      console.log()
+      users++
+      users2.push(req.session.user)
+      io.emit("actualizar", {users: users, username: users2})
+      console.log(users)
+
 
       console.log("ME UNI A LA SALA:", data.rooms)
     
@@ -366,7 +371,7 @@ let rooms = {}
 
     socket.on('iniciar-partida', data => {
       console.log("llegue, " , data)
-      io.to("room-"+data).emit("empieza-partida", {username: req.session.user})
+      io.to("room-"+data).emit("empieza-partida", {usernames: users2})
     });
 
     io.on("tipo-pregunta", async data =>{
