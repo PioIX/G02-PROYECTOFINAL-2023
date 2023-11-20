@@ -22,9 +22,26 @@ function chequearPreguntaWS(data){
 }
 
 socket.on('mandar-pregunta', data => {
-    
-    console.log("pregunta", data);        
-});
+  // myModal.show()
+  cronometro()
+   document.getElementById("opcion0").style.backgroundColor = "#6c757d" 
+   document.getElementById("opcion1").style.backgroundColor = "#6c757d" 
+   document.getElementById("opcion2").style.backgroundColor = "#6c757d" 
+   document.getElementById("opcion3").style.backgroundColor = "#6c757d" 
+   console.log(data.opciones)
+   respuesta_correcta = data.opciones
+   document.getElementById("id_titulo").innerHTML = data.pregunta.content
+   document.getElementById("opcion0").innerHTML = data.opciones[0].opcion
+   document.getElementById("opcion1").innerHTML = data.opciones[1].opcion
+   document.getElementById("opcion2").innerHTML = data.opciones[2].opcion
+   document.getElementById("opcion3").innerHTML = data.opciones[3].opcion  
+   console.log("pregunta", data);
+   for (i in data.opciones){
+       if (data.opciones[i].correct == 1){
+             respuesta_correcta = "opcion"+i
+           }
+     }
+ });
 
 function unirseSala() {
     console.log(sessionStorage.getItem('sala'))

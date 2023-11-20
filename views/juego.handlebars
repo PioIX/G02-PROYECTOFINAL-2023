@@ -192,17 +192,38 @@
          </center>
 
 
+
+
+<div class="modal-dialog modal-dialog-centered" tabindex="-1" id="myModal" >
+       <div class="modal-dialog">
+       <div class="modal-content">
+       <div class="modal-header">
+              <center><h5 class="modal-title" id="id_titulo">PREGUNTA</h5>
+              <div id="number"></div>
+              </center>
+       </div>
+       <div class="modal-body">
+       <center>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion0" onclick="validar(this)">OPCION 1</button>
+              <br>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion1" onclick="validar(this)">OPCION 2</button>
+              <br>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion2" onclick="validar(this)">OPCION 3</button>
+              <br>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion3" onclick="validar(this)">OPCION 4</button>  
+       </center>
+
        </div>
        <div class="modal-footer">
        </div>
        </div>
        </div>
-       </div>
-
 </div>
+
 </section>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/wb.js"></script>
 <script>
        unirseSala();
 </script>
+

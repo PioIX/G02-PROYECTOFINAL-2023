@@ -210,29 +210,29 @@ body{
 .fichita-p1 {
     background-color: #309BEF;
     border: solid black 1px;
-    top: 6px;
-    left: 3px;
+    top: 4%;
+    left: 4%;
 }
 
 .fichita-p2 {
     background-color: #24F7B0;
     border: solid black 1px;
-    top: -6px;
-    left: 38px;
+    top: 8%;
+    left: 4%;
 }
 
 .fichita-p3 {
     background-color: #9724F7;
     border: solid black 1px;
-    top: 15px;
-    left: 4px;
+    top: 10%;
+    left: 4%;
 }
 
 .fichita-p4 {
     background-color: #85F83B;
     border: solid black 1px;
-    top: 3px;
-    left: 38px;
+    top: 12%;
+    left: 4%;
 }
 
 
@@ -283,8 +283,8 @@ body{
     width: 40px;
     height: 40px;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 27%;
+    left: 48.5%;
 
 }
 
@@ -295,8 +295,8 @@ body{
 
 
 .estrella{
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
 
 }
 
