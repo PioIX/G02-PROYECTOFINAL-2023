@@ -272,30 +272,38 @@ async function createRoom(data, session, res) {
   }
   }
 
-  io.on('connection', (socket) => {
-    console.log("estoy conectado")
-    const req = socket.request;
-    socket.join(1)
-    socket.on('crear-sala', data => {
-      if (req.session.sala != "")
-        socket.leave(req.session.sala);
-      socket.join(data.sala)
-      req.session.sala = data.sala;
-      req.session.save()
-      createRoom(data.sala, req.session)
-      console.log("SE CREO LA SALA:", data.sala)
-  })
+
+let rooms = {}
+let users = 0
+let users2 = []
+  io.on('connection',(socket) => {
     socket.on('unirse-sala', data => {
-      if(req.session.sala != "")
-        socket.leave(req.session.sala);
-      socket.join(data.sala)
-      req.session.sala = data.sala;
-      req.session.save()
-      console.log("ME UNI A LA SALA:", data.sala)
-  });
+
+      socket.join("room-"+data.rooms)
+      rooms["room-"+data.rooms] = [req.session.id_usuario]
+      io.emit("conexion-user", {user: req.session.id_usuario})
+      console.log("se unio el usuario con id: ", req.session.id_usuario)
+      users++
+      users2.push(req.session.user)
+      io.emit("actualizar", {users: users, username: users2})
+      console.log(users)
+
+
+      console.log("ME UNI A LA SALA:", data.rooms)
+    
+    });
+
+    socket.on('iniciar-partida', data => {
+      console.log("llegue, " , data)
+      io.to("room-"+data).emit("empieza-partida", {usernames: users2})
+    });
+
+    io.on("tipo-pregunta", async data =>{
+      let preguntaMostrar = ""
     socket.on("tipo-pregunta", async data =>{
         let preguntaMostrar = 0
         console.log(data.pregunta)
+
         if (data.pregunta != "random"){
           let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = ${data.preguntaEstelar}`)
           console.log(preguntas)

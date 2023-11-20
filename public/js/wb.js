@@ -200,9 +200,40 @@ socket.on("conexion-user", data => {
   console.log("SE UNIO USUARIO CON ID: ", data.user)
 });
 
-socket.on("comenzar-partida", data => {
-let div = document.getElementById("jesusHelp")
-div.innerHTML += `
-  <button>Comenzar Partida</button>
-`
+
+
+function changeWaitingRoom() {
+  socket.emit('iniciar-partida', sessionStorage.getItem('sala'))
+  let espera = document.getElementById("espera")
+  let juego = document.getElementById("juego")
+
+  if(espera.style.display !="none") {
+    espera.style.display = "none"
+    juego.style.display = ""
+  }  
+}
+
+socket.on("empieza-partida", data => {
+  let espera = document.getElementById("espera")
+  let juego = document.getElementById("juego")
+  console.log("llegue")
+  if(espera.style.display !="none") {
+    espera.style.display = "none"
+    juego.style.display = ""
+  }
+  document.getElementById("player1").innerHTML = data.usernames[0]
+  document.getElementById("player2").innerHTML = data.usernames[1]
+  document.getElementById("player3").innerHTML = data.usernames[2]
+  document.getElementById("player4").innerHTML = data.usernames[3]
+  } 
+  
+  //Ambos pasan por aca despues de unirse
+  //Antes de ellegar aca el back me tiene q mandar q usuario se unio
+  //Em este emit llega del back y ahi se fija q usuario es y le emite a todos ese usuario
+  //Agarras el usuario y lo mostras
+)
+
+socket.on("actualizar", data => {
+    document.getElementById("usersInRoom").innerHTML =  "Usuarios conectados: " + data.users
 })
+

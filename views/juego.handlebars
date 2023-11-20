@@ -1,174 +1,197 @@
+
+<section id="espera"> 
+    <h2 style="">Espera mientras algun usuario se conecta....</h2>
+    <img src="https://usagif.com/wp-content/uploads/loading-13.gif">
+    <button onclick="changeWaitingRoom()">Comenzar juego</button>
+    <h2 id="usersInRoom">Usuarios conectados: </h2>
+</section>
+<div class="fichitaGrandeP1">
+       <h4 id="player1"></h4>
+</div>
+<div id="jugador2" class="fichitaGrandeP2">
+       <h4 id="player2"></h4>
+</div>
+<div id="jugador3" class="fichitaGrandeP3">
+       <h4 id="player3"></h4>
+</div>
+<div id="jugador4" class="fichitaGrandeP4">
+       <h4 id="player4"></h4>
+</div>
+<section id="juego" style="display: none;">
+
 <button onclick="tirarDado()" ><img id="dado" src="https://www.gifss.com/economia/juego/images/dados-4.gif"></button>
-
-<div class="tablero">
-       <div class="borde random" id=0><div id="ficha1" class="fichita fichita-p1"></div> <div class="fichita fichita-p2"></div><div class="fichita fichita-p3"></div><div class="fichita fichita-p4"></div></div>
-       <div class="borde historia" id=1></div>
-       <div class="borde deportes" id=2></div>
-       <div class="borde ciencia" id=3></div>
-       <div class="borde arte" id=4></div>
-       <div class="borde entretenimiento" id=5></div>
-       <div class="borde historia" id=6><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
-       <div class="borde deportes" id=7></div>
-       <div class="borde ciencia" id=8></div>
-       <div class="borde arte" id=9></div>
-       <div class="borde entretenimiento" id=10></div>
-       <div class="borde random" id=11></div>
-       <div class="borde entretenimiento" id=43></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde historia" id=12></div>
-       <div class="borde ciencia" id=42></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde deportes" id=13></div>
-       <div class="borde arte" id=41></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde arte" id=14><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
-       <div class="borde deportes" id=40><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde ciencia" id=15></div>
-       <div class="borde historia" id=39></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde entretenimiento" id=16></div>
-       <div class="borde entretenimiento" id=38></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde historia" id=17></div>
-       <div class="borde ciencia" id=37></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde deportes" id=18></div>
-       <div class="borde arte" id=36></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde arte" id=19></div>
-       <div class="borde deportes" id=35></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde ciencia" id=20><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
-       <div class="borde historia" id=34></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div></div>
-       <div class="borde entretenimiento" id=21></div>
-       <div class="borde random" id=33></div>
-       <div class="borde entretenimiento" id=32></div>
-       <div class="borde ciencia" id=31></div>
-       <div class="borde arte" id=30></div>
-       <div class="borde deportes" id=29></div>
-       <div class="borde historia" id=28></div>
-       <div class="borde entretenimiento" id=27><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
-       <div class="borde ciencia" id=26></div>
-       <div class="borde arte" id=25></div>
-       <div class="borde deportes" id=24></div>
-       <div class="borde historia" id=23></div>
-       <div class="borde random" id=22></div>
-
-
+<section id="juego" style="display: none;">
+  <div class="tablero">
+         <div class="borde random" id=0><div id="ficha1" class="fichita fichita-p1"></div> <div class="fichita fichita-p2"></div><div class="fichita fichita-p3"></div><div class="fichita fichita-p4"></div></div>
+         <div class="borde historia" id=1></div>
+         <div class="borde deportes" id=2></div>
+         <div class="borde ciencia" id=3></div>
+         <div class="borde arte" id=4></div>
+         <div class="borde entretenimiento" id=5></div>
+         <div class="borde historia" id=6><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
+         <div class="borde deportes" id=7></div>
+         <div class="borde ciencia" id=8></div>
+         <div class="borde arte" id=9></div>
+         <div class="borde entretenimiento" id=10></div>
+         <div class="borde random" id=11></div>
+         <div class="borde entretenimiento" id=43></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde historia" id=12></div>
+         <div class="borde ciencia" id=42></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde deportes" id=13></div>
+         <div class="borde arte" id=41></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde arte" id=14><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
+         <div class="borde deportes" id=40><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde ciencia" id=15></div>
+         <div class="borde historia" id=39></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde entretenimiento" id=16></div>
+         <div class="borde entretenimiento" id=38></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde historia" id=17></div>
+         <div class="borde ciencia" id=37></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde deportes" id=18></div>
+         <div class="borde arte" id=36></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde arte" id=19></div>
+         <div class="borde deportes" id=35></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde ciencia" id=20><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
+         <div class="borde historia" id=34></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div class="borde entretenimiento" id=21></div>
+         <div class="borde random" id=33></div>
+         <div class="borde entretenimiento" id=32></div>
+         <div class="borde ciencia" id=31></div>
+         <div class="borde arte" id=30></div>
+         <div class="borde deportes" id=29></div>
+         <div class="borde historia" id=28></div>
+         <div class="borde entretenimiento" id=27><img src="https://icones.pro/wp-content/uploads/2021/02/icone-etoile-noire.png" class="estrella"></div>
+         <div class="borde ciencia" id=26></div>
+         <div class="borde arte" id=25></div>
+         <div class="borde deportes" id=24></div>
+         <div class="borde historia" id=23></div>
+         <div class="borde random" id=22></div>
 
 
 
-<div >
-       <div class="modal-dialog modal-dialog-centered" tabindex="-1" id="myModal" >
-       <div class="modal-dialog">
-       <div class="modal-content">
-       <div class="modal-header">
-              <center><h5 class="modal-title" id="id_titulo">PREGUNTA</h5>
-              <div id="number"></div>
-              </center>
-       </div>
-       <div class="modal-body">
-       <center>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion0" onclick="validar(this)">OPCION 1</button>
-              <br>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion1" onclick="validar(this)">OPCION 2</button>
-              <br>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion2" onclick="validar(this)">OPCION 3</button>
-              <br>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion3" onclick="validar(this)">OPCION 4</button>  
-       </center>
+
+
+  <div >
+         <div class="modal-dialog modal-dialog-centered" tabindex="-1" id="myModal" >
+         <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+                <center><h5 class="modal-title" id="id_titulo">PREGUNTA</h5>
+                <div id="number"></div>
+                </center>
+         </div>
+         <div class="modal-body">
+         <center>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion0" onclick="validar(this)">OPCION 1</button>
+                <br>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion1" onclick="validar(this)">OPCION 2</button>
+                <br>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion2" onclick="validar(this)">OPCION 3</button>
+                <br>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="opcion3" onclick="validar(this)">OPCION 4</button>  
+         </center>
+
+
        </div>
        <div class="modal-footer">
        </div>
@@ -177,4 +200,5 @@
        </div>
 
 </div>
+</section>
 
