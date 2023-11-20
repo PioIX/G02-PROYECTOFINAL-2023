@@ -10,6 +10,7 @@
 body{
     background-image: url("/images/cuadrille.png");
     font-family: 'Inter', sans-serif;
+    color: white;
 }
 
 .botonlogin {
@@ -56,7 +57,7 @@ body{
     font-size: 16px;
     border-radius: 8px;
     position: absolute;
-    bottom: 9%;
+    bottom: 5%;
     right: 35%;
     font-family: 'Inter', sans-serif;
 }
@@ -280,11 +281,11 @@ body{
 }
 
 #dado {
-    width: 40px;
-    height: 40px;
+    width: 135px;
+    height: 135px;
     position: absolute;
-    top: 29%;
-    left: 49%;
+    top: 42%;
+    left: 45.75%;
 
 }
 
@@ -305,8 +306,8 @@ body{
 }
 
 .fichitaGrandeP1 {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 75px;
     position: absolute;
     background-color: #309BEF;
     border: solid black 1px;
@@ -315,8 +316,8 @@ body{
 }
 
 .fichitaGrandeP2 {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 75px;
     position: absolute;
     background-color: #24F7B0;
     border: solid black 1px;
@@ -325,8 +326,8 @@ body{
 }
 
 .fichitaGrandeP3 {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 75px;
     position: absolute;
     background-color: #9724F7;
     border: solid black 1px;
@@ -335,8 +336,8 @@ body{
 }
 
 .fichitaGrandeP4 {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 75px;
     position: absolute;
     background-color: #85F83B;
     border: solid black 1px;

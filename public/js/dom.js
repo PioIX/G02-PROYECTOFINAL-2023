@@ -347,22 +347,6 @@ async function fetchRespuesta(data) {
 }
 
 
-function agregarPregunta(){
-
-}
-
-function editarPregunta(){
-
-}
-
-function borrarPregunta(){
-
-}
-
-function buscarPregunta(){
-
-}
-
 function showCrearSala() {
   inputSala1 = document.getElementById("inputSala");
   if (inputSala1.style.display = "none") {
@@ -390,6 +374,11 @@ function cronometro(){
     else{
       clearInterval(intervalo);
       mostrarModal()
+      fichasRestar()
+      jugador ++
+        if (jugador > global){
+          jugador = 1
+        } 
     }
     btns = document.getElementsByClassName("btn btn-secondary")
     for (i in btns){
@@ -426,37 +415,10 @@ function validar(btn) {
   }
   else {
     document.getElementById(btn.id).style.backgroundColor = "#FF0000"
-    if (jugador == 1){
-      let ficha1 = '<div class="fichita fichita-p1"></div>'
-      variable = document.getElementsByClassName("fichita fichita-p1")[0]
-      variable.parentNode.removeChild(variable)
-      casillero1 -= valor
-      document.getElementById(casillero1).innerHTML += ficha1
-      }
-    else if (jugador == 2){
-      let ficha2 = '<div class="fichita fichita-p2"></div>'
-      variable = document.getElementsByClassName("fichita fichita-p2")[0]
-      variable.parentNode.removeChild(variable)
-      casillero2 -= valor
-      document.getElementById(casillero2).innerHTML += ficha2
-    }
-  else if (jugador == 3){
-    let ficha3 = '<div class="fichita fichita-p3"></div>'
-    variable = document.getElementsByClassName("fichita fichita-p3")[0]
-    variable.parentNode.removeChild(variable)
-    casillero3 -= valor
-    document.getElementById(casillero3).innerHTML += ficha3
-    }
-else if (jugador == 4){
-  let ficha4 = '<div class="fichita fichita-p4"></div>'
-  variable = document.getElementsByClassName("fichita fichita-p4")[0]
-  variable.parentNode.removeChild(variable)
-  casillero4 -= valor
-  document.getElementById(casillero4).innerHTML += ficha4
-    }
+    fichasRestar()
   }
   jugador ++
-    if (jugador > 4){
+    if (jugador > global){
       jugador = 1
     }
 }
@@ -487,5 +449,37 @@ function mostrarModal() {
       x.style.display = "block";
   } else {
       x.style.display = "none";
+  }
+}
+
+
+function fichasRestar(){
+  if (jugador == 1){
+    let ficha1 = '<div class="fichita fichita-p1"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p1")[0]
+    variable.parentNode.removeChild(variable)
+    casillero1 -= valor
+    document.getElementById(casillero1).innerHTML += ficha1
+    }
+  else if (jugador == 2){
+    let ficha2 = '<div class="fichita fichita-p2"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p2")[0]
+    variable.parentNode.removeChild(variable)
+    casillero2 -= valor
+    document.getElementById(casillero2).innerHTML += ficha2
+  }
+else if (jugador == 3){
+  let ficha3 = '<div class="fichita fichita-p3"></div>'
+  variable = document.getElementsByClassName("fichita fichita-p3")[0]
+  variable.parentNode.removeChild(variable)
+  casillero3 -= valor
+  document.getElementById(casillero3).innerHTML += ficha3
+  }
+else if (jugador == 4){
+let ficha4 = '<div class="fichita fichita-p4"></div>'
+variable = document.getElementsByClassName("fichita fichita-p4")[0]
+variable.parentNode.removeChild(variable)
+casillero4 -= valor
+document.getElementById(casillero4).innerHTML += ficha4
   }
 }
