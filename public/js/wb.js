@@ -22,7 +22,7 @@ function chequearPreguntaWS(data){
 }
 
 socket.on('mandar-pregunta', data => {
-  // myModal.show()
+  mostrarModal()
   cronometro()
    document.getElementById("opcion0").style.backgroundColor = "#6c757d" 
    document.getElementById("opcion1").style.backgroundColor = "#6c757d" 
@@ -41,6 +41,7 @@ socket.on('mandar-pregunta', data => {
              respuesta_correcta = "opcion"+i
            }
      }
+     desbloquearBotones()
  });
 
 function unirseSala() {
@@ -241,18 +242,46 @@ socket.on('mandar-pregunta', data => {
  });
 
 
+let global = 0
+
 socket.on("empieza-partida", data => {
   let espera = document.getElementById("espera")
   let juego = document.getElementById("juego")
   console.log("llegue")
+  console.log(data.usernames)
   if(espera.style.display !="none") {
     espera.style.display = "none"
     juego.style.display = ""
   }
-  document.getElementById("player1").innerHTML = data.usernames[0]
-  document.getElementById("player2").innerHTML = data.usernames[1]
-  document.getElementById("player3").innerHTML = data.usernames[2]
-  document.getElementById("player4").innerHTML = data.usernames[3]
+  if(data.usernames[0] != undefined) {
+    document.getElementById("player1").classList.add("fichitaGrandeP1")
+    document.getElementById("player1").innerHTML = data.usernames[0]
+    document.getElementById("ficha1").classList.add("fichita")
+    document.getElementById("ficha1").classList.add("fichita-p1")
+    global++
+  }
+  if(data.usernames[1] != undefined) {
+    document.getElementById("player2").classList.add("fichitaGrandeP2")
+    document.getElementById("player2").innerHTML = data.usernames[1]
+    document.getElementById("ficha2").classList.add("fichita")
+    document.getElementById("ficha2").classList.add("fichita-p2")
+    global++
+  }
+  if(data.usernames[2] != undefined) {
+    document.getElementById("player3").classList.add("fichitaGrandeP3")
+    document.getElementById("player3").innerHTML = data.usernames[2]
+    document.getElementById("ficha3").classList.add("fichita")
+    document.getElementById("ficha3").classList.add("fichita-p3")
+    global++
+  }
+  if(data.usernames[3] != undefined) {
+    document.getElementById("player4").classList.add("fichitaGrandeP4")
+    document.getElementById("player4").innerHTML = data.usernames[3]
+    document.getElementById("ficha4").classList.add("fichita")
+    document.getElementById("ficha3").classList.add("fichita-p4")
+    global++
+  }
+
   } 
   
   //Ambos pasan por aca despues de unirse

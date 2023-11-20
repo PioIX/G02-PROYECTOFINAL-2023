@@ -259,9 +259,9 @@ body{
     height: 800px;
     width: 600px;
     position: absolute;
-    top: 28%;
+    top: 50%;
     left: 0;
-    bottom: 22%;
+    bottom: 0%;
     right: 0;
     margin: auto;
     font-family: 'Inter', sans-serif;

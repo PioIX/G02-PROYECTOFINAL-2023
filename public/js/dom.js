@@ -347,22 +347,6 @@ async function fetchRespuesta(data) {
 }
 
 
-function agregarPregunta(){
-
-}
-
-function editarPregunta(){
-
-}
-
-function borrarPregunta(){
-
-}
-
-function buscarPregunta(){
-
-}
-
 function showCrearSala() {
   inputSala1 = document.getElementById("inputSala");
   if (inputSala1.style.display = "none") {
@@ -384,11 +368,17 @@ function cronometro(){
   var n = 15;
   let intervalo = window.setInterval(function(){
     document.getElementById("number").innerHTML = n;
-    if (n >= 1){
+    if (n >= 0){
       n--;
     }
     else{
       clearInterval(intervalo);
+      mostrarModal()
+      fichasRestar()
+      jugador ++
+        if (jugador > global){
+          jugador = 1
+        } 
     }
     btns = document.getElementsByClassName("btn btn-secondary")
     for (i in btns){
@@ -396,6 +386,7 @@ function cronometro(){
       let color_btn = btnStyle.getPropertyValue('background-color')
       if (color_btn != 'rgb(108, 117, 125)'){
         clearInterval(intervalo)
+        mostrarModal()
         break
       }
     }
@@ -424,49 +415,71 @@ function validar(btn) {
   }
   else {
     document.getElementById(btn.id).style.backgroundColor = "#FF0000"
-    if (jugador == 1){
-      let ficha1 = '<div class="fichita fichita-p1"></div>'
-      variable = document.getElementsByClassName("fichita fichita-p1")[0]
-      variable.parentNode.removeChild(variable)
-      casillero1 -= valor
-      document.getElementById(casillero1).innerHTML += ficha1
-      }
-    else if (jugador == 2){
-      let ficha2 = '<div class="fichita fichita-p2"></div>'
-      variable = document.getElementsByClassName("fichita fichita-p2")[0]
-      variable.parentNode.removeChild(variable)
-      casillero2 -= valor
-      document.getElementById(casillero2).innerHTML += ficha2
-    }
-  else if (jugador == 3){
-    let ficha3 = '<div class="fichita fichita-p3"></div>'
-    variable = document.getElementsByClassName("fichita fichita-p3")[0]
-    variable.parentNode.removeChild(variable)
-    casillero3 -= valor
-    document.getElementById(casillero3).innerHTML += ficha3
-    }
-else if (jugador == 4){
-  let ficha4 = '<div class="fichita fichita-p4"></div>'
-  variable = document.getElementsByClassName("fichita fichita-p4")[0]
-  variable.parentNode.removeChild(variable)
-  casillero4 -= valor
-  document.getElementById(casillero4).innerHTML += ficha4
-    }
+    fichasRestar()
   }
   jugador ++
-    if (jugador > 4){
+    if (jugador > global){
       jugador = 1
     }
-  bloquearBotones()
 }
 
-
-
+const btn0 = document.getElementById("opcion0");
+const btn1 = document.getElementById("opcion1");
+const btn2 = document.getElementById("opcion2");
+const btn3 = document.getElementById("opcion3");
 
 function bloquearBotones(){
-
+  btn0.disabled = true
+  btn1.disabled = true
+  btn2.disabled = true
+  btn3.disabled = true
 }
 
 function desbloquearBotones(){
-  
+  btn0.disabled = false
+  btn1.disabled = false
+  btn2.disabled = false
+  btn3.disabled = false
+}
+
+
+function mostrarModal() {
+  var x = document.getElementById("myModal");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
+}
+
+
+function fichasRestar(){
+  if (jugador == 1){
+    let ficha1 = '<div class="fichita fichita-p1"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p1")[0]
+    variable.parentNode.removeChild(variable)
+    casillero1 -= valor
+    document.getElementById(casillero1).innerHTML += ficha1
+    }
+  else if (jugador == 2){
+    let ficha2 = '<div class="fichita fichita-p2"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p2")[0]
+    variable.parentNode.removeChild(variable)
+    casillero2 -= valor
+    document.getElementById(casillero2).innerHTML += ficha2
+  }
+else if (jugador == 3){
+  let ficha3 = '<div class="fichita fichita-p3"></div>'
+  variable = document.getElementsByClassName("fichita fichita-p3")[0]
+  variable.parentNode.removeChild(variable)
+  casillero3 -= valor
+  document.getElementById(casillero3).innerHTML += ficha3
+  }
+else if (jugador == 4){
+let ficha4 = '<div class="fichita fichita-p4"></div>'
+variable = document.getElementsByClassName("fichita fichita-p4")[0]
+variable.parentNode.removeChild(variable)
+casillero4 -= valor
+document.getElementById(casillero4).innerHTML += ficha4
+  }
 }
