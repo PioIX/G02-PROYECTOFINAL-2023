@@ -41,7 +41,6 @@ socket.on('mandar-pregunta', data => {
              respuesta_correcta = "opcion"+i
            }
      }
-     desbloquearBotones()
  });
 
 function unirseSala() {
