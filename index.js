@@ -133,9 +133,9 @@ app.get('/juego', function(req, res)
     res.render('juego', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
-app.get('/clima', function(req, res)
+app.get('/clima', async function(req, res)
 {
-    //Petición GET con URL = "/login"
+    
     console.log("Soy un pedido GET", req.query); 
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('clima', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
