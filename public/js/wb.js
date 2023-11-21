@@ -212,7 +212,7 @@ function changeWaitingRoom() {
 }
 function chequearPreguntaWS(data){
   console.log(data.pregunta)
-    socket.emit("tipo-pregunta", data);
+  socket.emit("tipo-pregunta", data);
 }
 
 
@@ -292,4 +292,12 @@ socket.on("empieza-partida", data => {
 
 socket.on("actualizar", data => {
     document.getElementById("usersInRoom").innerHTML =  "Usuarios conectados: " + data.users
+})
+
+function tirarDado1() {
+  socket.emit("tiro-dado", {verif: true})
+}
+
+socket.on("completo", data => {
+  tirarDado(data.valor)
 })

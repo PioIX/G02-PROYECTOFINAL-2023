@@ -214,8 +214,10 @@ const MAX_CASILLEROS = 43;
 
 let valor = 0
 
-function tirarDado(){
-    valor = Math.floor(Math.random() * 6)+1
+
+
+
+function tirarDado(valor){
     console.log(valor)
     if (jugador == 1){
         let ficha1 = '<div class="fichita fichita-p1"></div>'
@@ -393,13 +395,12 @@ function cronometro(){
   },1000);
   }
 
+ 
 
 
-
-function validar(btn) {
-  let opcion = btn.id;
+function validar(opcion) {
   if (opcion == respuesta_correcta) {
-    document.getElementById(btn.id).style.backgroundColor = "#00a135";
+    document.getElementById(opcion).style.backgroundColor = "#00a135";
     if (jugador == 1){
       estrellas1 += 1
     }
@@ -414,7 +415,7 @@ function validar(btn) {
     }
   }
   else {
-    document.getElementById(btn.id).style.backgroundColor = "#FF0000"
+    document.getElementById(opcion).style.backgroundColor = "#FF0000"
     fichasRestar()
   }
   jugador ++

@@ -375,6 +375,12 @@ io.on('connection',(socket) => {
       io.to("room-"+data).emit("empieza-partida", {usernames: users2})
     });
 
+    socket.on("tiro-dado", data => {
+      let valor = Math.floor(Math.random() * 6)+1
+      io.emit("completo", {valor: valor})
+    })
+    
+
     socket.on("tipo-pregunta", async data =>{
       let preguntaMostrar = 0
       console.log(data.pregunta)
@@ -412,7 +418,7 @@ io.on('connection',(socket) => {
     }
 
 
-    socket.emit("mandar-pregunta", objeto);
+    io.emit("mandar-pregunta", objeto);
     console.log(objeto.opciones)
 })
 })
