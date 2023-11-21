@@ -133,6 +133,33 @@ app.get('/juego', function(req, res)
     res.render('juego', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
+app.get('/clima', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('clima', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.get('/clima2', function(req, res)
+{
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('clima2', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.post('/clima', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido POST", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.send(null);
+});
+
+app.post('/clima2', function(req, res) {
+  //Petición PUT con URL = "/login"
+  console.log("Soy un pedido POST", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+  res.send(null);
+});
 app.get('/reglas', function(req, res)
 {
     //Petición GET con URL = "/login"
