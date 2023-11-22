@@ -48,10 +48,6 @@ function unirseSala() {
     socket.emit("unirse-sala", {rooms: sessionStorage.getItem('sala')});
 }
 
-function crearSala() {
-  socket.emit("crear-sala", {rooms: sessionStorage.getItem('sala')});
-}
-
 
 function conseguirSala() {
     sala = document.getElementById("Sala").value
@@ -187,14 +183,7 @@ async function unirseRoom(dataJoinRoom) {
     golazo(envido)
   }
 
-socket.on("conexion-user", data => {
-  console.log("SE UNIO USUARIO CON ID: ", data.user)
-});
-socket.on("conexion-user", data => {
-  console.log("SE UNIO USUARIO CON ID: ", data.user)
-});
-
-socket.on("conexion-user", data => {
+socket.on("verificar-user", data => {
   console.log("SE UNIO USUARIO CON ID: ", data.user)
 });
 
@@ -219,7 +208,7 @@ let respuesta_correcta = "opcion"
 
 
 socket.on('mandar-pregunta', data => {
-  // myModal.show()
+  mostrarModal()
   cronometro()
    document.getElementById("opcion0").style.backgroundColor = "#6c757d"
    document.getElementById("opcion1").style.backgroundColor = "#6c757d"

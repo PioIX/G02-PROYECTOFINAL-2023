@@ -378,7 +378,7 @@ app.put('/joinGame', async function(req, res) {
   }
   }
 
-
+//let emit = true
 
 let rooms = {}
 let users = 0
@@ -387,12 +387,15 @@ io.on('connection',(socket) => {
   const req = socket.request;
     socket.on('unirse-sala', data => {
       socket.join("room-"+data.rooms)
+      socket.join("roomuser-" + req.session.id_usuario)
       rooms["room-"+data.rooms] = [req.session.id_usuario]
-      io.emit("conexion-user", {user: req.session.id_usuario})
+      io.emit("verificar-user", {user: req.session.id_usuario})
       console.log("se unio el usuario con id: ", req.session.id_usuario)
       users++
       io.emit("actualizar", {users: users, username: users2})
       console.log(users)
+      req.session.sala = "room-" + data.rooms
+
 
 
       console.log("ME UNI A LA SALA:", data.rooms)
@@ -406,38 +409,33 @@ io.on('connection',(socket) => {
 
     socket.on("tiro-dado", data => {
       let valor = Math.floor(Math.random() * 6)+1
-      io.emit("completo", {valor: valor})
+      io.to(req.session.sala).emit("completo", {valor: valor})
     })
     
 
     socket.on("tipo-pregunta", async data =>{
+      //if emit =
+      console.log("entre   al socketon")
       let preguntaMostrar = 0
       console.log(data.pregunta)
       if (data.pregunta != "random"){
+        console.log("estoy en el if (no es random")
         let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = ${data.preguntaEstelar}`)
-        console.log(preguntas)
         let cantidad = preguntas.length
         console.log(cantidad)
         let numero = Math.floor(Math.random() * cantidad - 1);
-        for (i in preguntas){
-          if (i = numero){
-            preguntaMostrar = preguntas[i]
-          }
-        }
-        console.log(preguntas)
-
-
+        preguntaMostrar = preguntas[numero]
+        console.log("mi nombre es klio: ", preguntaMostrar);
       }  
       else {
+        console.log("else padre,     es random")
         let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions where stellar_question = false`)
         let cantidad = preguntas.length
         let num = Math.floor(Math.random() * cantidad -1);
-        for (i in preguntas){
-          if (i = num){
-            preguntaMostrar = preguntas[i]
-              }
+          preguntaMostrar = preguntas[num]
           }
-        }
+          
+        
     console.log(preguntaMostrar)
     opciones = await MySQL.realizarQuery(`SELECT * FROM optionxquestion INNER JOIN questions ON optionxquestion.id_question = questions.id_question WHERE questions.id_question = ${preguntaMostrar.id_question}`)
     let objeto = {
@@ -446,9 +444,10 @@ io.on('connection',(socket) => {
       opciones : opciones
     }
 
-
-    io.emit("mandar-pregunta", objeto);
-    console.log(objeto.opciones)
+    console.log("la sala es ", req.session.sala)
+    io.to(req.session.sala).emit("mandar-pregunta", objeto);
+    
+    console.log(objeto)
 })
 })
 

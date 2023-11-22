@@ -197,6 +197,11 @@ async function deleteJSON(dataDeleteUser) {
 
 let jugador = 1
 
+let jugador1 = -1
+let jugador2 = -1
+let jugador3 = -1
+let jugador4 = -1
+
 let casillero1 = 0
 let casillero2 = 0
 let casillero3 = 0
@@ -267,6 +272,7 @@ function tirarDado(valor){
           }
           document.getElementById(casillero4).innerHTML += ficha4
       }
+    //if(jugador == )
     chequearPregunta(jugador)
 }
 
@@ -395,7 +401,20 @@ function cronometro(){
   },1000);
   }
 
- 
+function recieveUser(valor) {
+    if(jugador1 == -1) {
+      jugador1 = valor
+    }
+    if(jugador2 == -1 && jugador1 != -1) {
+      jugador2 = valor
+    } 
+    if(jugador3 == -1 && jugador1 != -1 && jugador2 != -1) {
+      jugador3 = valor
+    }
+    if(jugador4 == -1 && jugador1 != -1 && jugador2 != -1 && jugador3 != -1) {
+      jugador3 = valor
+    } 
+}
 
 
 function validar(opcion) {
