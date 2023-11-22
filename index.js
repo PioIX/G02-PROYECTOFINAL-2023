@@ -492,10 +492,10 @@ app.delete('/deleteUser',async function(req, res) {
 app.delete('/deletePuntaje',async function(req, res) {
   let comprobacionTrue = true
   let comprobacionFalse = false
-  let user = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.playerNamePoints}" `)
-  let id_user = user[0].id_player
+  console.log(req.body.playerNamePoints)
+
   if (req.body.playerNamePoints.length>0) {
-      await MySQL.realizarQuery(`DELETE FROM points WHERE id_player = ${id_user}`)
+      //await MySQL.realizarQuery(`DELETE FROM points WHERE id_player = ${req.body.playerNamePoints}`)
       res.send({validar: comprobacionTrue})
   }
   else {

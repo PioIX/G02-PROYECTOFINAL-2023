@@ -1,4 +1,4 @@
-<form action="/deleteUser" method="DELETE" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
     <h2>Eliminar Usuario</h2>
     <label for="Eliminar usuario">Eliminar Usuario</label>
     <select id="delete1">
@@ -6,19 +6,21 @@
             <option value="{{this.username}}">{{this.username}}</option>
         {{/each}}
     </select>
-</form>
+    <button type="button" onclick="deleteUser()">Eliminar</button>
+</div>
 
-<form action="/deletePuntajes" method="DELETE" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
     <h2>Eliminar Puntaje</h2>
     <label for="Eliminar puntaje">Eliminar puntaje</label>
     <select id="delete2">
-        {{#each points}}
-            <option value="{{this.id_player}}">{{this.id_player}}</option>
+        {{#each users}}
+            <option value="{{this.username}}" id="{{this.id_player}}">{{this.username}}</option>
         {{/each}}
     </select>
-</form>
+    <button type="button" onclick="deletePuntaje()">Eliminar</button>
+</div>
 
-<form action="/deletePreguntas" method="DELETE" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
     <h2>Eliminar Preguntas</h2>
     <label for="Eliminar puntaje">Eliminar preguntas</label>
     <select id="delete3">
@@ -26,7 +28,7 @@
             <option value="{{this.content}}">{{this.content}}</option>
         {{/each}}
     </select>
-</form>
+</div>
 
 
 <form action="/addQuestion" method="POST" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">

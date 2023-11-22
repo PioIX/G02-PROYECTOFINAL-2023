@@ -89,10 +89,10 @@ async function deleteJSON(dataDeleteUser) {
   
   function deletePuntaje() {
     //Leo los datos del input
-    let name = document.getElementById("delete2").value
+    let name = document.getElementById("delete2").id
     //Creo un objeto de forma instantanea
     let dataDeletePuntaje= {
-        playerName: name
+        playerNamePoints: name
     }
   
     //data es el objeto que le paso al back
