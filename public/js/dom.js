@@ -223,7 +223,11 @@ let valor = 0
 
 
 function tirarDado(valor){
-    console.log(valor)
+  console.log(jugador1)
+  console.log(jugador2)
+  console.log(jugador3)
+  console.log(jugador4)
+  console.log(valor)
     if (jugador == 1){
         let ficha1 = '<div class="fichita fichita-p1"></div>'
         variable = document.getElementsByClassName("fichita fichita-p1")[0]
@@ -327,7 +331,7 @@ function chequearPregunta(jugador){
     console.log(tipoPregunta)
     console.log(estelar)
     console.log(data)
-    chequearPreguntaWS(data)
+    chequearPreguntaWS(data, jugador)
 }
 
 
@@ -405,7 +409,7 @@ function recieveUser(valor) {
     if(jugador1 == -1) {
       jugador1 = valor
     }
-    if(jugador2 == -1 && jugador1 != -1) {
+    if(jugador2 == -1 && jugador1 == -1) {
       jugador2 = valor
     } 
     if(jugador3 == -1 && jugador1 != -1 && jugador2 != -1) {

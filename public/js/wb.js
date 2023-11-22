@@ -198,10 +198,24 @@ function changeWaitingRoom() {
     juego.style.display = ""
   }  
 }
-function chequearPreguntaWS(data){
+function chequearPreguntaWS(data, jugadorUnico){
+  if (jugador == 1){
+    jugadorUnico = jugador1
+  }
+  else if (jugador == 2){
+    jugadorUnico = jugador2
+  }
+  else if (jugador == 3){
+    jugadorUnico = jugador3
+  }
+  else if (jugador == 4){
+    jugadorUnico = jugador4
+  }
   console.log(data.pregunta)
-  socket.emit("tipo-pregunta", data);
+  socket.emit("tipo-pregunta", {data:data, id_jugador:jugadorUnico});
 }
+
+
 
 
 let respuesta_correcta = "opcion"
@@ -288,4 +302,12 @@ function tirarDado1() {
 
 socket.on("completo", data => {
   tirarDado(data.valor)
+})
+
+socket.on("verificar-user", data => {
+  console.log("QUE MIERDA ES ESTO: ", data.id_users)
+  jugador1 = data.id_users[0]
+  jugador2 = data.id_users[1]
+  jugador3 = data.id_users[2]
+  jugador4 = data.id_users[3]
 })

@@ -211,11 +211,13 @@ app.post("/login", async (req, res) => {
               req.session.user = usuarios[i].username
               req.session.id_usuario = usuarios[i].id_player
               users2.push(req.session.user)
+              id_users.push(req.session.id_usuario)
             }
             else{
               req.session.id_usuario = usuarios[i].id_player
               req.session.user = usuarios[i].username
               users2.push(req.session.user)
+              id_users.push(req.session.id_usuario)
             }
             req.session.save()
           }
@@ -382,6 +384,7 @@ app.put('/joinGame', async function(req, res) {
 
 let rooms = {}
 let users = 0
+let id_users = []
 let users2 = []
 io.on('connection',(socket) => {
   const req = socket.request;
@@ -389,7 +392,8 @@ io.on('connection',(socket) => {
       socket.join("room-"+data.rooms)
       socket.join("roomuser-" + req.session.id_usuario)
       rooms["room-"+data.rooms] = [req.session.id_usuario]
-      io.emit("verificar-user", {user: req.session.id_usuario})
+      console.log(id_users)
+      io.emit("verificar-user", {id_users: id_users})
       console.log("se unio el usuario con id: ", req.session.id_usuario)
       users++
       io.emit("actualizar", {users: users, username: users2})
@@ -417,10 +421,10 @@ io.on('connection',(socket) => {
       //if emit =
       console.log("entre   al socketon")
       let preguntaMostrar = 0
-      console.log(data.pregunta)
-      if (data.pregunta != "random"){
+      console.log(data.data)
+      if (data.data.pregunta != "random"){
         console.log("estoy en el if (no es random")
-        let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.pregunta}" and stellar_question = ${data.preguntaEstelar}`)
+        let preguntas = await MySQL.realizarQuery(`SELECT * FROM questions WHERE category = "${data.data.pregunta}" and stellar_question = ${data.data.preguntaEstelar}`)
         let cantidad = preguntas.length
         console.log(cantidad)
         let numero = Math.floor(Math.random() * cantidad - 1);
@@ -444,8 +448,8 @@ io.on('connection',(socket) => {
       opciones : opciones
     }
 
-    console.log("la sala es ", req.session.sala)
-    io.to(req.session.sala).emit("mandar-pregunta", objeto);
+    console.log("la sala es ", data.id_jugador)
+    io.to("roomuser-" + data.id_jugador).emit("mandar-pregunta", objeto);
     
     console.log(objeto)
 })
