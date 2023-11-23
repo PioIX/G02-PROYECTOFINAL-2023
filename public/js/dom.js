@@ -197,6 +197,8 @@ async function deleteJSON(dataDeleteUser) {
 
 let jugador = 1
 
+let allplayers = []
+
 let jugador1 = -1
 let jugador2 = -1
 let jugador3 = -1
@@ -212,7 +214,7 @@ let estrellas2 = 0
 let estrellas3 = 0
 let estrellas4 = 0
 
-
+let player
 
 const CASILLEROS_ESTELARES = [6,14,20,27,40]
 const MAX_CASILLEROS = 43;
@@ -228,6 +230,7 @@ function tirarDado(valor){
   console.log(jugador3)
   console.log(jugador4)
   console.log(valor)
+  playerPosta = document.getElementById("jugador").value
     if (jugador == 1){
         let ficha1 = '<div class="fichita fichita-p1"></div>'
         variable = document.getElementsByClassName("fichita fichita-p1")[0]
@@ -277,7 +280,12 @@ function tirarDado(valor){
           document.getElementById(casillero4).innerHTML += ficha4
       }
     //if(jugador == )
-    chequearPregunta(jugador)
+      console.log("playerPosta: ", playerPosta)
+      console.log("player: ", player)
+      if (playerPosta == player) {
+        console.log("PASO EL IF")
+        chequearPregunta(jugador)
+      }
 }
 
 

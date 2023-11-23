@@ -251,7 +251,7 @@ app.put('/login', function(req, res) {
 app.get('/game', function(req, res) {
   //Petición PUT con URL = "/login"
   console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
-  res.render('juego', null);
+  res.render('juego', {id_user: req.session.id_usuario});
 });
 
 app.post('/createRoom', async function(req, res) {
@@ -413,7 +413,7 @@ io.on('connection',(socket) => {
 
     socket.on("tiro-dado", data => {
       let valor = Math.floor(Math.random() * 6)+1
-      io.to(req.session.sala).emit("completo", {valor: valor})
+      io.to(req.session.sala).emit("completo", {valor: valor, usuario: req.session.id_usuario})
     })
     
 
@@ -449,7 +449,7 @@ io.on('connection',(socket) => {
     }
 
     console.log("la sala es ", data.id_jugador)
-    io.to("roomuser-" + data.id_jugador).emit("mandar-pregunta", objeto);
+    io.emit("mandar-pregunta", objeto);
     
     console.log(objeto)
 })
