@@ -197,7 +197,7 @@ async function deleteJSON(dataDeleteUser) {
 
 let jugador = 1
 
-let allplayers = []
+let allplayers
 
 let jugador1 = -1
 let jugador2 = -1
@@ -282,6 +282,7 @@ function tirarDado(valor){
     //if(jugador == )
       console.log("playerPosta: ", playerPosta)
       console.log("player: ", player)
+      console.log("allplayers: ", allplayers)
       if (playerPosta == player) {
         console.log("PASO EL IF")
         chequearPregunta(jugador)
@@ -398,7 +399,12 @@ function cronometro(){
       jugador ++
         if (jugador > global){
           jugador = 1
-        } 
+        }
+      for(let i in allplayers) {
+        if(player == allplayers[i]) {
+          player = allplayers[i+1]
+        }
+      } 
     }
     btns = document.getElementsByClassName("btn btn-secondary")
     for (i in btns){
@@ -453,6 +459,12 @@ function validar(opcion) {
     if (jugador > global){
       jugador = 1
     }
+  for(let i in allplayers) {
+    if(player == allplayers[i]) {
+      player = allplayers[i+1]
+    }
+  } 
+  
 }
 
 const btn0 = document.getElementById("opcion0");

@@ -222,6 +222,7 @@ let respuesta_correcta = "opcion"
 
 
 socket.on('mandar-pregunta', data => {
+
    document.getElementById("opcion0").style.backgroundColor = "#6c757d"
    document.getElementById("opcion1").style.backgroundColor = "#6c757d"
    document.getElementById("opcion2").style.backgroundColor = "#6c757d"
@@ -312,12 +313,10 @@ socket.on("completo", data => {
 socket.on("verificar-user", data => {
   console.log("QUE MIERDA ES ESTO: ", data.id_users)
   jugador1 = data.id_users[0]
-  allplayers.push(jugador1)
   jugador2 = data.id_users[1]
-  allplayers.push(jugador2)
   jugador3 = data.id_users[2]
-  allplayers.push(jugador3)
   jugador4 = data.id_users[3]
-  allplayers.push(jugador4)
   player = jugador1
+  allplayers = data.id_users
 })
+
