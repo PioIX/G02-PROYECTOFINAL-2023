@@ -394,7 +394,7 @@ function cronometro(){
     }
     else{
       clearInterval(intervalo);
-      mostrarModal()
+      ocultarModal()
       fichasRestar()
       jugador ++
         if (jugador > global){
@@ -465,6 +465,8 @@ function validar(opcion) {
     }
   } 
   
+  ocultarModal()
+  
 }
 
 const btn0 = document.getElementById("opcion0");
@@ -489,11 +491,13 @@ function desbloquearBotones(){
 
 function mostrarModal() {
   var x = document.getElementById("myModal");
-  if (x.style.display === "none") {
       x.style.display = "block";
-  } else {
+
+}
+
+function ocultarModal(){
+  var x = document.getElementById("myModal");
       x.style.display = "none";
-  }
 }
 
 
