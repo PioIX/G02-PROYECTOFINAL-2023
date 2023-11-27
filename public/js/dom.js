@@ -382,7 +382,7 @@ function showUnirseSala() {
   }
 }
 
-
+let contador = -1
 
 function cronometro(){
   document.getElementById("number").innerHTML = "";
@@ -400,11 +400,23 @@ function cronometro(){
         if (jugador > global){
           jugador = 1
         }
+      let maxplayers = allplayers.length
+      console.log("MAXPLAYERS: ", maxplayers)
       for(let i in allplayers) {
         if(player == allplayers[i]) {
-          player = allplayers[i+1]
+          console.log("PLAYER: ", player, "allplayers[i]: ", allplayers[i])
+          contador = parseInt(i) + 1
+          console.log("CONTADOR: ", contador)
+          if(contador == maxplayers) {
+            console.log("paso el if")
+            contador = 0
+          }
         }
-      } 
+      }
+      console.log("CONTADOR: ", contador)
+      player = allplayers[contador]
+      console.log("player final: ", player)
+      console.log("QUEEEE: ", player)
     }
     btns = document.getElementsByClassName("btn btn-secondary")
     for (i in btns){
@@ -436,36 +448,54 @@ function recieveUser(valor) {
 
 
 function validar(opcion) {
-  if (opcion == respuesta_correcta) {
-    document.getElementById(opcion).style.backgroundColor = "#00a135";
-    if (jugador == 1){
-      estrellas1 += 1
+  if(player == document.getElementById("jugador").value) {
+    if (opcion == respuesta_correcta) {
+      document.getElementById(opcion).style.backgroundColor = "#00a135";
+      if (jugador == 1){
+        estrellas1 += 1
+      }
+      if (jugador == 2){
+        estrellas2 += 1
+      }
+      if (jugador == 3){
+        estrellas3 += 1
+      }
+      if (jugador == 4){
+        estrellas4 += 1
+      }
     }
-    if (jugador == 2){
-      estrellas2 += 1
+    else {
+      document.getElementById(opcion).style.backgroundColor = "#FF0000"
+      fichasRestar()
     }
-    if (jugador == 3){
-      estrellas3 += 1
+    jugador ++
+      if (jugador > global){
+        jugador = 1
+      }
+    let maxplayers = allplayers.length
+    console.log("MAXPLAYERS: ", maxplayers)
+    for(let i in allplayers) {
+      if(player == allplayers[i]) {
+        console.log("PLAYER: ", player, "allplayers[i]: ", allplayers[i])
+        contador = parseInt(i) + 1
+        console.log("CONTADOR: ", contador)
+        if(contador == maxplayers) {
+          console.log("paso el if")
+          contador = 0
+        }
+      }
     }
-    if (jugador == 4){
-      estrellas4 += 1
-    }
+    console.log("CONTADOR: ", contador)
+    player = allplayers[contador]
+    console.log("player final: ", player)
+    console.log("QUEEEE: ", player) 
+    
+    ocultarModal()
   }
   else {
-    document.getElementById(opcion).style.backgroundColor = "#FF0000"
-    fichasRestar()
+    alert("No toque las opciones, todavia no llego su turno")
   }
-  jugador ++
-    if (jugador > global){
-      jugador = 1
-    }
-  for(let i in allplayers) {
-    if(player == allplayers[i]) {
-      player = allplayers[i+1]
-    }
-  } 
-  
-  ocultarModal()
+
   
 }
 
