@@ -23,7 +23,7 @@ function chequearPreguntaWS(data){
 
 socket.on('mandar-pregunta', data => {
   mostrarModal()
-  cronometro()
+  cronometro(15)
    document.getElementById("opcion0").style.backgroundColor = "#6c757d" 
    document.getElementById("opcion1").style.backgroundColor = "#6c757d" 
    document.getElementById("opcion2").style.backgroundColor = "#6c757d" 
@@ -221,27 +221,6 @@ function chequearPreguntaWS(data, jugadorUnico){
 let respuesta_correcta = "opcion"
 
 
-socket.on('mandar-pregunta', data => {
-
-   //mostrarModal() 
-   document.getElementById("opcion0").style.backgroundColor = "#6c757d"
-   document.getElementById("opcion1").style.backgroundColor = "#6c757d"
-   document.getElementById("opcion2").style.backgroundColor = "#6c757d"
-   document.getElementById("opcion3").style.backgroundColor = "#6c757d"
-   console.log(data.opciones)
-   respuesta_correcta = data.opciones
-   document.getElementById("id_titulo").innerHTML = data.pregunta.content
-   document.getElementById("opcion0").innerHTML = data.opciones[0].opcion
-   document.getElementById("opcion1").innerHTML = data.opciones[1].opcion
-   document.getElementById("opcion2").innerHTML = data.opciones[2].opcion
-   document.getElementById("opcion3").innerHTML = data.opciones[3].opcion  
-   console.log("pregunta", data);
-   for (i in data.opciones){
-       if (data.opciones[i].correct == 1){
-             respuesta_correcta = "opcion"+i
-           }
-     }
- });
 
 
 let global = 0
@@ -306,8 +285,12 @@ function tirarDado1() {
   
 }
 
+let valoresta = 0
+
 socket.on("completo", data => {
   tirarDado(data.valor)
+  valoresta = data.valor
+
   console.log("TIRO EL DADO EL USUARIO: ", data.usuario)
 })
 
@@ -321,3 +304,18 @@ socket.on("verificar-user", data => {
   allplayers = data.id_users
 })
 
+
+
+
+
+function validata(option) {
+  socket.emit("final-validation", option)
+}
+
+socket.on("final", data => {
+  validar(data.valor)
+})
+
+socket.on("final-restar", data => {
+  fichasRestar(valoresta)
+})

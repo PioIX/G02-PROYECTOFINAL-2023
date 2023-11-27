@@ -1,198 +1,198 @@
 async function deleteJSON(dataDeleteUser) {
-    //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
-  
-    try {
-      const response = await fetch("/deleteUser", {
-        method: "DELETE", // or 'POST'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataDeleteUser),
-      });
-      
-      //En result obtengo la respuesta
-      const result = await response.json();
-      console.log("Success:", result);
-  
-      if (result.validar == false) {
-        alert("")
-      } else {
-        //Envio el formularia desde dom para cambiar de pagina
-        //Podria usar tambien un changeScreen()
-        alert("El usuario ha sido eliminado correctamente")
-        let select1 = document.getElementById("delete1")
-        let select2 = document.getElementById("delete2")
-        for(let child of select1.children) {
-          if (child.value == dataDeleteUser.name) {
-            child.remove()
-          }
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/deleteUser", {
+      method: "DELETE", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataDeleteUser),
+    });
+
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("")
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      alert("El usuario ha sido eliminado correctamente")
+      let select1 = document.getElementById("delete1")
+      let select2 = document.getElementById("delete2")
+      for (let child of select1.children) {
+        if (child.value == dataDeleteUser.name) {
+          child.remove()
         }
-        for (let child of select2.children) {
-          if (child.value == dataDeleteUser.playerName) {
-            child.remove()
-          }
+      }
+      for (let child of select2.children) {
+        if (child.value == dataDeleteUser.playerName) {
+          child.remove()
         }
+      }
 
 
-        
-      }
-  
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-  
-  function deleteUser() {
-    //Leo los datos del input
-    let name = document.getElementById("delete1").value
-    
-  
-    //Creo un objeto de forma instantanea
-    let dataDeleteUser= {
-        playerName: name,
-    }
-  
-    //data es el objeto que le paso al back
-    deleteJSON(dataDeleteUser)
-  }
-  
-  async function deleteJSON2(dataDeletePuntaje) {
-    //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
-  
-    try {
-      const response = await fetch("/deletePuntaje", {
-        method: "DELETE", // or 'POST'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataDeletePuntaje),
-      });
-      
-      //En result obtengo la respuesta
-      const result = await response.json();
-      console.log("Success:", result);
-  
-      if (result.validar == false) {
-        alert("")
-      } else {
-        //Envio el formularia desde dom para cambiar de pagina
-        //Podria usar tambien un changeScreen()
-        alert("El puntaje del usuario ha sido eliminado correctamente")
-        
-        
-      }
-  
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-  
-  function deletePuntaje() {
-    //Leo los datos del input
-    let name = document.getElementById("delete2").value
-    //Creo un objeto de forma instantanea
-    let dataDeletePuntaje= {
-        playerName: name
-    }
-  
-    //data es el objeto que le paso al back
-    deleteJSON2(dataDeletePuntaje)
-  }
-  
-  async function postJSON1(dataAddQuestion) {
-    //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
-  
-    try {
-      const response = await fetch("/addQuestion", {
-        method: "POST", // or 'POST'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataAddQuestion),
-      });
-      
-      //En result obtengo la respuesta
-      const result = await response.json();
-      console.log("Success:", result);
-  
-      if (result.validar == false) {
-        alert("")
-      } else {
-        //Envio el formularia desde dom para cambiar de pagina
-        //Podria usar tambien un changeScreen()
-        alert("la palabra ha sido agregada correctamente")
-        
-        
-      }
-  
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-  
-  function addQuestion() {
-    //Leo los datos del input
-    let newName = document.getElementById("newQuestion").value
-    let newCat = document.getElementById("addQ").value
-    let stellar = document.getElementById("addQ2").value
-    //Creo un objeto de forma instantanea
-    let dataAddQuestion= {
-        questionName: newName,
-        questionCat: newCat,
-        stellarVer: stellar
 
     }
-  
-    //data es el objeto que le paso al back
-    postJSON1(dataAddQuestion)
+
+  } catch (error) {
+    console.error("Error:", error);
   }
-  
-  async function putJSON(dataEditQuestion) {
-    //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
-  
-    try {
-      const response = await fetch("/editQuestion", {
-        method: "PUT", // or 'POST'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataEditQuestion),
-      });
-      
-      //En result obtengo la respuesta
-      const result = await response.json();
-      console.log("Success:", result);
-  
-      if (result.validar == false) {
-        alert("")
-      } else {
-        //Envio el formularia desde dom para cambiar de pagina
-        //Podria usar tambien un changeScreen()
-        alert("la palabra ha sido editada correctamente")
-        
-        
-      }
-  
-    } catch (error) {
-      console.error("Error:", error);
+}
+
+function deleteUser() {
+  //Leo los datos del input
+  let name = document.getElementById("delete1").value
+
+
+  //Creo un objeto de forma instantanea
+  let dataDeleteUser = {
+    playerName: name,
+  }
+
+  //data es el objeto que le paso al back
+  deleteJSON(dataDeleteUser)
+}
+
+async function deleteJSON2(dataDeletePuntaje) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/deletePuntaje", {
+      method: "DELETE", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataDeletePuntaje),
+    });
+
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("")
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      alert("El puntaje del usuario ha sido eliminado correctamente")
+
+
     }
+
+  } catch (error) {
+    console.error("Error:", error);
   }
-  
-  function editQuestion() {
-    //Leo los datos del input
-    let editName = document.getElementById("editQuestion").value
-    let editCat = document.getElementById("editQ").value
-    let preQuest = document.getElementById("edit1").value
-    //Creo un objeto de forma instantanea
-    let dataEditQuestion= {
-        editName: editName,
-        editCat: editCat,
-        preQuest: preQuest
+}
+
+function deletePuntaje() {
+  //Leo los datos del input
+  let name = document.getElementById("delete2").value
+  //Creo un objeto de forma instantanea
+  let dataDeletePuntaje = {
+    playerName: name
+  }
+
+  //data es el objeto que le paso al back
+  deleteJSON2(dataDeletePuntaje)
+}
+
+async function postJSON1(dataAddQuestion) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/addQuestion", {
+      method: "POST", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataAddQuestion),
+    });
+
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("")
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      alert("la palabra ha sido agregada correctamente")
+
+
     }
-  
-    //data es el objeto que le paso al back
-    putJSON(dataEditQuestion)
+
+  } catch (error) {
+    console.error("Error:", error);
   }
+}
+
+function addQuestion() {
+  //Leo los datos del input
+  let newName = document.getElementById("newQuestion").value
+  let newCat = document.getElementById("addQ").value
+  let stellar = document.getElementById("addQ2").value
+  //Creo un objeto de forma instantanea
+  let dataAddQuestion = {
+    questionName: newName,
+    questionCat: newCat,
+    stellarVer: stellar
+
+  }
+
+  //data es el objeto que le paso al back
+  postJSON1(dataAddQuestion)
+}
+
+async function putJSON(dataEditQuestion) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/editQuestion", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataEditQuestion),
+    });
+
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("")
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      alert("la palabra ha sido editada correctamente")
+
+
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+function editQuestion() {
+  //Leo los datos del input
+  let editName = document.getElementById("editQuestion").value
+  let editCat = document.getElementById("editQ").value
+  let preQuest = document.getElementById("edit1").value
+  //Creo un objeto de forma instantanea
+  let dataEditQuestion = {
+    editName: editName,
+    editCat: editCat,
+    preQuest: preQuest
+  }
+
+  //data es el objeto que le paso al back
+  putJSON(dataEditQuestion)
+}
 
 
 let jugador = 1
@@ -216,7 +216,7 @@ let estrellas4 = 0
 
 let player
 
-const CASILLEROS_ESTELARES = [6,14,20,27,40]
+const CASILLEROS_ESTELARES = [6, 14, 20, 27, 40]
 const MAX_CASILLEROS = 43;
 
 let valor = 0
@@ -224,123 +224,123 @@ let valor = 0
 
 
 
-function tirarDado(valor){
+function tirarDado(valor) {
   console.log(jugador1)
   console.log(jugador2)
   console.log(jugador3)
   console.log(jugador4)
   console.log(valor)
   playerPosta = document.getElementById("jugador").value
-    if (jugador == 1){
-        let ficha1 = '<div class="fichita fichita-p1"></div>'
-        variable = document.getElementsByClassName("fichita fichita-p1")[0]
-        variable.parentNode.removeChild(variable)
-        console.log(variable)
-        casillero1 += valor
-        if (casillero1 > MAX_CASILLEROS){
-          casillero1 = casillero1 % MAX_CASILLEROS
-          console.log(casillero1)
-          }
-          document.getElementById(casillero1).innerHTML += ficha1
-      }
-    else if (jugador == 2){
-        let ficha2 = '<div class="fichita fichita-p2"></div>'
-        variable = document.getElementsByClassName("fichita fichita-p2")[0]
-        variable.parentNode.removeChild(variable)
-        console.log(variable)
-        casillero2 += valor
-        if (casillero2 > MAX_CASILLEROS){
-          casillero2 = casillero2 % MAX_CASILLEROS
-          console.log(casillero2)
-          }
-          document.getElementById(casillero2).innerHTML += ficha2
-      }
-    else if (jugador == 3){
-        let ficha3 = '<div class="fichita fichita-p3"></div>'
-        variable = document.getElementsByClassName("fichita fichita-p3")[0]
-        variable.parentNode.removeChild(variable)
-        console.log(variable)
-        casillero3 += valor
-        if (casillero3 > MAX_CASILLEROS){
-          casillero3 = casillero3 % MAX_CASILLEROS
-          console.log(casillero3)
-          }
-          document.getElementById(casillero3).innerHTML += ficha3
-      }
-    else if (jugador == 4){
-        let ficha4 = '<div class="fichita fichita-p4"></div>'
-        variable = document.getElementsByClassName("fichita fichita-p4")[0]
-        variable.parentNode.removeChild(variable)
-        console.log(variable)
-        casillero4 += valor
-        if (casillero4 > MAX_CASILLEROS){
-          casillero4 = casillero4 % MAX_CASILLEROS
-          console.log(casillero4)
-          }
-          document.getElementById(casillero4).innerHTML += ficha4
-      }
-    //if(jugador == )
-      console.log("playerPosta: ", playerPosta)
-      console.log("player: ", player)
-      console.log("allplayers: ", allplayers)
-      if (playerPosta == player) {
-        console.log("PASO EL IF")
-        chequearPregunta(jugador)
-      }
+  if (jugador == 1) {
+    let ficha1 = '<div class="fichita fichita-p1"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p1")[0]
+    variable.parentNode.removeChild(variable)
+    console.log(variable)
+    casillero1 += valor
+    if (casillero1 > MAX_CASILLEROS) {
+      casillero1 = casillero1 % MAX_CASILLEROS
+      console.log(casillero1)
+    }
+    document.getElementById(casillero1).innerHTML += ficha1
+  }
+  else if (jugador == 2) {
+    let ficha2 = '<div class="fichita fichita-p2"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p2")[0]
+    variable.parentNode.removeChild(variable)
+    console.log(variable)
+    casillero2 += valor
+    if (casillero2 > MAX_CASILLEROS) {
+      casillero2 = casillero2 % MAX_CASILLEROS
+      console.log(casillero2)
+    }
+    document.getElementById(casillero2).innerHTML += ficha2
+  }
+  else if (jugador == 3) {
+    let ficha3 = '<div class="fichita fichita-p3"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p3")[0]
+    variable.parentNode.removeChild(variable)
+    console.log(variable)
+    casillero3 += valor
+    if (casillero3 > MAX_CASILLEROS) {
+      casillero3 = casillero3 % MAX_CASILLEROS
+      console.log(casillero3)
+    }
+    document.getElementById(casillero3).innerHTML += ficha3
+  }
+  else if (jugador == 4) {
+    let ficha4 = '<div class="fichita fichita-p4"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p4")[0]
+    variable.parentNode.removeChild(variable)
+    console.log(variable)
+    casillero4 += valor
+    if (casillero4 > MAX_CASILLEROS) {
+      casillero4 = casillero4 % MAX_CASILLEROS
+      console.log(casillero4)
+    }
+    document.getElementById(casillero4).innerHTML += ficha4
+  }
+  //if(jugador == )
+  console.log("playerPosta: ", playerPosta)
+  console.log("player: ", player)
+  console.log("allplayers: ", allplayers)
+  if (playerPosta == player) {
+    console.log("PASO EL IF")
+    chequearPregunta(jugador)
+  }
 }
 
 
 
-function chequearPregunta(jugador){
-    let casillero = -1
-    if (jugador == 1){
-       casillero = casillero1
-    }
-    else if (jugador == 2){
-      casillero = casillero2
-    }
-    else if (jugador == 3){
-      casillero = casillero3
-    }
-    else if (jugador == 4){
-      casillero = casillero4
-    }
-    let tipoPregunta = ""
-    let estelar = false
-    let tipoCasillero = document.getElementById(casillero)
-    let casilleroStyle = window.getComputedStyle(tipoCasillero);
-    let color_casillero = casilleroStyle.getPropertyValue('background-color');
-    console.log(color_casillero)
-    if (color_casillero == 'rgb(255, 201, 35)'){
-        tipoPregunta = "Historia"
-      }
-    else if (color_casillero == 'rgb(255, 156, 0)' ){
-        tipoPregunta = "Deporte"
-      }
-    else if (color_casillero == 'rgb(244, 67, 54)' ){
-        tipoPregunta = "Arte"
-      }
-    else if (color_casillero == 'rgb(11, 102, 49)' ){
-        tipoPregunta = "Ciencia"
-      }
-    else if (color_casillero == 'rgb(255, 130, 191)' ){
-        tipoPregunta = "Entretenimiento"
-      }
-    else if (color_casillero == 'rgb(153, 153, 153)' ){
-        tipoPregunta = "random"
-      } 
-    if (CASILLEROS_ESTELARES.includes(casillero)){
-      estelar = true
-      } 
-      let data = {
-        pregunta : tipoPregunta,
-        preguntaEstelar : estelar
-      }
-    
-    console.log(tipoPregunta)
-    console.log(estelar)
-    console.log(data)
-    chequearPreguntaWS(data, jugador)
+function chequearPregunta(jugador) {
+  let casillero = -1
+  if (jugador == 1) {
+    casillero = casillero1
+  }
+  else if (jugador == 2) {
+    casillero = casillero2
+  }
+  else if (jugador == 3) {
+    casillero = casillero3
+  }
+  else if (jugador == 4) {
+    casillero = casillero4
+  }
+  let tipoPregunta = ""
+  let estelar = false
+  let tipoCasillero = document.getElementById(casillero)
+  let casilleroStyle = window.getComputedStyle(tipoCasillero);
+  let color_casillero = casilleroStyle.getPropertyValue('background-color');
+  console.log(color_casillero)
+  if (color_casillero == 'rgb(255, 201, 35)') {
+    tipoPregunta = "Historia"
+  }
+  else if (color_casillero == 'rgb(255, 156, 0)') {
+    tipoPregunta = "Deporte"
+  }
+  else if (color_casillero == 'rgb(244, 67, 54)') {
+    tipoPregunta = "Arte"
+  }
+  else if (color_casillero == 'rgb(11, 102, 49)') {
+    tipoPregunta = "Ciencia"
+  }
+  else if (color_casillero == 'rgb(255, 130, 191)') {
+    tipoPregunta = "Entretenimiento"
+  }
+  else if (color_casillero == 'rgb(153, 153, 153)') {
+    tipoPregunta = "random"
+  }
+  if (CASILLEROS_ESTELARES.includes(casillero)) {
+    estelar = true
+  }
+  let data = {
+    pregunta: tipoPregunta,
+    preguntaEstelar: estelar
+  }
+
+  console.log(tipoPregunta)
+  console.log(estelar)
+  console.log(data)
+  chequearPreguntaWS(data, jugador)
 }
 
 
@@ -353,14 +353,14 @@ async function fetchRespuesta(data) {
       },
       body: JSON.stringify(data),
     });
-    
+
     //En result obtengo la respuesta
     const result = await response.json();
     console.log("Success:", result);
 
     if (result.validar == false) {
       alert("")
-      }
+    }
 
   } catch (error) {
     console.error("Error:", error);
@@ -384,30 +384,30 @@ function showUnirseSala() {
 
 let contador = -1
 
-function cronometro(){
+function cronometro(valor) {
   document.getElementById("number").innerHTML = "";
-  var n = 15;
-  let intervalo = window.setInterval(function(){
-    document.getElementById("number").innerHTML = n;
-    if (n >= 0){
-      n--;
+  let intervalo = window.setInterval(function () {
+    document.getElementById("number").innerHTML = valor;
+    if (valor >= 0) {
+      valor--;
     }
-    else{
+    else {
       clearInterval(intervalo);
       ocultarModal()
-      fichasRestar()
-      jugador ++
-        if (jugador > global){
-          jugador = 1
-        }
+      console.log(valoresta)
+      fichasRestar(valoresta)
+      jugador++
+      if (jugador > global) {
+        jugador = 1
+      }
       let maxplayers = allplayers.length
       console.log("MAXPLAYERS: ", maxplayers)
-      for(let i in allplayers) {
-        if(player == allplayers[i]) {
+      for (let i in allplayers) {
+        if (player == allplayers[i]) {
           console.log("PLAYER: ", player, "allplayers[i]: ", allplayers[i])
           contador = parseInt(i) + 1
           console.log("CONTADOR: ", contador)
-          if(contador == maxplayers) {
+          if (contador == maxplayers) {
             console.log("paso el if")
             contador = 0
           }
@@ -418,147 +418,101 @@ function cronometro(){
       console.log("player final: ", player)
       console.log("QUEEEE: ", player)
     }
-    btns = document.getElementsByClassName("btn btn-secondary")
-    for (i in btns){
-      let btnStyle = window.getComputedStyle(btns[i]);
-      let color_btn = btnStyle.getPropertyValue('background-color')
-      if (color_btn != 'rgb(108, 117, 125)'){
-        clearInterval(intervalo)
-        mostrarModal()
-        break
-      }
-    }
-  },1000);
-  }
+    socket.on("ocultar", data => {
+      valor = -1
+    })
+  }, 1000);
+}
 
 function recieveUser(valor) {
-    if(jugador1 == -1) {
-      jugador1 = valor
-    }
-    if(jugador2 == -1 && jugador1 == -1) {
-      jugador2 = valor
-    } 
-    if(jugador3 == -1 && jugador1 != -1 && jugador2 != -1) {
-      jugador3 = valor
-    }
-    if(jugador4 == -1 && jugador1 != -1 && jugador2 != -1 && jugador3 != -1) {
-      jugador3 = valor
-    } 
+  if (jugador1 == -1) {
+    jugador1 = valor
+  }
+  if (jugador2 == -1 && jugador1 == -1) {
+    jugador2 = valor
+  }
+  if (jugador3 == -1 && jugador1 != -1 && jugador2 != -1) {
+    jugador3 = valor
+  }
+  if (jugador4 == -1 && jugador1 != -1 && jugador2 != -1 && jugador3 != -1) {
+    jugador3 = valor
+  }
 }
 
 
 function validar(opcion) {
-  if(player == document.getElementById("jugador").value) {
-    if (opcion == respuesta_correcta) {
-      document.getElementById(opcion).style.backgroundColor = "#00a135";
-      if (jugador == 1){
-        estrellas1 += 1
-      }
-      if (jugador == 2){
-        estrellas2 += 1
-      }
-      if (jugador == 3){
-        estrellas3 += 1
-      }
-      if (jugador == 4){
-        estrellas4 += 1
-      }
+  if (opcion == respuesta_correcta) {
+    document.getElementById(opcion).style.backgroundColor = "#00a135";
+    console.log("COLOR CAMBIADO")
+    if (jugador == 1) {
+      estrellas1 += 1
     }
-    else {
-      document.getElementById(opcion).style.backgroundColor = "#FF0000"
-      fichasRestar()
+    if (jugador == 2) {
+      estrellas2 += 1
     }
-    jugador ++
-      if (jugador > global){
-        jugador = 1
-      }
-    let maxplayers = allplayers.length
-    console.log("MAXPLAYERS: ", maxplayers)
-    for(let i in allplayers) {
-      if(player == allplayers[i]) {
-        console.log("PLAYER: ", player, "allplayers[i]: ", allplayers[i])
-        contador = parseInt(i) + 1
-        console.log("CONTADOR: ", contador)
-        if(contador == maxplayers) {
-          console.log("paso el if")
-          contador = 0
-        }
-      }
+    if (jugador == 3) {
+      estrellas3 += 1
     }
-    console.log("CONTADOR: ", contador)
-    player = allplayers[contador]
-    console.log("player final: ", player)
-    console.log("QUEEEE: ", player) 
-    
-    ocultarModal()
+    if (jugador == 4) {
+      estrellas4 += 1
+    }
   }
   else {
-    alert("No toque las opciones, todavia no llego su turno")
+    document.getElementById(opcion).style.backgroundColor = "#FF0000";
+    console.log("COLOR CAMBIADO")
   }
-
-  
+  jugador++
+  if (jugador > global) {
+    jugador = 1
+  }
+  socket.emit("ocultar-modal")
 }
 
-const btn0 = document.getElementById("opcion0");
-const btn1 = document.getElementById("opcion1");
-const btn2 = document.getElementById("opcion2");
-const btn3 = document.getElementById("opcion3");
-
-function bloquearBotones(){
-  btn0.disabled = true
-  btn1.disabled = true
-  btn2.disabled = true
-  btn3.disabled = true
-}
-
-function desbloquearBotones(){
-  btn0.disabled = false
-  btn1.disabled = false
-  btn2.disabled = false
-  btn3.disabled = false
-}
 
 
 function mostrarModal() {
   var x = document.getElementById("myModal");
-      x.style.display = "block";
+  x.style.display = "block";
 
 }
 
-function ocultarModal(){
+function ocultarModal() {
   var x = document.getElementById("myModal");
-      x.style.display = "none";
+  x.style.display = "none";
 }
 
 
-function fichasRestar(){
-  if (jugador == 1){
+function fichasRestar(valor) {
+  console.log("VALOR: ", valor)
+  console.log("CASILLERO: ", casillero1)
+  if (jugador == 1) {
     let ficha1 = '<div class="fichita fichita-p1"></div>'
     variable = document.getElementsByClassName("fichita fichita-p1")[0]
     variable.parentNode.removeChild(variable)
     casillero1 -= valor
+
     document.getElementById(casillero1).innerHTML += ficha1
-    }
-  else if (jugador == 2){
+  }
+  else if (jugador == 2) {
     let ficha2 = '<div class="fichita fichita-p2"></div>'
     variable = document.getElementsByClassName("fichita fichita-p2")[0]
     variable.parentNode.removeChild(variable)
     casillero2 -= valor
     document.getElementById(casillero2).innerHTML += ficha2
   }
-else if (jugador == 3){
-  let ficha3 = '<div class="fichita fichita-p3"></div>'
-  variable = document.getElementsByClassName("fichita fichita-p3")[0]
-  variable.parentNode.removeChild(variable)
-  casillero3 -= valor
-  document.getElementById(casillero3).innerHTML += ficha3
+  else if (jugador == 3) {
+    let ficha3 = '<div class="fichita fichita-p3"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p3")[0]
+    variable.parentNode.removeChild(variable)
+    casillero3 -= valor
+    document.getElementById(casillero3).innerHTML += ficha3
   }
-else if (jugador == 4){
-let ficha4 = '<div class="fichita fichita-p4"></div>'
-variable = document.getElementsByClassName("fichita fichita-p4")[0]
-variable.parentNode.removeChild(variable)
-casillero4 -= valor
-document.getElementById(casillero4).innerHTML += ficha4
+  else if (jugador == 4) {
+    let ficha4 = '<div class="fichita fichita-p4"></div>'
+    variable = document.getElementsByClassName("fichita fichita-p4")[0]
+    variable.parentNode.removeChild(variable)
+    casillero4 -= valor
+    document.getElementById(casillero4).innerHTML += ficha4
   }
 }
 

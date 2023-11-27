@@ -415,6 +415,17 @@ io.on('connection',(socket) => {
       let valor = Math.floor(Math.random() * 6)+1
       io.to(req.session.sala).emit("completo", {valor: valor, usuario: req.session.id_usuario})
     })
+
+    socket.on("", data => {
+      let valor = Math.floor(Math.random() * 6)+1
+      io.to(req.session.sala).emit("completo", {valor: valor, usuario: req.session.id_usuario})
+    })
+
+    socket.on("restar-fichas", data => {
+      io.to(req.session.sala).emit("final-restar", {valor: true})
+    })
+
+    
     
 
     socket.on("tipo-pregunta", async data =>{
@@ -452,6 +463,10 @@ io.on('connection',(socket) => {
     io.emit("mandar-pregunta", objeto);
     
     console.log(objeto)
+
+    socket.on("ocultar-modal", data => {
+      io.emit("ocultar", {verif: true})
+    })
 })
 })
 
