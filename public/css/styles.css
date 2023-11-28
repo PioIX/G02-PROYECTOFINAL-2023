@@ -267,19 +267,7 @@ body{
     font-family: 'Inter', sans-serif;
 
 }
-
-#myModal2 {
-    height: 800px;
-    width: 600px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    bottom: 0%;
-    right: 0;
-    margin: auto;
-    font-family: 'Inter', sans-serif;
-
-}
+  
   
 .texto {
     position: absolute;
@@ -435,8 +423,4 @@ form input[type="submit"]:hover{
 .alert-message {
     margin: 24px 0 0;
     color: red!important;
-}
-
-.turno {
-    color: #fff;;
 }
