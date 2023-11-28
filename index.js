@@ -284,6 +284,11 @@ app.post("/register", async (req, res) => {
     try {
       await authService.registerUser(auth, {email, password });
       await MySQL.realizarQuery(`INSERT INTO players (password, gmail, username, admin) VALUES ("${req.body.password}", "${req.body.email}", "${req.body.username}", FALSE)`)
+      let usuario = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.username}" `)
+      let id = usuario[0].id_player
+      await MySQL.realizarQuery(`INSERT INTO points (id_player, punctuation, games_won) VALUES (${id}, ${0}, ${0})`)
+
+
       res.render("register", {
         message: "Registro exitoso. Puedes iniciar sesión ahora.",
       });
@@ -411,6 +416,13 @@ io.on('connection',(socket) => {
       io.to("room-"+data).emit("empieza-partida", {usernames: users2})
     });
 
+    socket.on('iniciar-partida', data => {
+      console.log("llegue, " , data)
+      io.to("room-"+data).emit("empieza-partida", {usernames: users2})
+    });
+
+    
+
     socket.on("tiro-dado", data => {
       let valor = Math.floor(Math.random() * 6)+1
       io.to(req.session.sala).emit("completo", {valor: valor, usuario: req.session.id_usuario})
@@ -426,6 +438,10 @@ io.on('connection',(socket) => {
     })
     socket.on("sumar-estrella", data => {
       io.to(req.session.sala).emit("sumar", {verif: true})
+    })
+
+    socket.on("finalizar-partida", data => {
+      io.emit("finish", {verif: true})
     })
 
     
@@ -558,4 +574,23 @@ app.post('/addOption',async function(req, res) {
       res.send({validar: comprobacionFalse})
   }
 })
+
+
+app.post('/postWinner',async function(req, res) {
+  let user = await MySQL.realizarQuery(`SELECT * FROM points WHERE id_player = ${req.body.winner} `)
+  puntuacion = user[0].punctuation
+  gameswon = user[0].games_won
+  await MySQL.realizarQuery(`UPDATE points SET punctuation = ${puntuacion + 500}, games_won = ${gameswon + 1} WHERE id_player = ${req.body.winner}`)
+  await MySQL.realizarQuery(`DELETE FROM rooms`)
+  res.send({validar: true})
+
+
+  }
+)
+
+app.get('/showEstadisticas', async function(req, res) {
+  let puntaje = await MySQL.realizarQuery(`SELECT username, punctuation, games_won FROM points INNER JOIN players ON points.id_player = players.id_player`)
+  res.render('estadisticas', {points: puntaje});
+});
+
 
