@@ -254,28 +254,25 @@ socket.on("empieza-partida", data => {
     document.getElementById("player1").innerHTML = data.usernames[0]
     document.getElementById("ficha1").classList.add("fichita")
     document.getElementById("ficha1").classList.add("fichita-p1")
-    global++
+    
   }
   if (data.usernames[1] != undefined) {
     document.getElementById("player2").classList.add("fichitaGrandeP2")
     document.getElementById("player2").innerHTML = data.usernames[1]
     document.getElementById("ficha2").classList.add("fichita")
     document.getElementById("ficha2").classList.add("fichita-p2")
-    global++
   }
   if (data.usernames[2] != undefined) {
     document.getElementById("player3").classList.add("fichitaGrandeP3")
     document.getElementById("player3").innerHTML = data.usernames[2]
     document.getElementById("ficha3").classList.add("fichita")
     document.getElementById("ficha3").classList.add("fichita-p3")
-    global++
   }
   if (data.usernames[3] != undefined) {
     document.getElementById("player4").classList.add("fichitaGrandeP4")
     document.getElementById("player4").innerHTML = data.usernames[3]
     document.getElementById("ficha4").classList.add("fichita")
     document.getElementById("ficha3").classList.add("fichita-p4")
-    global++
   }
 
 }
@@ -318,6 +315,8 @@ socket.on("verificar-user", data => {
   player = jugador1
   document.getElementById("turno").innerHTML = "TURNO ACTUAL: " + player
   allplayers = data.id_users
+  if(global < allplayers.length)
+    global = allplayers.length
 })
 
 
@@ -345,8 +344,61 @@ socket.on("sumar", data => {
   if (jugador == 4 && CASILLEROS_ESTELARES.includes(casillero4) == true) {
     estrellas4 += 1
   }
+
+  if(estrellas1 == 5 || estrellas2 == 5 || estrellas3 == 5 || estrellas4 == 5) {
+    if(player == document.getElementById("jugador").value) {
+      socket.emit("finalizar-partida")
+    }
+    
+  }
   console.log(estrellas1)
   console.log(estrellas2)
   console.log(estrellas3)
   console.log(estrellas4)
 })
+
+socket.on("finish", data => {
+  finalizarPartida()
+})
+
+function finalizarPartida() {
+  //Leo los datos del inpu
+  //Creo un objeto de forma instantanea
+  let dataWinner = {
+    winner: player
+  }
+  finalizarFetch(dataWinner)
+}
+
+
+async function finalizarFetch(dataWinner) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/postWinner", {
+      method: "POST", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataWinner),
+    });
+
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      location.href = '/showEstadisticas'
+
+
+
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}

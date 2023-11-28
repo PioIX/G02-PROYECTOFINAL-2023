@@ -28,19 +28,21 @@
 	        width: 600px;
         }
 </style>
-    <center><h1 class="texto">Bienvenido a la pagina de puntajes!</h1></center>
+    <center><h1 class="texto">El juego ha terminado!</h1></center>
     <div id="main-container">
         <table class="tabla">
             <thead>
                 <tr>
                     <th>Username</th>
                     <th>Score</th>
+                    <th>Juegos Ganados</th>
                 </tr>
             </thead>
-        {{#each users}}
+        {{#each points}}
             <tr>
                 <td>{{this.username}}</td>
-                <td>{{this.puntaje}}</td>
+                <td>{{this.punctuation}}</td>
+                <td>{{this.games_won}}</td>
             </tr>
         {{/each}}
     </table>
