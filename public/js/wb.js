@@ -1,5 +1,5 @@
 const IP = "ws://localhost:3002";
-const socket = io(IP);
+const socket = io();
 
 
 socket.on("connect", () => {
@@ -402,3 +402,4 @@ async function finalizarFetch(dataWinner) {
     console.error("Error:", error);
   }
 }
+

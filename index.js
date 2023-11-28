@@ -611,3 +611,7 @@ app.get('/showEstadisticas', async function(req, res) {
 });
 
 
+app.delete('/eliminarUser',async function(req, res) {
+  eliminarUser = await MySQL.realizarQuery(`DELETE FROM players WHERE id_player = ${req.body.eliminar}`)
+  res.send({validar: true})
+})

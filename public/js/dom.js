@@ -589,3 +589,44 @@ function fichasRestar(valor) {
   }
 }
 
+async function deletePlayer(eliminarUser) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/eliminarUser", {
+      method: "DELETE", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eliminarUser),
+    });
+
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      location.href = '/admin'
+
+
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+function eliminarUsuario() {
+  let delete1 = document.getElementById("delete1").value
+  //Creo un objeto de forma instantanea
+  let dataDelete = {
+    eliminar: delete1
+
+  }
+
+  deletePlayer(dataDelete)
+}

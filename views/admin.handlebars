@@ -1,12 +1,13 @@
-<form action="/deleteUser" method="DELETE" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
+<div class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
     <h2>Eliminar Usuario</h2>
     <label for="Eliminar usuario">Eliminar Usuario</label>
     <select id="delete1">
         {{#each users}}
-            <option value="{{this.username}}">{{this.username}}</option>
+            <option value="{{this.id_player}}" id="deleteUser">{{this.username}}</option>
         {{/each}}
     </select>
-</form>
+    <button onclick="eliminarUsuario()">Eliminar Usuario</button>
+</div>
 
 <form action="/deletePuntajes" method="DELETE" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
     <h2>Eliminar Puntaje</h2>
