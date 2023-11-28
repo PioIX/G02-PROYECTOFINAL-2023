@@ -440,3 +440,11 @@ form input[type="submit"]:hover{
 .turno {
     color: #fff;;
 }
+
+#myModal {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    bottom: 10%;
+    top: 32%;
+}

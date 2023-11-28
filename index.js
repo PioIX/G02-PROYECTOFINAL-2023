@@ -182,12 +182,15 @@ app.get('/estadisticas', function(req, res)
     res.render('estadisticas', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
-app.get('/admin', function(req, res)
+app.get('/admin', async function(req, res)
 {
     //Petición GET con URL = "/login"
     console.log("Soy un pedido GET", req.query); 
+    let usuarios = await MySQL.realizarQuery("SELECT * FROM players")
+    let puntaje = await MySQL.realizarQuery("SELECT * FROM points")
+    let questions = await MySQL.realizarQuery("SELECT * FROM questions")
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
-    res.render('admin', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+    res.render('admin', {users: usuarios, points: puntaje, preguntas: questions}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
 app.post("/login", async (req, res) => {
@@ -519,8 +522,8 @@ app.delete('/deletePuntaje',async function(req, res) {
   let comprobacionFalse = false
   let user = await MySQL.realizarQuery(`SELECT * FROM players WHERE username = "${req.body.playerNamePoints}" `)
   let id_user = user[0].id_player
-  if (req.body.playerNamePoints.length>0) {
-      await MySQL.realizarQuery(`DELETE FROM points WHERE id_player = ${id_user}`)
+  if (req.body.playerName.length>0) {
+      await MySQL.realizarQuery(`UPDATE points SET punctuation = 0 WHERE id_player = ${id_user}`)
       res.send({validar: comprobacionTrue})
   }
   else {
@@ -552,6 +555,21 @@ app.post('/addOption',async function(req, res) {
   }
   if (req.body.questionName.length>0 && req.body.questionCat.length>0) {
       await MySQL.realizarQuery(`INSERT INTO palabras (content, category, stellar_question) VALUES("${req.body.questionName}",${req.body.questionCat}, ${stellarverif})`)
+      res.send({validar: comprobacionTrue})
+  }
+  else {
+      res.send({validar: comprobacionFalse})
+  }
+})
+
+app.delete('/deletePreguntas',async function(req, res) {
+  let comprobacionTrue = true
+  let comprobacionFalse = false
+  let question = await MySQL.realizarQuery(`SELECT * FROM questions WHERE id_question = "${req.body.questionDelete}" `)
+  let id_question = question[0].id_question
+  if (req.body.questionDelete.length>0) {
+      await MySQL.realizarQuery(`DELETE FROM questions WHERE id_question = ${id_question}`)
+      await MySQL.realizarQuery(`DELETE FROM optionxquestion WHERE id_question = ${id_question}`)
       res.send({validar: comprobacionTrue})
   }
   else {

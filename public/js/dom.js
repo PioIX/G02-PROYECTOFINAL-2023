@@ -99,6 +99,52 @@ function deletePuntaje() {
   deleteJSON2(dataDeletePuntaje)
 }
 
+
+
+function deleteQuestion() {
+  //Leo los datos del input
+  let question = document.getElementById("delete3").value
+  //Creo un objeto de forma instantanea
+  let dataDeleteQuestion = {
+    questionDelete : question
+  }
+
+  //data es el objeto que le paso al back
+  deleteJSON3(dataDeleteQuestion)
+}
+
+async function deleteJSON3(dataDeleteQuestion) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/deletePreguntas", {
+      method: "DELETE", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataDeleteQuestion),
+    });
+
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("")
+    } else {
+      //Envio el formularia desde dom para cambiar de pagina
+      //Podria usar tambien un changeScreen()
+      alert("la pregunta y sus opciones han sido borradas correctamente")
+      location.href = '/admin'
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+
+
 async function postJSON1(dataAddQuestion) {
   //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
 
@@ -506,7 +552,9 @@ function fichasRestar(valor) {
     variable = document.getElementsByClassName("fichita fichita-p1")[0]
     variable.parentNode.removeChild(variable)
     casillero1 -= valor
-
+    if (casillero1 < 0 ) {
+      casillero1 += 43
+    }
     document.getElementById(casillero1).innerHTML += ficha1
   }
   else if (jugador == 2) {
@@ -514,6 +562,9 @@ function fichasRestar(valor) {
     variable = document.getElementsByClassName("fichita fichita-p2")[0]
     variable.parentNode.removeChild(variable)
     casillero2 -= valor
+    if (casillero2 < 0 ) {
+      casillero2 += 43
+    }
     document.getElementById(casillero2).innerHTML += ficha2
   }
   else if (jugador == 3) {
@@ -521,6 +572,9 @@ function fichasRestar(valor) {
     variable = document.getElementsByClassName("fichita fichita-p3")[0]
     variable.parentNode.removeChild(variable)
     casillero3 -= valor
+    if (casillero3 < 0 ) {
+      casillero3 += 43
+    }
     document.getElementById(casillero3).innerHTML += ficha3
   }
   else if (jugador == 4) {
@@ -528,6 +582,9 @@ function fichasRestar(valor) {
     variable = document.getElementsByClassName("fichita fichita-p4")[0]
     variable.parentNode.removeChild(variable)
     casillero4 -= valor
+    if (casillero4 < 0 ) {
+      casillero4 += 43
+    }
     document.getElementById(casillero4).innerHTML += ficha4
   }
 }

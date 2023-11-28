@@ -10,23 +10,23 @@
 
 <form action="/deletePuntajes" method="DELETE" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
     <h2>Eliminar Puntaje</h2>
-    <label for="Eliminar puntaje">Eliminar puntaje</label>
+    <label for="Eliminar puntaje">Eliminar puntaje de: </label>
     <select id="delete2">
-        {{#each points}}
-            <option value="{{this.id_player}}">{{this.id_player}}</option>
+        {{#each users}}
+            <option value="{{this.username}}">{{this.username}}</option>
         {{/each}}
     </select>
 </form>
 
-<form action="/deletePreguntas" method="DELETE" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
     <h2>Eliminar Preguntas</h2>
     <label for="Eliminar puntaje">Eliminar preguntas</label>
     <select id="delete3">
-        {{#each questions}}
-            <option value="{{this.content}}">{{this.content}}</option>
+        {{#each preguntas}}
+            <option value="{{this.id_question}}">{{this.content}}</option>
         {{/each}}
     </select>
-</form>
+    <input type="submit" onclick="deleteQuestion()">
+
 
 
 <form action="/addQuestion" method="POST" class="col-auto shadow p-3 mb-5 bg-light rounded border border-secondary">
@@ -53,7 +53,7 @@
     <h2>Editar pregunta</h2>
     <label for="Editar pregunta">Editar pregunta</label>
     <select id="edit1">
-        {{#each questions}}
+        {{#each preguntas}}
             <option value="{{this.content}}">{{this.content}}</option>
         {{/each}}
     </select>
@@ -74,7 +74,7 @@
     <h2>Añadir opcion a pregunta</h2>
     <label for="Editar pregunta">Añadir opcion a pregunta</label>
     <select id="edit1">
-        {{#each questions}}
+        {{#each preguntas}}
             <option value="{{this.id_question}}">{{this.content}}</option>
         {{/each}}
     </select>
@@ -91,7 +91,7 @@
     <h2>Editar opcion a pregunta</h2>
     <label for="Editar pregunta">Editar opcion a pregunta</label>
     <select id="edit1">
-        {{#each questions}}
+        {{#each preguntas}}
             <option value="{{this.content}}">{{this.content}}</option>
         {{/each}}
     </select>
@@ -103,7 +103,7 @@
     <h2>Eliminar opcion a pregunta</h2>
     <label for="Editar pregunta">Eliminar opcion a pregunta</label>
     <select id="edit1">
-        {{#each questions}}
+        {{#each preguntas}}
             <option value="{{this.content}}">{{this.content}}</option>
         {{/each}}
     </select>
