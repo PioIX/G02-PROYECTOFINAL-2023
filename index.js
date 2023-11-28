@@ -467,6 +467,10 @@ io.on('connection',(socket) => {
     socket.on("ocultar-modal", data => {
       io.emit("ocultar", {verif: true})
     })
+
+    socket.on("ocultar-modal2", data => {
+      io.emit("ocultar2", {verif: true})
+    })
 })
 })
 

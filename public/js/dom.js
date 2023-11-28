@@ -418,10 +418,19 @@ function cronometro(valor) {
       console.log("player final: ", player)
       console.log("QUEEEE: ", player)
     }
-    socket.on("ocultar", data => {
-      valor = -1
-    })
+    
   }, 1000);
+  socket.on("ocultar", data => {
+    valor = -1
+  })
+  socket.on("ocultar2", data => {
+    valor = 5
+    if(valor == 1) {
+      clearInterval(intervalo);
+      ocultarModal()
+    }
+    
+  })
 }
 
 function recieveUser(valor) {
@@ -456,16 +465,15 @@ function validar(opcion) {
     if (jugador == 4) {
       estrellas4 += 1
     }
+    socket.emit("ocultar-modal2")
   }
   else {
     document.getElementById(opcion).style.backgroundColor = "#FF0000";
     console.log("COLOR CAMBIADO")
+    socket.emit("ocultar-modal")
   }
-  jugador++
-  if (jugador > global) {
-    jugador = 1
-  }
-  socket.emit("ocultar-modal")
+
+  
 }
 
 

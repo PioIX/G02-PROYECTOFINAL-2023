@@ -316,6 +316,3 @@ socket.on("final", data => {
   validar(data.valor)
 })
 
-socket.on("final-restar", data => {
-  fichasRestar(valoresta)
-})
