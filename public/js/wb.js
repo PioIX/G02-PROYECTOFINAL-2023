@@ -332,3 +332,21 @@ socket.on("final", data => {
   validar(data.valor)
 })
 
+socket.on("sumar", data => {
+  if (jugador == 1 && CASILLEROS_ESTELARES.includes(casillero1) == true) {
+    estrellas1 += 1
+  }
+  if (jugador == 2 && CASILLEROS_ESTELARES.includes(casillero2) == true) {
+    estrellas2 += 1
+  }
+  if (jugador == 3 && CASILLEROS_ESTELARES.includes(casillero3) == true) {
+    estrellas3 += 1
+  }
+  if (jugador == 4 && CASILLEROS_ESTELARES.includes(casillero4) == true) {
+    estrellas4 += 1
+  }
+  console.log(estrellas1)
+  console.log(estrellas2)
+  console.log(estrellas3)
+  console.log(estrellas4)
+})
