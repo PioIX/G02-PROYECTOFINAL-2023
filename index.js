@@ -424,6 +424,9 @@ io.on('connection',(socket) => {
     socket.on("restar-fichas", data => {
       io.to(req.session.sala).emit("final-restar", {valor: true})
     })
+    socket.on("sumar-estrella", data => {
+      io.to(req.session.sala).emit("sumar", {verif: true})
+    })
 
     
     
