@@ -383,6 +383,26 @@ function showUnirseSala() {
 }
 
 let contador = -1
+function cambiarTurno() {
+  let maxplayers = allplayers.length
+  console.log("MAXPLAYERS: ", maxplayers)
+  for (let i in allplayers) {
+    if (player == allplayers[i]) {
+      console.log("PLAYER: ", player, "allplayers[i]: ", allplayers[i])
+      contador = parseInt(i) + 1
+      console.log("CONTADOR: ", contador)
+      if (contador == maxplayers) {
+        console.log("paso el if")
+        contador = 0
+      }
+    }
+  }
+  console.log("CONTADOR: ", contador)
+  player = allplayers[contador]
+  document.getElementById("turno").innerHTML = "TURNO ACTUAL: " + player
+  console.log("player final: ", player)
+  console.log("QUEEEE: ", player)
+}
 
 function cronometro(valor) {
   document.getElementById("number").innerHTML = "";
@@ -392,44 +412,38 @@ function cronometro(valor) {
       valor--;
     }
     else {
-      clearInterval(intervalo);
-      ocultarModal()
-      console.log(valoresta)
-      fichasRestar(valoresta)
-      jugador++
-      if (jugador > global) {
-        jugador = 1
-      }
-      let maxplayers = allplayers.length
-      console.log("MAXPLAYERS: ", maxplayers)
-      for (let i in allplayers) {
-        if (player == allplayers[i]) {
-          console.log("PLAYER: ", player, "allplayers[i]: ", allplayers[i])
-          contador = parseInt(i) + 1
-          console.log("CONTADOR: ", contador)
-          if (contador == maxplayers) {
-            console.log("paso el if")
-            contador = 0
-          }
+      if (respuesta == false) {
+        clearInterval(intervalo);
+        ocultarModal()
+        console.log(valoresta)
+        fichasRestar(valoresta)
+        jugador++
+        if (jugador > global) {
+          jugador = 1
         }
+        cambiarTurno()
       }
-      console.log("CONTADOR: ", contador)
-      player = allplayers[contador]
-      console.log("player final: ", player)
-      console.log("QUEEEE: ", player)
+      if (respuesta == true) {
+        clearInterval(intervalo);
+        ocultarModal()
+        jugador++
+        if (jugador > global) {
+          jugador = 1
+        }
+        cambiarTurno()
+      }
+
+
     }
-    
+
   }, 1000);
   socket.on("ocultar", data => {
     valor = -1
+    respuesta = false
   })
   socket.on("ocultar2", data => {
-    valor = 5
-    if(valor == 1) {
-      clearInterval(intervalo);
-      ocultarModal()
-    }
-    
+    valor = -1
+    respuesta = true
   })
 }
 
@@ -465,6 +479,10 @@ function validar(opcion) {
     if (jugador == 4) {
       estrellas4 += 1
     }
+    console.log(estrellas1)
+    console.log(estrellas2)
+    console.log(estrellas3)
+    console.log(estrellas4)
     socket.emit("ocultar-modal2")
   }
   else {
@@ -473,7 +491,7 @@ function validar(opcion) {
     socket.emit("ocultar-modal")
   }
 
-  
+
 }
 
 
@@ -482,6 +500,11 @@ function mostrarModal() {
   var x = document.getElementById("myModal");
   x.style.display = "block";
 
+}
+
+function mostrarModal2() {
+  var x = document.getElementById("myModal2");
+  x.style.display = "block";
 }
 
 function ocultarModal() {
