@@ -467,22 +467,7 @@ function validar(opcion) {
   if (opcion == respuesta_correcta) {
     document.getElementById(opcion).style.backgroundColor = "#00a135";
     console.log("COLOR CAMBIADO")
-    if (jugador == 1) {
-      estrellas1 += 1
-    }
-    if (jugador == 2) {
-      estrellas2 += 1
-    }
-    if (jugador == 3) {
-      estrellas3 += 1
-    }
-    if (jugador == 4) {
-      estrellas4 += 1
-    }
-    console.log(estrellas1)
-    console.log(estrellas2)
-    console.log(estrellas3)
-    console.log(estrellas4)
+    socket.emit("sumar-estrella")
     socket.emit("ocultar-modal2")
   }
   else {
