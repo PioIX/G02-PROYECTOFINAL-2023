@@ -425,6 +425,10 @@ io.on('connection',(socket) => {
       io.to(req.session.sala).emit("final-restar", {valor: true})
     })
 
+    socket.on("sumar-estrella", data => {
+      io.to(req.session.sala).emit("sumar", {verif: true})
+    })
+
     
     
 
@@ -471,6 +475,7 @@ io.on('connection',(socket) => {
     socket.on("ocultar-modal2", data => {
       io.emit("ocultar2", {verif: true})
     })
+    
 })
 })
 
